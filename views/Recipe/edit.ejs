@@ -1,0 +1,17 @@
+<%- include("../partials/header")  %> 
+<h1>Edit Recipe</h1>
+<form action="/recipes/<%= recipe._id %>?_method=PUT " method="POST">
+<input value="<%= recipe.name %> " type="text" name="recipe[name]">
+<input value="<%= recipe.image %> " type="text" name="recipe[image]">
+<input value="<%= recipe.description %> " placeholder="description" type="text" name="recipe[description]">
+<input value="<%= recipe.prepHour %> " placeholder="hours" type="text" name="recipe[prepHour]">
+<input value="<%= recipe.prepMinute %> " placeholder="minutes" type="text" name="recipe[prepMinute]">
+<input value="<%= recipe.cookHour %> " placeholder="hours" type="text" name="recipe[cookHour]">
+<input value="<%= recipe.prepMinute %> " placeholder="minutes" type="text" name="recipe[cookMinute]">
+<input value="<%= recipe.servings %> " placeholder="servings" type="text" name="recipe[servings]">
+  <textarea name="recipe[ingredients]"cols="30" rows="10"><%=ingredients%></textarea>
+  <textarea name="recipe[method]"cols="30" rows="10"><%=method%></textarea>
+
+<button>Submit</button>
+</form>
+<%- include("../partials/footer")  %> 

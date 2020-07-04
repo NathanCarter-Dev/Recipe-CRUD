@@ -1,0 +1,9 @@
+<%- include("../partials/header")  %> 
+  <h1>New Comment</h1>
+<form action="/recipes/<%= recipe._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+<input value="<%= comment.text %> " placeholder="content" type="text" name="comment[text]">
+
+<button>Submit</button>
+</form>
+
+<%- include("../partials/footer")  %> 

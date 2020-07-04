@@ -1,0 +1,15 @@
+<%- include("../partials/header")  %> 
+<h1>Admin Terminal</h1>
+
+<h2>Give administration Permissions</h2>
+<form action="/admin" method="POST">
+<input type="text" name="name" placeholder="User Display Name">
+<button>Submit</button>
+</form>
+
+<h2>Remove administration Permissions</h2>
+<form action="/admin?_method=PUT" method="POST">
+<input type="text" name="name" placeholder="User Display Name">
+<button>Submit</button>
+</form>
+<%- include("../partials/footer")  %> 

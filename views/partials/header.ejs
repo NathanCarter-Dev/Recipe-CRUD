@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=`, initial-scale=1.0">
+  <title>Recipe</title>
+
+  <link type="text/css" rel="stylesheet" href="./stylesheets/main.css">
+</head>
+<body>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/recipes">Recipe</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/recipes/new">Create Recipe</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <% if(!currentUser) { %> 
+        <li class=" mr-sm-2">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <li class=" mr-sm-2">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+      <% } else { %>
+        <li class="mr-sm-2">
+          <% if(currentUser && currentUser.admin) {%>
+            <a class="nav-link">(ADMIN) <%= currentUser.username %> </a>
+            <li class=" mr-sm-2">
+              <a class="nav-link" href="/admin">Admin Terminal</a>
+            </li>
+          <% } else {%> 
+          <a class="nav-link"> <%= currentUser.username %> </a>
+          <% } %> 
+        </li>
+        <li class=" mr-sm-2">
+          <a class="nav-link" href="/recipes/<%= currentUser._id %>/favourites">favourites</a>
+        </li>
+        <li class=" mr-sm-2">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      <% } %> 
+      
+
+      </ul>
+    </div>
+  </nav>
+
+  <% if(success && success.length > 0) {%> 
+  <div class="alert alert-success" role="alert">
+    <%= success %> 
+  </div>
+<% } %> 
+
+ <% if(error && error.length > 0) { %> 
+  <div class="alert alert-danger" role="alert">
+    <%= error  %> 
+  </div>
+<% } %> 
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="./stylesheets/main.css">

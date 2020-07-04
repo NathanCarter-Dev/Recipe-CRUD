@@ -1,0 +1,65 @@
+<%- include("../partials/header")  %> 
+
+  <div class="container">
+    <h1><%= recipe.name %> </h1>
+    <div class="row">
+      <div class="col-6">
+        <img src="<%= recipe.image %> " alt="Responsive image" class="rounded mx-auto d-block img-thumbnail img-fluid">
+      </div>
+      <div class="col-6 ">
+        <div class="card d-block">
+          <div class="card-header">
+            Info
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Prep: <%= recipe.prepHour%> hours <%= recipe.prepMinute %> minutes </li>
+            <li class="list-group-item">Cook: <%= recipe.cookHour %> hours <%= recipe.cookMinute %> minutes </li>
+            <li class="list-group-item">Total: <%= recipe.total %>  </li>
+            <li class="list-group-item">Servings: <%= recipe.servings %> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <% if(currentUser && recipe.author.id.equals(currentUser._id)|| currentUser && currentUser.admin) { %> 
+    <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+      <button class="d-inline float-right btn btn-danger">Delete</button>
+      </form>  
+     <a class="btn btn-info" href="/recipes/<%= recipe._id %>/edit ">Edit</a>
+    <% } %> 
+     <a class="btn btn-info" href="/recipes">Back</a>
+  </div>
+
+  <hr>
+  <div class="container">
+    <h2 >Ingredients</h2>
+    <ul class="list-group list-group-flush">
+  <% recipe.ingredients.forEach(function(recipe){%> 
+    <li class="list-group-item"><input type="checkbox"> <%= recipe %></li>
+    <%})  %> 
+  </ul>
+
+  <h2 >Method</h2>
+  <% recipe.method.forEach(function(method){%> 
+    <li class="list-group-item"> <%= method %></li>
+    <%})  %> 
+
+  <div class="card-header">
+    <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments ">Create Comment</a>
+  </div>
+  <% recipe.comments.forEach(function(comment) { %>
+    <div class="card ">
+      <div class="card-body p-1">
+        <%= comment.author.username %> - <%= comment.text %> 
+        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.admin) { %> 
+        <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments/<%= comment._id %>/edit">Edit</a>
+        <form action="/recipes/<%= recipe._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+        <button class="btn btn-warning">Delete</button>
+        <% } %> 
+        </form>
+      </div>
+    </div>
+  <%})%>
+
+  
+</div>
+  <%- include("../partials/footer")  %> 
