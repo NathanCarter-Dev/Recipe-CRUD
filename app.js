@@ -47,7 +47,7 @@ app.use(express.static("./public"))
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 //SEED DATABASE
-seedDB();
+//seedDB();
 //middleware
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
@@ -68,5 +68,5 @@ app.get("/", (req, res) =>{
 
 
 app.listen(3000, () => {
-  console.log("test server listening on port 3000");
+  console.log("server listening on port 3000");
 })

@@ -1,31 +1,13 @@
 <%- include("../partials/header")  %> 
-
+<script type="text/javascript" src="../../js/favourite.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="./js/favourite.js"></script>
-<link type="text/css" rel="stylesheet" href="./stylesheets/index.css">
 
-<section id="header">
-  <div class="jumbotron">
-    <h1 class="display-4">Recipe!</h1>
-    <p class="lead">The easy way for healthier eating.</p>
-    <hr class="my-4">
-    <p>Read And Create Your Own Unique Recipes!</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="/recipes/new" role="button">CREATE RECIPE!</a>
-    </p>
-  </div>
-</section>
-<section id="search-bar container">
-<form action="/recipes/search" method="POST">
-<input type="text" name="search">
-<button>Search</button>
-</form>
-</section>
 
+<% if(search.length > 0) { %> 
 <div class="fluid-container ">
   <div class="row">
-<% recipe.forEach(function (recipe) {%> 
+<% search.forEach(function (recipe) {%> 
       <div class="col-12 col-md-6 col-lg-3">
         <div id="images" class="card image-responsive">
           <div class="hovereffect">
@@ -39,7 +21,7 @@
             <p class="card-text"><%= recipe.description %> </p>
 
             <% if(currentUser) { %> 
-              <% if(user.favouritePosts.includes(recipe._id)) { %> 
+              <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
                 <button id="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
                 data-post-id="<%=recipe._id  %>">Unfavourite
                </button>
@@ -49,13 +31,21 @@
                </button>
               <% } %>
               <% } %> 
-
           </div>
         </div>
       </div>
   <% }) %> 
 </div>
 </div>
-
-
+<%} else { %> 
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="text-center">No Results Found</h1>
+      <p class="text-center">Please Try Again</p>
+    </div>
+  </div>
+  
+  
+<% } %> 
+  
 <%- include("../partials/footer")  %> 

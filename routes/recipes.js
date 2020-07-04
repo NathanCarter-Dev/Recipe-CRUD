@@ -250,6 +250,10 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
     })
   })
 
+  //SEARCH DATABASE
+  router.post('/recipes/search', (req, res) => Recipe.find({name: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}, (err, search) => res.render("./Recipe/search", {search})))
+ 
+
   //calculate minutes overlapping hours on total variable
   const calculateTime = (minutes, hours, mins) =>{
     for(let i = 0; i < mins; i++) {
