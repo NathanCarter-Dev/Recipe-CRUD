@@ -1,3 +1,22 @@
+
+div h2 {
+  font-family: 'Raleway', sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+div p {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  padding: 0px;
+  margin: 0px;
+}
+div .title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 3rem;
+  font-weight: 400;
+}
+
 hr.style-two {
   border: 0;
   height: 1px;
@@ -107,3 +126,61 @@ hr.style-two {
   *zoom:1;/* For IE7*/
   vertical-align:top;
 }
+
+
+  .card {
+    box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.1), 0 0.5px 10px 0 rgba(0, 0, 0, 0.14);
+  }
+  .card-img-top {
+    width: 100%;
+    height: 43vh;
+    object-fit: cover;
+  }
+  .card-img-top:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  #search {
+    margin: auto;
+    width: 80%;
+  }
+  #search-btn {
+    display: inline-block;
+  }
+
+  #bar {
+    height: 30px;
+    width: 100%;
+    background-color: #f9f9f9;
+  }
+  .special {
+    max-width: 100%
+  }
+
+  .title {
+    background-color: #f9f9f9;
+  }
+  .fluid-container {
+    background-color: #f9f9f9;
+  }
+
+  .random-image{
+    width: 100%;
+    height: 43vh;
+    object-fit: cover;
+  }
+
+  .circle-image {
+    border-radius: 50%;
+    width: 18vh; 
+    height: 18vh;
+    object-fit: cover;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .overflow {
+    overflow: auto;
+    white-space: nowrap;
+  }

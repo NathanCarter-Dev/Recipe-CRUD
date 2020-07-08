@@ -7,6 +7,10 @@
 
   <link type="text/css" rel="stylesheet" href="./stylesheets/main.css">
 </head>
+
+<div id="bar">
+  
+</div>
 <body>
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/recipes">Recipe</a>
@@ -18,7 +22,12 @@
         <li class="nav-item">
           <a class="nav-link" href="/recipes/new">Create Recipe</a>
         </li>
+        <form action="/recipes/search" method="POST" class="form-inline my-2 my-lg-0">
+          <input id="search" class="form-control mr-sm-2" placeholder="Find A Recipe." name="search" type="search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
       </ul>
+
       <ul class="navbar-nav">
         <% if(!currentUser) { %> 
         <li class=" mr-sm-2">
@@ -35,7 +44,7 @@
               <a class="nav-link" href="/admin">Admin Terminal</a>
             </li>
           <% } else {%> 
-          <a class="nav-link"> <%= currentUser.username %> </a>
+          <a class="nav-link" href="/profile/<%=currentUser._id%>"> <%= currentUser.username %> </a>
           <% } %> 
         </li>
         <li class=" mr-sm-2">
@@ -63,6 +72,6 @@
   </div>
 <% } %> 
 
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link type="text/css" rel="stylesheet" href="./stylesheets/main.css">

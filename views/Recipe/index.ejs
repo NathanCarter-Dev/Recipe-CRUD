@@ -4,48 +4,85 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="./js/favourite.js"></script>
 <link type="text/css" rel="stylesheet" href="./stylesheets/index.css">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 
-<section id="header">
-  <div class="jumbotron">
-    <h1 class="display-4">Recipe!</h1>
-    <p class="lead">The easy way for healthier eating.</p>
-    <hr class="my-4">
-    <p>Read And Create Your Own Unique Recipes!</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="/recipes/new" role="button">CREATE RECIPE!</a>
-    </p>
-  </div>
-</section>
-<section id="search-bar container">
-<form action="/recipes/search" method="POST">
-<input type="text" name="search">
-<button>Search</button>
-</form>
-</section>
-
-<div class="fluid-container ">
+<% if(randomRecipe.length > 0) { %> 
+<div class="fluid-container mx-2">
+  <h2>Featured</h1>
+    <hr class="m-0 p-0 w-25">
   <div class="row">
-<% recipe.forEach(function (recipe) {%> 
+    <div class="col-6 my-3">
+      <div class="card">
+        <img class="random-image image-responsive" src="<%= randomRecipe[0].image %>" alt="">
+        <p><%= randomRecipe[0].description  %></p>
+      </div>
+      
+    </div>
+    <div class="col-6 my-3">
+      <div class="card">
+        <img class="random-image image-responsive" src="<%= randomRecipe[1].image %>" alt="">
+        <p><%= randomRecipe[1].description  %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %> 
+
+<div class="fluid-container overflow my-3">
+  <a href="/recipes/search/indian"><img class="circle-image" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/pizza"><img class="circle-image" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/turkish"><img class="circle-image" src="https://images.unsplash.com/photo-1530469912745-a215c6b256ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/japanise"><img class="circle-image" src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/mexican"><img class="circle-image" src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/chinese"><img class="circle-image" src="https://images.unsplash.com/flagged/photo-1556742524-750f2ab99913?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+
+  <a href="/recipes/search/chicken"><img class="circle-image" src="https://images.unsplash.com/photo-1426869981800-95ebf51ce900?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/burger"><img class="circle-image" src="https://images.unsplash.com/photo-1586540480250-e3a0717298b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/chips"><img class="circle-image" src="https://images.unsplash.com/photo-1526230427044-d092040d48dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/french"><img class="circle-image" src="https://images.unsplash.com/photo-1571157577110-493b325fdd3d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/baking"><img class="circle-image" src="https://images.unsplash.com/flagged/photo-1561668038-2742fcef75d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+  <a href="/recipes/search/cake"><img class="circle-image" src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  
+</div>
+<div class="fluid-container mx-5">
+<% for(i = 0; i < recipes.length; i++) {%>
+
+    <p class="title p-0 m-0"><%= recipes[i].name %> Recipes <i class="fas fa-utensils"></i></p>
+    <hr class="m-0 p-0">
+    <div class="row">
+      <% recipes[i].content.forEach(function(recipe) { %>
+        
       <div class="col-12 col-md-6 col-lg-3">
-        <div id="images" class="card image-responsive">
+        <div id="images" class="card image-responsive  m-2">
           <div class="hovereffect">
-          <img class="card-img-top hovereffect" src="<%= recipe.image %> " alt="Card image cap">
+          <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
           <div class="overlay">
             <h2><%= recipe.name  %></h2>
             <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
           </div>
           </div>
-          <div class="card-body">
-            <p class="card-text"><%= recipe.description %> </p>
+          <div class="card-body  ">
+            <p class="card-text m-0 p-0"><%=recipe.author.username%> - <%= recipe.views%> Views</p>
+            <p class="card-text m-0 p-0"><%= recipe.description.substr(0, 60)%>... </p>
 
             <% if(currentUser) { %> 
               <% if(user.favouritePosts.includes(recipe._id)) { %> 
                 <button id="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
-                data-post-id="<%=recipe._id  %>">Unfavourite
+                data-post-id="<%=recipe._id  %>">Unfavoruite
                </button>
               <% } else {%> 
                 <button id="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
-                data-post-id="<%=recipe._id  %>">Favourite
+                data-post-id="<%=recipe._id  %>">Favoruite
                </button>
               <% } %>
               <% } %> 
@@ -53,8 +90,11 @@
           </div>
         </div>
       </div>
-  <% }) %> 
-</div>
+      
+      <% }) %> 
+    </div>
+
+  <% } %> 
 </div>
 
 

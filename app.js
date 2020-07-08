@@ -10,6 +10,7 @@ const express = require("express"),
       expressSession = require("express-session"),
       axios = require("axios"),
       flash = require("connect-flash")
+var  cron = require("node-cron");
 
 //routers
 const recipeRoutes = require("./routes/recipes"),
@@ -47,14 +48,40 @@ app.use(express.static("./public"))
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 //SEED DATABASE
-//seedDB();
+// seedDB();
+
+//set random value on server start to give to random front page recipe
+var random = []
+Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
+  if (!err) {
+    random = results
+  } 
+});
+
+//update random recipe
+  cron.schedule('* * * * *', () => {
+    Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
+      if (!err) {
+        random = results
+      } 
+    });
+  });
 //middleware
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error")
   res.locals.success = req.flash("success")
+
+  res.locals.randomRecipe = random;
   next();
 }) 
+
+
+
+
+
+//CLEAR DATABASE
+// Recipe.deleteMany({}, (err, deleted) => console.log("deleted"))
 
 app.use(recipeRoutes);
 app.use(commentRoutes);
@@ -65,6 +92,7 @@ app.use(authRoutes);
 app.get("/", (req, res) =>{
   res.redirect("/recipes");
 })
+
 
 
 app.listen(3000, () => {

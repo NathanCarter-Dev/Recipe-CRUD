@@ -1,8 +1,8 @@
 <%- include("../partials/header")  %> 
   <h1 class="text-center">New Recipe</h1>
 <form action="/recipes" method="POST">
-  <div class="container">
-    <input   placeholder="dish name" type="text" name="recipe[name]">
+  <div class="container text-center">
+    <input class=""  placeholder="dish name" type="text" name="recipe[name]">
     <input  placeholder="image link" type="text" name="recipe[image]">
     <div class="mt-3">
       <input class="w-50 h-25 d-inline-block" placeholder="description" type="text" name="recipe[description]">
@@ -18,11 +18,58 @@
       <input  placeholder="servings" type="text" name="recipe[servings]">
 
     <div class="mt-3">
-      <textarea class="w-50" placeholder="ingredients... Put each ingredient on a new line using the enter key." name="ingredients"cols="30" rows="10"></textarea>
+      <textarea class="w-50" placeholder="ingredients... Put each ingredient on a new line using the enter key.
+      example:
+      100g flour.
+      2 eggs." name="ingredients"cols="30" rows="10"></textarea>
     </div>
   <div class="mt-3">
-    <textarea class="w-50" placeholder="method... Put each method segment on a new line using the enter key." name="method"cols="30" rows="10"></textarea>
+    <textarea class="w-50" placeholder="method... Put each method segment on a new line using the enter key.
+    example:
+    Mix for 5 minutes.
+    Turn oven on to 180 degrees." name="method"cols="30" rows="10"></textarea>
   </div>
+  <h2>Select Relevant Tags</h2>
+  <label>Indian
+    <input type="checkbox" name="tags[indian]" id="indian" value="indian">
+  </label>
+  <label>Chinese
+    <input type="checkbox" name="tags[chinese]" id="chinese" value="chinese">
+  </label>
+  <label>American
+    <input type="checkbox" name="tags[american]" id="american" value="american">
+  </label>
+  <label>Japanise
+    <input type="checkbox" name="tags[japanise]" id="japanise" value="japanise">
+  </label>
+  <label>Pizza
+    <input type="checkbox" name="tags[pizza]" id="pizza" value="pizza">
+  </label>
+  <label>Turkish
+    <input type="checkbox" name="tags[turkish]" id="turkish" value="turkish">
+  </label>
+  <label>Mexican
+    <input type="checkbox" name="tags[mexican]" id="mexican" value="mexican">
+  </label>
+  <label>Chicken
+    <input type="checkbox" name="tags[chicken]" id="chicken" value="chicken">
+  </label>
+  <label>Burger
+    <input type="checkbox" name="tags[burger]" id="burger" value="burger">
+  </label>
+  <label>Chips
+    <input type="checkbox" name="tags[chips]" id="chips" value="chips">
+  </label>
+  <label>French
+    <input type="checkbox" name="tags[french]" id="french" value="french">
+  </label>
+  <label>Baking
+    <input type="checkbox" name="tags[baking]" id="baking" value="baking">
+  </label>
+  <label>Cake
+    <input type="checkbox" name="tags[cake]" id="cake" value="cake">
+  </label>
+  
     <button class="btn btn-success">Submit</button>
   </div>
 

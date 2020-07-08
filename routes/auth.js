@@ -47,6 +47,8 @@ const middleware = require("../middleware");
     res.redirect("/recipes");
   })
 
+  //MY ACCOUNT PAGE
+  router.get("/profile/:id", (req, res) => res.render("./Auth/profile"))
   //ADMIN CONTROL
   //ADMIN PAGE
   router.get("/admin",middleware.isAdmin, (req, res) => 

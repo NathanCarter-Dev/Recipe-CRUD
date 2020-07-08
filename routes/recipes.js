@@ -15,16 +15,26 @@ const Recipe = require("../models/recipe"),
 router.get("/recipes", (req, res) => {
   try {
     let user;
-    Recipe.find({}, (err, recipe) =>{
+    let recipes = []
+    //Find the different recipe types for index page
+    Recipe.find({}).sort({rating: -1}).limit(8).exec((err, relevantRecipes) =>{
+      Recipe.find({}).sort({date: -1}).limit(8).exec((err, newRecipes) =>{
+        //give recipe types title
+        const relevant = {content: relevantRecipes, name: "Trending"}
+        const newRecipe = {content: newRecipes, name: "New"}
+        recipes = [relevant, newRecipe]
         if(req.user) {
+          //find user and render page
           User.findById(req.user._id, (err, foundUser) =>{
               user = foundUser
-              res.render("./Recipe/index",{recipe, user});
+              console.log(recipes)
+              res.render("./Recipe/index",{recipes, user});
           })
         } else {
-          res.render("./Recipe/index",{recipe});
+          res.render("./Recipe/index",{recipes});
         }
     })
+  })
   }catch(err) {
     res.redirect("/recipes");
   }
@@ -55,9 +65,10 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
   //set image address if user does not set one
   if(req.body.recipe.image === "") {
     req.body.recipe.image = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-  }
+  } 
   Recipe.create(req.body.recipe, (err, newRecipe) => {
     try {
+      console.log("sdadsad")
       ingredient.forEach((ingredient)=> {
         newRecipe.ingredients.push(ingredient);
       })
@@ -66,9 +77,16 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
       //create author 
       newRecipe.author.id = req.user._id
       newRecipe.author.username = req.user.username
+      //push each tag value from form to tags array
+      for(let i in req.body.tags) {
+        newRecipe.tags.push(req.body.tags[i])
+      }
+      //push each ingredient to ingredients array
       method.forEach((method)=> {
         newRecipe.method.push(method);
       })
+      //save recipe and redirect
+      console.log(newRecipe)
       newRecipe.save();
       req.flash("success", "Recipe Posted.");
       res.redirect("/recipes")
@@ -90,6 +108,11 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
 router.get("/recipes/:id", (req,res) =>{
   Recipe.findById(req.params.id).populate("comments").exec( (err, recipe)=> {
     try {
+      //add score to relevance and views
+      recipe.views+=1;
+      recipe.rating+=0.1
+      recipe.save();
+      console.log(recipe)
       res.render("./Recipe/show", {recipe})
     } catch(err) {
       console.log(err)
@@ -251,9 +274,14 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
   })
 
   //SEARCH DATABASE
-  router.post('/recipes/search', (req, res) => Recipe.find({name: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}, (err, search) => res.render("./Recipe/search", {search})))
- 
+  router.post('/recipes/search', (req, res) => Recipe.find({name: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}).sort({rating: -1}).exec((err, search) => res.render("./Recipe/search", {search})))
 
+ //View database by tag
+ router.get("/recipes/search/:id", (req, res) => 
+   Recipe.find({tags: req.params.id}).sort({rating: -1}).exec((err, search) =>
+     res.render("./Recipe/search", {search})))
+
+  
   //calculate minutes overlapping hours on total variable
   const calculateTime = (minutes, hours, mins) =>{
     for(let i = 0; i < mins; i++) {

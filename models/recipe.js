@@ -1,4 +1,6 @@
 var mongoose = require("mongoose");
+const { date } = require("faker");
+const random = require('mongoose-simple-random');
 
 var recipeSchema = new mongoose.Schema({
   author: {
@@ -9,7 +11,7 @@ var recipeSchema = new mongoose.Schema({
     username: String
   },
   name: String,
-  image: String,
+  image: {type:String, default: ""},
   description: String,
   prepHour: Number,
   prepMinute: Number,
@@ -18,16 +20,21 @@ var recipeSchema = new mongoose.Schema({
   total: String,
   servings: Number,
   likes_count: Number,
+  date: {type: Date, default: Date.now},
+  views: {type: Number, default: 0},
+  rating: {type:Number, default: 0},
   method: [String],
   ingredients: [String],
+  tags: {type: Array},
   comments: [ 
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment"
     }
-  ]
+  ],
 })
 
+recipeSchema.plugin(random)
 var Recipe = mongoose.model("Recipe", recipeSchema);
 
 module.exports = Recipe;

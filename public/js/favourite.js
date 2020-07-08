@@ -7,6 +7,7 @@ var actOnPost = function (event) {
       document.querySelector('#favourite-' + postId).textContent="Unfavourite";
     } else {
       document.querySelector('#favourite-' + postId).textContent="Favourite";
+
     }
   })
   });
