@@ -72,6 +72,7 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
       ingredient.forEach((ingredient)=> {
         newRecipe.ingredients.push(ingredient);
       })
+      newRecipe.lowercaseName = req.body.recipe.name
       newRecipe.likes_count = 0;
       newRecipe.total = total;
       //create author 
@@ -159,6 +160,7 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
       //CREATE UPDATED RECIPE OBJECT
       var updatedRecipe = {
         name: req.body.recipe.name,
+        lowercaseName: req.body.recipe.name,
         image: req.body.recipe.image,
         ingredients: ingredient,
         description: req.body.recipe.description,
@@ -281,6 +283,20 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
    Recipe.find({tags: req.params.id}).sort({rating: -1}).exec((err, search) =>
      res.render("./Recipe/search", {search})))
 
+  //SORT BY DIFFERENT TYPES
+  router.get("/recipes/viewby/:id", (req, res) => {
+    if(req.params.id === "newRecipes") {
+      Recipe.find({}).sort({date: -1}).exec((err, search) => res.render("./Recipe/search", {search}))
+    } else if(req.params.id === "oldRecipes") {
+      Recipe.find({}).sort({date: 1}).exec((err, search) => res.render("./Recipe/search", {search}))
+    } else if (req.params.id === "trendingRecipes") {
+      Recipe.find({}).sort({rating: -1}).exec((err, search) => res.render("./Recipe/search", {search}))
+    } else if (req.params.id === "azRecipes") {
+      Recipe.find({}).sort({lowercaseName: 1}).exec((err, search) => res.render("./Recipe/search", {search}))
+    } else if(req.params.id === "zaRecipes") {
+      Recipe.find({}).sort({lowercaseName: -1}).exec((err, search) => res.render("./Recipe/search", {search}))
+    }
+  })
   
   //calculate minutes overlapping hours on total variable
   const calculateTime = (minutes, hours, mins) =>{

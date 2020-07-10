@@ -11,6 +11,16 @@ div p {
   padding: 0px;
   margin: 0px;
 }
+#sort .fluid-container{
+  border: 2px solid #eeeeee
+}
+#sort div p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2rem;
+  font-weight: 200;
+  padding: 0px;
+  margin: 0px;
+}
 div .title {
   font-family: 'Raleway', sans-serif;
   font-size: 3rem;
@@ -171,11 +181,17 @@ hr.style-two {
     height: 43vh;
     object-fit: cover;
   }
-
+  .circle-image:hover {
+      transition: 0.1s;
+      -ms-transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+      transform: scale(1.05);
+  }
   .circle-image {
+
     border-radius: 50%;
-    width: 18vh; 
-    height: 18vh;
+    width: 17vh; 
+    height: 17vh;
     object-fit: cover;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
   }
@@ -184,3 +200,14 @@ hr.style-two {
     overflow: auto;
     white-space: nowrap;
   }
+
+  div.item {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    
+}
+
+.caption {
+    display: block;
+}

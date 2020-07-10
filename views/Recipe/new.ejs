@@ -1,11 +1,12 @@
 <%- include("../partials/header")  %> 
+<link type="text/css" rel="stylesheet" href="/stylesheets/new.css">
   <h1 class="text-center">New Recipe</h1>
 <form action="/recipes" method="POST">
-  <div class="container text-center">
+  <div class="container text-center form-group">
     <input class=""  placeholder="dish name" type="text" name="recipe[name]">
     <input  placeholder="image link" type="text" name="recipe[image]">
     <div class="mt-3">
-      <input class="w-50 h-25 d-inline-block" placeholder="description" type="text" name="recipe[description]">
+      <input class="w-50 h-25 d-inline-block" placeholder="recipe description" type="text" name="recipe[description]">
     </div>
     <div class="mt-3">
       <label>prep <input max="60" placeholder="hours" type="text" name="recipe[prepHour]"></label>
@@ -69,8 +70,10 @@
   <label>Cake
     <input type="checkbox" name="tags[cake]" id="cake" value="cake">
   </label>
-  
-    <button class="btn btn-success">Submit</button>
+    <div>
+      <button class="w-50 btn btn-success">Submit</button>
+    </div>
+    
   </div>
 
 

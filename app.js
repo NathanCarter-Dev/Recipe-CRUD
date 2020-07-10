@@ -54,7 +54,9 @@ app.use(methodOverride("_method"));
 var random = []
 Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
   if (!err) {
+    
     random = results
+    console.log(random)
   } 
 });
 
@@ -75,6 +77,8 @@ app.use((req, res, next) => {
   res.locals.randomRecipe = random;
   next();
 }) 
+
+
 
 
 

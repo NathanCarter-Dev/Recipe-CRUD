@@ -11,6 +11,7 @@ var recipeSchema = new mongoose.Schema({
     username: String
   },
   name: String,
+  lowercaseName: {type:String, lowercase: true},
   image: {type:String, default: ""},
   description: String,
   prepHour: Number,
@@ -33,6 +34,7 @@ var recipeSchema = new mongoose.Schema({
     }
   ],
 })
+
 
 recipeSchema.plugin(random)
 var Recipe = mongoose.model("Recipe", recipeSchema);
