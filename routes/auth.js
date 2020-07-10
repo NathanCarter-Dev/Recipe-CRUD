@@ -2,7 +2,6 @@
          router = express.Router(),
          passport = require("passport"),
          localStrategy = require("passport-local");
-
   const Recipe = require("../models/recipe"),
         Comment = require("../models/comment"),
         User = require("../models/user");
@@ -40,12 +39,23 @@ const middleware = require("../middleware");
   }) ,(req, res) =>{
     
   })
+  //LOGIN GOOGLE
+  router.get('/google',
+  passport.authenticate('google', { scope:
+  	[ 'email', 'profile' ] }
+));
 
   router.get("/logout", (req, res) =>{
     req.logOut();
     req.flash("success", "Logged Out.")
     res.redirect("/recipes");
   })
+
+  router.get( '/google/callback',
+  passport.authenticate( 'google', {
+      successRedirect: '/recipes',
+      failureRedirect: '/login'
+}));
 
   //MY ACCOUNT PAGE
   router.get("/profile/:id", (req, res) => res.render("./Auth/profile"))

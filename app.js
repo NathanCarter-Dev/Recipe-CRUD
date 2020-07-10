@@ -9,7 +9,8 @@ const express = require("express"),
       localStrategy = require("passport-local"),
       expressSession = require("express-session"),
       axios = require("axios"),
-      flash = require("connect-flash")
+      flash = require("connect-flash"),
+      GoogleStrategy = require('passport-google-oauth2').Strategy
 var  cron = require("node-cron");
 
 //routers
@@ -18,9 +19,6 @@ const recipeRoutes = require("./routes/recipes"),
       authRoutes = require("./routes/auth");
 
 mongoose.connect("mongodb://localhost/recipe", {useNewUrlParser: true, useUnifiedTopology: true});
-
-
-
 
 //MODELS
 const Recipe = require("./models/recipe"),
@@ -36,10 +34,28 @@ app.use(expressSession({
 }))
 app.use(flash());
 passport.use(new localStrategy(User.authenticate()));
+passport.use(new GoogleStrategy({
+  clientID:     "119035373033-usml05ivsufrd4a6uurlnn19buocfpi6.apps.googleusercontent.com",
+  clientSecret: "b6UKejueBfanh5-08v0Fh20T",
+  callbackURL: "http://localhost:3000/google/callback",
+  passReqToCallback   : true
+},
+function(request, accessToken, refreshToken, profile, done) {
+  User.findOrCreate({ googleId: profile.id, username: profile.displayName }, function (err, user) {
+    return done(err, user);
+  });
+}
+));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser());
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
+passport.deserializeUser((user, done) => {
+  done(null, user)
+})
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))

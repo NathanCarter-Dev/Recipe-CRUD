@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var mongooseLocalStrategy = require("passport-local-mongoose");
+var findOrCreate = require('mongoose-findorcreate')
 
 var userSchema = new mongoose.Schema({
   username: String,
@@ -12,5 +13,6 @@ var userSchema = new mongoose.Schema({
 })
 
 userSchema.plugin(mongooseLocalStrategy);
+userSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model("User", userSchema);

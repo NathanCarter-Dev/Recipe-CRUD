@@ -131,11 +131,11 @@
 
             <% if(currentUser) { %> 
               <% if(user.favouritePosts.includes(recipe._id)) { %> 
-                <button id="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
+                <button class="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
                 data-post-id="<%=recipe._id  %>">Unfavoruite
                </button>
               <% } else {%> 
-                <button id="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
+                <button class="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
                 data-post-id="<%=recipe._id  %>">Favoruite
                </button>
               <% } %>
