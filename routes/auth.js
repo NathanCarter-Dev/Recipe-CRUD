@@ -56,15 +56,10 @@ const middleware = require("../middleware");
       successRedirect: '/recipes',
       failureRedirect: '/login'
 }));
-
-  //MY ACCOUNT PAGE
-  router.get("/profile/:id", (req, res) => res.render("./Auth/profile"))
-  //ADMIN CONTROL
   //ADMIN PAGE
   router.get("/admin",middleware.isAdmin, (req, res) => 
     User.find({}, (err, user) => 
       res.render("./Auth/admin", {user})))
-
   //add admin to user
   router.post("/admin",middleware.isAdmin, (req, res) => 
     User.update({username: req.body.name}, {admin: true}, (user) =>  {

@@ -21,7 +21,8 @@ const express = require("express"),
           id: req.user._id,
           username: req.user.username
         },
-        text: req.body.comment.content
+        text: req.body.comment.content,
+        picture: req.user.picture
       },  (err, comment) =>{
         if(err) {
           res.redirect("/")

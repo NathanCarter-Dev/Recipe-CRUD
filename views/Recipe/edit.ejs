@@ -1,4 +1,5 @@
 <%- include("../partials/header")  %> 
+
 <h1>Edit Recipe</h1>
 <form action="/recipes/<%= recipe._id %>?_method=PUT " method="POST">
 <input value="<%= recipe.name %> " type="text" name="recipe[name]">

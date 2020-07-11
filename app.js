@@ -16,7 +16,8 @@ var  cron = require("node-cron");
 //routers
 const recipeRoutes = require("./routes/recipes"),
       commentRoutes = require("./routes/comments"),
-      authRoutes = require("./routes/auth");
+      authRoutes = require("./routes/auth"),
+      userRoutes = require("./routes/user");
 
 mongoose.connect("mongodb://localhost/recipe", {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -93,19 +94,13 @@ app.use((req, res, next) => {
   res.locals.randomRecipe = random;
   next();
 }) 
-
-
-
-
-
-
-
 //CLEAR DATABASE
 // Recipe.deleteMany({}, (err, deleted) => console.log("deleted"))
 
 app.use(recipeRoutes);
 app.use(commentRoutes);
 app.use(authRoutes);
+app.use(userRoutes);
 
 
 //Default route

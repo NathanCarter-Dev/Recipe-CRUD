@@ -39,7 +39,7 @@
       <% } else { %>
         <li class="mr-sm-2">
           <% if(currentUser && currentUser.admin) {%>
-            <a class="nav-link">(ADMIN) <%= currentUser.username %> </a>
+            <a class="nav-link" href="/profile/<%=currentUser._id%>">(ADMIN) <%= currentUser.username %></a>
             <li class=" mr-sm-2">
               <a class="nav-link" href="/admin">Admin Terminal</a>
             </li>

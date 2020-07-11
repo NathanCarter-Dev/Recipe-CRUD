@@ -1,0 +1,35 @@
+[33mcommit f2343deef15ec26b2fa9599e8a424dd94e6ca384[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Nathan <nathan.carter3252@gmail.com>
+Date:   Fri Jul 10 17:09:15 2020 +0100
+
+    Added google authenticator and fixed bug where favourite only updated on one recipe if multiple were on the page
+
+[33mcommit 87e6433ea3174671bcc9cb086da09e1be0f58a43[m
+Author: Nathan <nathan.carter3252@gmail.com>
+Date:   Fri Jul 10 15:24:26 2020 +0100
+
+    added search options
+
+[33mcommit b7e64afd38029cb6bf8375dc95e712cc0d35d441[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Nathan <nathan.carter3252@gmail.com>
+Date:   Wed Jul 8 13:42:06 2020 +0100
+
+    Added relevant recipes and new recipes. Added tags to posts and a search by tag section
+
+[33mcommit a5f1d519ac1524aac9bdfbda0428c7ef5b4a357b[m
+Author: Nathan <nathan.carter3252@gmail.com>
+Date:   Sat Jul 4 12:17:03 2020 +0100
+
+    Added Search Bar To Recipes To Search Through Recipe Database
+
+[33mcommit d5d4385bbd3a46bf53216ff84f39fcbf36222799[m
+Author: Nathan <nathan.carter3252@gmail.com>
+Date:   Sat Jul 4 10:32:54 2020 +0100
+
+    test github commit
+
+[33mcommit 149275b8e6edb2777f78367cd1763399a9c1f092[m
+Author: Nathan <nathan.carter3252@gmail.com>
+Date:   Sat Jul 4 10:28:54 2020 +0100
+
+    My First Commit

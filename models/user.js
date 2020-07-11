@@ -5,6 +5,7 @@ var findOrCreate = require('mongoose-findorcreate')
 var userSchema = new mongoose.Schema({
   username: String,
   password: String,
+  picture: String,
   favouritePosts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recipe"

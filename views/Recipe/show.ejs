@@ -1,4 +1,5 @@
 <%- include("../partials/header")  %> 
+<link type="text/css" rel="stylesheet" href="../../stylesheets/show.css">
 
   <div class="container">
     <h1><%= recipe.name %> </h1>
@@ -46,9 +47,16 @@
   <div class="card-header">
     <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments ">Create Comment</a>
   </div>
+</div>
+<div class="container-fluid">
   <% recipe.comments.forEach(function(comment) { %>
     <div class="card ">
       <div class="card-body p-1">
+        <%if(comment.picture) { %>
+        <img class="comment-image" src="<%= comment.picture %>" alt="">
+        <% } else {%>
+        <img class="comment-image" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="">
+        <% } %> 
         <%= comment.author.username %> - <%= comment.text %> 
         <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.admin) { %> 
         <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments/<%= comment._id %>/edit">Edit</a>
@@ -59,7 +67,7 @@
       </div>
     </div>
   <%})%>
-
-  
 </div>
+  
+
   <%- include("../partials/footer")  %> 
