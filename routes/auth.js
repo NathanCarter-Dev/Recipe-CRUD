@@ -37,7 +37,6 @@ const middleware = require("../middleware");
     successRedirect: "/recipes",
     failureRedirect: "/login"
   }) ,(req, res) =>{
-    
   })
   //LOGIN GOOGLE
   router.get('/google',

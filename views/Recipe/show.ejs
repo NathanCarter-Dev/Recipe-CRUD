@@ -53,9 +53,10 @@
     <div class="card ">
       <div class="card-body p-1">
         <%if(comment.picture) { %>
-        <img class="comment-image" src="<%= comment.picture %>" alt="">
+        <a href="/profile/<%= comment.author.id%>"><img class="comment-image" src="<%= comment.picture %>" alt=""></a> 
         <% } else {%>
-        <img class="comment-image" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="">
+          <a href="/profile/<%=comment.author.id%>"><img class="comment-image" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+
         <% } %> 
         <%= comment.author.username %> - <%= comment.text %> 
         <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.admin) { %> 

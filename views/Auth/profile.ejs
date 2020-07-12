@@ -7,15 +7,15 @@
 <link type="text/css" rel="stylesheet" href="../../stylesheets/profile.css">
 <body>
   <div class="user">
-    <%if(currentUser.picture) { %> 
-      <a href="/profile/<%=currentUser._id%>/picture"><img src="<%= currentUser.picture %> " alt=""></a>
+    <%if(user.picture) { %> 
+      <a href="/profile/<%=user._id%>/picture"><img src="<%= user.picture %> " alt=""></a>
     <% } else { %>
-      <a href="/profile/<%=currentUser._id%>/picture"><img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""> </a>
+      <a href="/profile/<%=user._id%>/picture"><img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""> </a>
     <% } %> 
-    <h1><%= currentUser.username %></h1>
+    <h1><%= user.username %></h1>
   </div>
 
-<a class="" href="/recipes/<%= currentUser._id %>/favourites">Favourite Recipes</a>
+<a class="" href="/recipes/<%=user._id%>/favourites">Favourite Recipes</a>
 
 <a  class="btn btn-success" href="/recipes">Back</a>
 </body>

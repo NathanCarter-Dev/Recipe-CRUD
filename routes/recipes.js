@@ -204,15 +204,12 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
       }
     })
 
-
-
-
   })
 
   //SHOW FAVOURITES
   router.get("/recipes/:id/favourites", (req, res)=> {
     if(req.user) {
-    User.findById(req.user._id, (err, user) =>{
+    User.findById(req.params.id, (err, user) =>{
       if(err) {
         res.redirect("/")
       } else {

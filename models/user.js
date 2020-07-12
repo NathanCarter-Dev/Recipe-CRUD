@@ -10,7 +10,10 @@ var userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recipe"
   }],
-  admin: {type: Boolean, default: false}
+  admin: {type: Boolean, default: false},
+  lastOnline: {type: Date, default: Date.now},
+  mood: String,
+  bio: String
 })
 
 userSchema.plugin(mongooseLocalStrategy);
