@@ -12,3 +12,8 @@
     display: block;
     padding-bottom: 100%;
   }
+
+  body {
+    padding-top: 70px;
+    
+  }

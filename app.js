@@ -11,6 +11,7 @@ const express = require("express"),
       axios = require("axios"),
       flash = require("connect-flash"),
       GoogleStrategy = require('passport-google-oauth2').Strategy
+      mongoosePaginate = require('mongoose-paginate-v2');
 var  cron = require("node-cron");
 
 //routers

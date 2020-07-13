@@ -1,6 +1,8 @@
 var mongoose = require("mongoose");
 const { date } = require("faker");
 const random = require('mongoose-simple-random');
+var mongoosePaginate = require('mongoose-paginate');
+
 
 var recipeSchema = new mongoose.Schema({
   author: {
@@ -35,7 +37,7 @@ var recipeSchema = new mongoose.Schema({
   ],
 })
 
-
+recipeSchema.plugin(mongoosePaginate);
 recipeSchema.plugin(random)
 var Recipe = mongoose.model("Recipe", recipeSchema);
 

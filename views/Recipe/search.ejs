@@ -1,11 +1,10 @@
 <%- include("../partials/header")  %> 
-<link type="text/css" rel="stylesheet" href="../../stylesheets/main.css">
-<link rel="stylesheet" href="../../stylesheets/search.css">
 <script type="text/javascript" src="../../js/favourite.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="../../stylesheets/search.css">
 
-
+<h1>Page <%= page %> </h1>
 <% if(search.length > 0) { %> 
 <div class="fluid-container ">
   <div class="row">
@@ -38,6 +37,41 @@
       </div>
   <% }) %> 
 </div>
+
+<% if(type === "search") { %> 
+<% if(pages > page) { %> 
+<form action="/recipes/search?page=<%= page + 1 %>" method="POST">
+<button value="<%=prevSearch %>" name="search">Next Page</button>
+</form>
+<% } %>
+<% if(page > 1) { %>  
+<form action="/recipes/search?page=<%= page - 1 %>" method="POST">
+  <button value="<%=prevSearch %>" name="search">Previous Page</button>
+  </form>
+<% } %> 
+<% } else if(type === "tag"){ %> 
+<% if(pages > page) { %> 
+  <form action="/recipes/search/<%=prevSearch%>/<%= page + 1 %>">
+  <button value="<%=prevSearch %>" name="search">Next Page</button>
+  </form>
+  <% } %>
+  <% if(page > 1) { %>  
+  <form action="/recipes/search/<%=prevSearch%>/<%= page - 1 %>">
+    <button value="<%=prevSearch%>" name="search">Previous Page</button>
+    </form>
+  <% } %> 
+  <% } else { %>
+    <% if(pages > page) { %> 
+    <form action="/recipes/viewby/<%=prevSearch%>/<%= page + 1 %>">
+      <button value="<%=prevSearch %>" name="search">Next Page</button>
+      </form>
+    <% } %> 
+      <% if(page > 1) { %>  
+      <form action="/recipes/viewby/<%=prevSearch%>/<%= page - 1 %>">
+        <button value="<%=prevSearch %>" name="search">Previous Page</button>
+        </form>
+        <% } %>
+  <% } %> 
 </div>
 <%} else { %> 
   <div class="container">

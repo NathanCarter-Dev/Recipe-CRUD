@@ -272,29 +272,71 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
     })
   })
 
+ 
   //SEARCH DATABASE
-  router.post('/recipes/search', (req, res) => Recipe.find({name: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}).sort({rating: -1}).exec((err, search) => res.render("./Recipe/search", {search})))
+  let search;
+  router.post('/recipes/search', (req, res) =>
+  {
+    //save the previous search to a variable for the next page search value
+    search = req.body.search
+    const prevSearch = search
+    //paginate through recipes by page
+    Recipe.paginate({name: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}, { page: req.query.page, limit: 8, sort: {rating: -1} }, function(err, search) {
+      currentPage = (parseInt(search.page))
+      //render search page and give the previous search to give to next page buttons as value
+      res.render("./Recipe/search", {type: "search",pages: search.pages, prevSearch, search: search.docs, page: currentPage})
+  });
+})
+
 
  //View database by tag
- router.get("/recipes/search/:id", (req, res) => 
-   Recipe.find({tags: req.params.id}).sort({rating: -1}).exec((err, search) =>
-     res.render("./Recipe/search", {search})))
+ router.get("/recipes/search/:id/:page", (req, res) => {
+ 
+  Recipe.paginate({tags: req.params.id}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
+    
+    const prevSearch = req.params.id
+    currentPage = (parseInt(search.page))
+    //render search page and give the previous search to give to next page buttons as value
+    console.log(search.pages)
+    res.render("./Recipe/search", {type: "tag",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+  })
+})
 
   //SORT BY DIFFERENT TYPES
-  router.get("/recipes/viewby/:id", (req, res) => {
+  router.get("/recipes/viewby/:id/:page", (req, res) => {
+    const prevSearch = req.params.id
     if(req.params.id === "newRecipes") {
-      Recipe.find({}).sort({date: -1}).exec((err, search) => res.render("./Recipe/search", {search}))
+      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {date: -1} }, function(err, search) {
+        currentPage = (parseInt(search.page))
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+      })
     } else if(req.params.id === "oldRecipes") {
-      Recipe.find({}).sort({date: 1}).exec((err, search) => res.render("./Recipe/search", {search}))
+      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {date: 1} }, function(err, search) {
+        currentPage = (parseInt(search.page))
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+      })
     } else if (req.params.id === "trendingRecipes") {
-      Recipe.find({}).sort({rating: -1}).exec((err, search) => res.render("./Recipe/search", {search}))
+      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
+        currentPage = (parseInt(search.page))
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+      })
+
     } else if (req.params.id === "azRecipes") {
-      Recipe.find({}).sort({lowercaseName: 1}).exec((err, search) => res.render("./Recipe/search", {search}))
+      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {lowercaseName: 1} }, function(err, search) {
+        currentPage = (parseInt(search.page))
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+      })
+
     } else if(req.params.id === "zaRecipes") {
-      Recipe.find({}).sort({lowercaseName: -1}).exec((err, search) => res.render("./Recipe/search", {search}))
+      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {lowercaseName: -1} }, function(err, search) {
+        currentPage = (parseInt(search.page))
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+      })
+
     }
   })
-  
+
+
   //calculate minutes overlapping hours on total variable
   const calculateTime = (minutes, hours, mins) =>{
     for(let i = 0; i < mins; i++) {
