@@ -28,6 +28,7 @@
      <a class="btn btn-info" href="/recipes/<%= recipe._id %>/edit ">Edit</a>
     <% } %> 
      <a class="btn btn-info" href="/recipes">Back</a>
+     <p>Created by <img class="author-image"src="<%=recipe.author.picture%>"  alt=""><%=recipe.author.username%> on <%= recipe.date %></p>
   </div>
 
   <hr>

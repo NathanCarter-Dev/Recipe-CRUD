@@ -25,4 +25,14 @@ const User = require("../models/user")
   })
 })
 
+  let search;
+  router.post("/user/search/:page", (req, res) => {
+    search = req.body.search
+    const prevSearch = search
+    User.paginate({username: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
+      currentPage = (parseInt(search.page))
+      res.render("./user/search", {prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+    })
+  })
+
   module.exports = router;

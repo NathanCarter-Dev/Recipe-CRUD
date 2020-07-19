@@ -3,11 +3,12 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="./js/favourite.js"></script>
+
 <link type="text/css" rel="stylesheet" href="./stylesheets/index.css">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 
 <% if(randomRecipe.length > 1) { %> 
-<div class="fluid-container mx-2">
+<div class="fluid-container mx-2 featured">
   <h2>Featured</h1>
     <hr class="m-0 p-0 w-25">
   <div class="row">
@@ -98,20 +99,20 @@
   
 </div>
 <section id="sort">
-  <div class="fluid-container mx-5">
-    <p class="d-inline-block">View All By // </p>
-    <p class="d-inline-block"><a href="/recipes/viewby/newRecipes/1">New/  </a></p>
-    <p class="d-inline-block"><a href="/recipes/viewby/oldRecipes/1">Old/  </a></p>
-    <p class="d-inline-block"><a href="/recipes/viewby/trendingRecipes/1">Trending/  </a></p>
-    <p class="d-inline-block"><a href="/recipes/viewby/azRecipes/1">A-Z/  </a></p>
-    <p class="d-inline-block"><a href="/recipes/viewby/zaRecipes/1">Z-A/  </a></p>
+  <div class="fluid-container recipes">
+    <p class="d-inline-block">View All Recipes // </p>
+    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/newRecipes/1">New/  </a></p>
+    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/oldRecipes/1">Old/  </a></p>
+    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/trendingRecipes/1">Trending/  </a></p>
+    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/azRecipes/1">A-Z/  </a></p>
+    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/zaRecipes/1">Z-A/  </a></p>
   </div>
 </section>
 
-<div class="fluid-container mx-5">
+<div class="fluid-container recipes">
 <% for(i = 0; i < recipes.length; i++) {%>
 
-    <p class="title p-0 m-0"><%= recipes[i].name %> Recipes <i class="fas fa-utensils"></i></p>
+    <p class="title p-0 m-0"><%= recipes[i].name %> Recipes </p>
     <hr class="m-0 p-0">
     <div class="row">
       <% recipes[i].content.forEach(function(recipe) { %>
@@ -125,9 +126,35 @@
             <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
           </div>
           </div>
-          <div class="card-body  ">
-            <p class="card-text m-0 p-0"><%=recipe.author.username%> - <%= recipe.views%> Views</p>
-            <p class="card-text m-0 p-0"><%= recipe.description.substr(0, 60)%>... </p>
+          <div class="card-body">
+            <p class="text-center"><%=recipe.name %> </p>
+            <div class="star">
+              <div class="rating">
+                <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star">☆</span>
+                <span data-star="<%=4 %>" data-id="<%=recipe._id%>" class="rating-4 star">☆</span>
+                <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star">☆</span>
+                <span data-star="<%=2 %>" data-id="<%=recipe._id%>"  class="rating-2 star">☆</span>
+                <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star">☆</span>
+                </div>
+                <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                  <span>☆</span>
+                  <span>☆</span>
+                  <span>☆</span>
+                  <span>☆</span>
+                  <span>☆</span>
+                </div>
+                
+            </div>
+            <p class="d-inline p-<%=recipe._id %>"><%=recipe.usersStarred%></p>
+            
+            <hr class="p-0 m-0">
+            <div class="text-center">
+              <img class="recipe-image d-inline mr-2"src="<%=recipe.author.picture %>" alt="">
+              <p class="d-inline card-text m-0 p-0"><%=recipe.author.username%></p>
+              <p class="d-inline ml-2"><%= recipe.views%> Views</p>
+            </div>
+            
+            <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
 
             <% if(currentUser) { %> 
               <% if(user.favouritePosts.includes(recipe._id)) { %> 
@@ -151,5 +178,5 @@
   <% } %> 
 </div>
 
-
+<script type="text/javascript" src="../../js/starrating.js"></script>
 <%- include("../partials/footer")  %> 

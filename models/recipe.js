@@ -10,7 +10,8 @@ var recipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
     },
-    username: String
+    username: String,
+    picture: String
   },
   name: String,
   lowercaseName: {type:String, lowercase: true},
@@ -23,6 +24,11 @@ var recipeSchema = new mongoose.Schema({
   total: String,
   servings: Number,
   likes_count: Number,
+  
+    starStatus: {type: Number, default: 0},
+    totalStars: {type: Number, default: 0},
+    usersStarred: {type: Number, default: 0},
+  
   date: {type: Date, default: Date.now},
   views: {type: Number, default: 0},
   rating: {type:Number, default: 0},

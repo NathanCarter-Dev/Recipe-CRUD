@@ -1,0 +1,27 @@
+
+<div class="container">
+  <div class="row">
+<% search.forEach(function (user) {%> 
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card img-fluid">
+          <img class="card-img-top" src="<%= user.picture %> " alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><%= user.username %> </h5>
+            <a class="btn btn-primary" href="/profile/<%= user._id %> ">See Account</a>
+          </div>
+        </div>
+      </div>
+  <% }) %> 
+</div>
+
+<% if(pages > page) { %> 
+  <form method="POST" action="/user/search/<%= page + 1 %>">
+  <button name="search">Next Page</button>
+  </form>
+<% } %> 
+<% if(page > 1) { %>  
+  <form method="POST" action="/user/search/<%= page - 1 %>">
+    <button name="search">Previous Page</button>
+    </form>
+  <% } %> 
+</div>

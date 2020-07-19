@@ -27,7 +27,6 @@ router.get("/recipes", (req, res) => {
           //find user and render page
           User.findById(req.user._id, (err, foundUser) =>{
               user = foundUser
-              console.log(recipes)
               res.render("./Recipe/index",{recipes, user});
           })
         } else {
@@ -78,6 +77,7 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
       //create author 
       newRecipe.author.id = req.user._id
       newRecipe.author.username = req.user.username
+      newRecipe.author.picture = req.user.picture;
       //push each tag value from form to tags array
       for(let i in req.body.tags) {
         newRecipe.tags.push(req.body.tags[i])
@@ -207,20 +207,20 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
   })
 
   //SHOW FAVOURITES
-  router.get("/recipes/:id/favourites", (req, res)=> {
+  router.get("/recipes/:id/favourites/:page", (req, res)=> {
     if(req.user) {
     User.findById(req.params.id, (err, user) =>{
       if(err) {
         res.redirect("/")
       } else {
-        Recipe.find({_id: { $in: user.favouritePosts}}, (err, recipe) =>{
-          if(err) {
-            console.log(err)
-          } else {
-            console.log(recipe)
-            res.render("./Recipe/favourite", {recipe: recipe})
-          }
-        })
+            //save the previous search to a variable for the next page search value
+        //paginate through recipes by page
+        Recipe.paginate({_id: { $in: user.favouritePosts}}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
+          currentPage = (parseInt(search.page))
+          //render search page and give the previous search to give to next page buttons as value
+          console.log(search)
+          res.render("./Recipe/favourite", {pages: search.pages, search: search.docs, page: currentPage})
+      });
       }
     })
   } else {
@@ -271,6 +271,41 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
       }
     })
   })
+
+  //STAR RATING
+  router.post("/recipes/rating", middleware.isLoggedIn, (req, res) => {
+
+      Recipe.findById(req.body.data.postId, (err, recipe) => {
+        User.findById(req.user._id, (err, user) => {
+          //if user has already starred the post
+          const star = Number(req.body.data.stars)
+          if(user.starredPosts.includes(recipe._id)) {
+            const index = req.user.starredPosts.indexOf(recipe._id)
+            calculateStars(recipe, -1, -req.user.starredPostsValue[index])
+            user.starredPostsValue.splice(index, 1)
+            user.starredPosts.splice(index, 1)
+            recipe.save()
+            user.save()
+            res.json({status:recipe.starStatus, user,recipe})
+          } else {
+            //if user has not starred the post
+            user.starredPosts.push(recipe._id)
+            user.starredPostsValue.push(star)
+            calculateStars(recipe, 1, star)
+            recipe.save()
+            user.save()
+            res.json({status:recipe.starStatus, user,recipe})
+          }
+        })
+      })
+    
+  })
+  const calculateStars = (recipe, user, stars) => {
+    recipe.usersStarred +=user
+    recipe.totalStars += stars
+    recipe.starStatus = recipe.totalStars / recipe.usersStarred
+    console.log(recipe.starStatus)
+  }
 
  
   //SEARCH DATABASE
