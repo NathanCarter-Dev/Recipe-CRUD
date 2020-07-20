@@ -2,7 +2,7 @@ const rating = document.querySelectorAll('[class^="rating-"]')
 const post = document.querySelectorAll(".post").forEach((post) => {
   
   var status = post.dataset.starwidth;
-  const width = status * 30
+  const width = status * 25
   console.log(width)
   post.style.width = width +"px"
 })
@@ -16,7 +16,7 @@ const post = document.querySelectorAll(".post").forEach((post) => {
       axios.post("/recipes/rating", {data: {postId, stars}}).then((res)=> {
         console.log(res)
         var status = res.data.recipe.starStatus;
-        const width = status * 30
+        const width = status * 25
         
         if(res.data.user.starredPosts.includes(postId)) {
           const p = document.querySelectorAll('.p-' + postId)
@@ -40,7 +40,7 @@ const post = document.querySelectorAll(".post").forEach((post) => {
     rating[i].addEventListener("mouseover", (e) => {
       var stars = rating[i].dataset.star
       for(let j = 0; j < stars; j++) {
-        rating[i + j].classList.add("star-color")
+        rating[i - j].classList.add("star-color")
       }
     })
   }
@@ -48,7 +48,7 @@ const post = document.querySelectorAll(".post").forEach((post) => {
     rating[i].addEventListener("mouseout", (e) => {
       var stars = rating[i].dataset.star
       for(let j = 0; j < stars; j++) {
-        rating[i + j].classList.remove("star-color")
+        rating[i - j].classList.remove("star-color")
       }
     })
   }

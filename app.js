@@ -44,8 +44,10 @@ passport.use(new GoogleStrategy({
   passReqToCallback   : true
 },
 function(request, accessToken, refreshToken, profile, done) {
-  User.findOrCreate({ googleId: profile.id, username: profile.displayName }, function (err, user) {
+  User.findOrCreate({username: profile.displayName }, function (err, user) {
+    console.log(user)
     return done(err, user);
+    
   });
 }
 ));
@@ -98,6 +100,13 @@ app.use((req, res, next) => {
 }) 
 //CLEAR DATABASE
 // Recipe.deleteMany({}, (err, deleted) => console.log("deleted"))
+// User.deleteMany({}, (err, deleted) => console.log("deleted"))
+
+//default admin profiles
+User.findOne({username: "TGS Hoe"}, (err, user) => {
+  user.admin = true;
+  user.save()
+  console.log(user)})
 
 app.use(recipeRoutes);
 app.use(commentRoutes);

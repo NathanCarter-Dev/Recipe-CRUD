@@ -41,7 +41,7 @@ const middleware = require("../middleware");
   //LOGIN GOOGLE
   router.get('/google',
   passport.authenticate('google', { scope:
-  	[ 'email', 'profile' ] }
+  	['email', 'profile' ] }
 ));
 
   router.get("/logout", (req, res) =>{

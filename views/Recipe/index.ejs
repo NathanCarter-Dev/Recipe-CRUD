@@ -101,11 +101,11 @@
 <section id="sort">
   <div class="fluid-container recipes">
     <p class="d-inline-block">View All Recipes // </p>
-    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/newRecipes/1">New/  </a></p>
-    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/oldRecipes/1">Old/  </a></p>
-    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/trendingRecipes/1">Trending/  </a></p>
-    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/azRecipes/1">A-Z/  </a></p>
-    <p class="d-inline-block recipe-view"><a href="/recipes/viewby/zaRecipes/1">Z-A/  </a></p>
+    <p class="d-inline-block "><a class="recipe-view" href="/recipes/viewby/newRecipes/1">New/  </a></p>
+    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/oldRecipes/1">Old/  </a></p>
+    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/trendingRecipes/1">Trending/  </a></p>
+    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/azRecipes/1">A-Z/  </a></p>
+    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/zaRecipes/1">Z-A/  </a></p>
   </div>
 </section>
 
@@ -117,41 +117,41 @@
     <div class="row">
       <% recipes[i].content.forEach(function(recipe) { %>
         
-      <div class="col-12 col-md-6 col-lg-3">
+      <div class="col-12 col-md-6 col-xl-3">
         <div id="images" class="card image-responsive  m-2">
+          
           <div class="hovereffect">
           <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
           <div class="overlay">
-            <h2><%= recipe.name  %></h2>
+   
             <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
           </div>
           </div>
           <div class="card-body">
-            <p class="text-center"><%=recipe.name %> </p>
-            <div class="star">
-              <div class="rating">
-                <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star">☆</span>
-                <span data-star="<%=4 %>" data-id="<%=recipe._id%>" class="rating-4 star">☆</span>
-                <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star">☆</span>
-                <span data-star="<%=2 %>" data-id="<%=recipe._id%>"  class="rating-2 star">☆</span>
-                <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star">☆</span>
-                </div>
-                <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
-                  <span>☆</span>
-                  <span>☆</span>
-                  <span>☆</span>
-                  <span>☆</span>
-                  <span>☆</span>
-                </div>
-                
-            </div>
-            <p class="d-inline p-<%=recipe._id %>"><%=recipe.usersStarred%></p>
-            
+            <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+            <section>
+
+                <div class="stars">
+
+                  <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=3 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
+      
+                  <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+              </div>
+              </div>
+          
             <hr class="p-0 m-0">
             <div class="text-center">
-              <img class="recipe-image d-inline mr-2"src="<%=recipe.author.picture %>" alt="">
-              <p class="d-inline card-text m-0 p-0"><%=recipe.author.username%></p>
-              <p class="d-inline ml-2"><%= recipe.views%> Views</p>
+              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+              <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
             </div>
             
             <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
@@ -176,6 +176,13 @@
     </div>
 
   <% } %> 
+</div>
+
+<div class="footer">
+
+  <div class="footer-lower  d-flex justify-content-center align-items-center">
+    <p>© 2020 Copyright: RecipeWebsiteName.com</p>
+  </div>
 </div>
 
 <script type="text/javascript" src="../../js/starrating.js"></script>

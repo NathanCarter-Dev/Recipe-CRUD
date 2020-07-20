@@ -62,12 +62,11 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
       total = calculateTime(minutes, hours, mins);
 
   //set image address if user does not set one
-  if(req.body.recipe.image === "") {
+  if(req.body.recipe.image === undefined) {
     req.body.recipe.image = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
   } 
   Recipe.create(req.body.recipe, (err, newRecipe) => {
     try {
-      console.log("sdadsad")
       ingredient.forEach((ingredient)=> {
         newRecipe.ingredients.push(ingredient);
       })
@@ -87,7 +86,6 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
         newRecipe.method.push(method);
       })
       //save recipe and redirect
-      console.log(newRecipe)
       newRecipe.save();
       req.flash("success", "Recipe Posted.");
       res.redirect("/recipes")
@@ -113,7 +111,6 @@ router.get("/recipes/:id", (req,res) =>{
       recipe.views+=1;
       recipe.rating+=0.1
       recipe.save();
-      console.log(recipe)
       res.render("./Recipe/show", {recipe})
     } catch(err) {
       console.log(err)
@@ -218,7 +215,6 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
         Recipe.paginate({_id: { $in: user.favouritePosts}}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
           currentPage = (parseInt(search.page))
           //render search page and give the previous search to give to next page buttons as value
-          console.log(search)
           res.render("./Recipe/favourite", {pages: search.pages, search: search.docs, page: currentPage})
       });
       }
@@ -230,7 +226,6 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
   //POST UPVOTE ROUTES
   //Logic for favouriting posts
   router.post('/recipes/:id/favourite',  (req, res) => {
-    console.log("sent")
     if(req.user) {
       //find current user
       Recipe.findById(req.params.id, (err, foundRecipe) =>{
@@ -242,7 +237,6 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
           console.log(err) 
         } else {
               if(currentUser.favouritePosts.includes(req.params.id)) {
-                console.log("delete")
                 const index = currentUser.favouritePosts.indexOf(req.params.id)
                 currentUser.favouritePosts.splice(index, 1)
                 currentUser.save()
@@ -300,11 +294,16 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
       })
     
   })
+  //calculate the current star value after changes
   const calculateStars = (recipe, user, stars) => {
     recipe.usersStarred +=user
     recipe.totalStars += stars
+    //check if both values are 0 and set 0 if they are as it returns NaN
+    if(recipe.usersStarred === 0 && recipe.totalStars === 0) {
+      recipe.starStatus = 0;
+    } else {
     recipe.starStatus = recipe.totalStars / recipe.usersStarred
-    console.log(recipe.starStatus)
+    }
   }
 
  
@@ -332,7 +331,6 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
     const prevSearch = req.params.id
     currentPage = (parseInt(search.page))
     //render search page and give the previous search to give to next page buttons as value
-    console.log(search.pages)
     res.render("./Recipe/search", {type: "tag",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
   })
 })
