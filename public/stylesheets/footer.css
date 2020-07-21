@@ -4,7 +4,7 @@
   height: 30vh;
   margin-top: 50px;
   position: absolute;
-  background-color: #263238;
+  background-color: #60A531;
   
 }
 
@@ -16,7 +16,7 @@
   height: 4vh;
   width: 100%;
   box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.1), 0 0.5px 10px 0 rgba(0, 0, 0, 0.14);
-  background-color: #1E282D;
+  background-color: #538830;
 }
 .footer-lower p {
   color: white;

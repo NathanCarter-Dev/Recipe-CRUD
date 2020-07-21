@@ -20,8 +20,8 @@ router.get("/recipes", (req, res) => {
     Recipe.find({}).sort({rating: -1}).limit(8).exec((err, relevantRecipes) =>{
       Recipe.find({}).sort({date: -1}).limit(8).exec((err, newRecipes) =>{
         //give recipe types title
-        const relevant = {content: relevantRecipes, name: "Trending"}
-        const newRecipe = {content: newRecipes, name: "New"}
+        const relevant = {content: relevantRecipes, name: "Trending", link: "/recipes/viewby/trendingRecipes/1"}
+        const newRecipe = {content: newRecipes, name: "New", link: "/recipes/viewby/newRecipes/1"}
         recipes = [relevant, newRecipe]
         if(req.user) {
           //find user and render page
@@ -62,7 +62,7 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
       total = calculateTime(minutes, hours, mins);
 
   //set image address if user does not set one
-  if(req.body.recipe.image === undefined) {
+  if(req.body.recipe.image === "") {
     req.body.recipe.image = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
   } 
   Recipe.create(req.body.recipe, (err, newRecipe) => {

@@ -2,26 +2,29 @@
 <link type="text/css" rel="stylesheet" href="../../stylesheets/main.css">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="./js/favourite.js"></script>
+
 
 <link type="text/css" rel="stylesheet" href="./stylesheets/index.css">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 
 <% if(randomRecipe.length > 1) { %> 
 <div class="fluid-container mx-2 featured">
-  <h2>Featured</h1>
+  <h2 class="title my-0 py-0">Featured <i class="fas fa-crown"></i></h1>
     <hr class="m-0 p-0 w-25">
   <div class="row">
     <div class="col-6 my-3">
-      <div class="card">
-        <img class="random-image image-responsive" src="<%= randomRecipe[0].image %>" alt="">
+      <div class="card featured-card">
+        <a href="/recipes/<%=randomRecipe[0]._id%>"><img class="random-image image-responsive" src="<%= randomRecipe[0].image %>" alt=""></a>
+        <p class="random-recipe-name"><%= randomRecipe[0].name%></p>
         <p><%= randomRecipe[0].description  %></p>
       </div>
       
     </div>
     <div class="col-6 my-3">
       <div class="card">
-        <img class="random-image image-responsive" src="<%= randomRecipe[1].image %>" alt="">
+        <a href="/recipes/<%=randomRecipe[1]._id%>"><img class="random-image image-responsive" src="<%= randomRecipe[1].image %>" alt=""></a>
+        
+        <p class="random-recipe-name"><%= randomRecipe[1].name%></p>
         <p><%= randomRecipe[1].description  %></p>
       </div>
     </div>
@@ -111,15 +114,30 @@
 
 <div class="fluid-container recipes">
 <% for(i = 0; i < recipes.length; i++) {%>
-
-    <p class="title p-0 m-0"><%= recipes[i].name %> Recipes </p>
+    <p class="title pl-3 m-0"><%= recipes[i].name %> Recipes</p>
+    
     <hr class="m-0 p-0">
-    <div class="row">
+    <div class="row mb-5">
       <% recipes[i].content.forEach(function(recipe) { %>
-        
+
       <div class="col-12 col-md-6 col-xl-3">
         <div id="images" class="card image-responsive  m-2">
-          
+          <% if(currentUser) { %> 
+            <% if(user.favouritePosts.includes(recipe._id)) { %> 
+              <div class="favourite">
+              <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+              ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
+              </a>
+            </div>
+            <% } else {%> 
+              <div class="favourite">
+                <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                  ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
+                  </a>
+            </div>
+            <% } %>
+            <% } %> 
+
           <div class="hovereffect">
           <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
           <div class="overlay">
@@ -129,14 +147,14 @@
           </div>
           <div class="card-body">
             <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+
             <section>
-
+              
                 <div class="stars">
-
                   <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
                   <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
                   <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
-                  <span data-star="<%=3 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
                   <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
       
                   <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
@@ -147,6 +165,7 @@
                     <span><i class="fa fa-star"></i></span>
               </div>
               </div>
+
           
             <hr class="p-0 m-0">
             <div class="text-center">
@@ -156,26 +175,16 @@
             
             <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
 
-            <% if(currentUser) { %> 
-              <% if(user.favouritePosts.includes(recipe._id)) { %> 
-                <button class="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
-                data-post-id="<%=recipe._id  %>">Unfavoruite
-               </button>
-              <% } else {%> 
-                <button class="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
-                data-post-id="<%=recipe._id  %>">Favoruite
-               </button>
-              <% } %>
-              <% } %> 
-
           </div>
         </div>
       </div>
       
       <% }) %> 
+      
     </div>
-
+    
   <% } %> 
+  
 </div>
 
 <div class="footer">
@@ -184,6 +193,6 @@
     <p>© 2020 Copyright: RecipeWebsiteName.com</p>
   </div>
 </div>
-
+<script type="text/javascript" src="./js/favourite.js"></script>
 <script type="text/javascript" src="../../js/starrating.js"></script>
 <%- include("../partials/footer")  %> 

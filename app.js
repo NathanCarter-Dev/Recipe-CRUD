@@ -77,7 +77,7 @@ Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
   if (!err) {
     
     random = results
-    console.log(random)
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
   } 
 });
 

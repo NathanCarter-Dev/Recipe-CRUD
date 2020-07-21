@@ -2,7 +2,7 @@ const rating = document.querySelectorAll('[class^="rating-"]')
 const post = document.querySelectorAll(".post").forEach((post) => {
   
   var status = post.dataset.starwidth;
-  const width = status * 25
+  const width = status * 25.55
   console.log(width)
   post.style.width = width +"px"
 })
@@ -16,7 +16,7 @@ const post = document.querySelectorAll(".post").forEach((post) => {
       axios.post("/recipes/rating", {data: {postId, stars}}).then((res)=> {
         console.log(res)
         var status = res.data.recipe.starStatus;
-        const width = status * 25
+        const width = status * 25.55
         
         if(res.data.user.starredPosts.includes(postId)) {
           const p = document.querySelectorAll('.p-' + postId)
