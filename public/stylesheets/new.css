@@ -4,6 +4,7 @@ html {
 }
 
 .form {
+  animation: 1s ease-out 0s 1 opacity;
   background-color: #FFFFFF;
   border: 1px solid #F1F1F1;
 }
@@ -11,8 +12,59 @@ html {
 .suggested {
   background-color: #FFFFFF;
   border: 1px solid #F1F1F1;
+  animation: 1s ease-out 0s 1 opacity;
 }
 body {
+  
   background-color: #FAFAFA;
   padding-top: 70px;
+}
+h1 {
+  font-family: 'Raleway', sans-serif;
+}
+h2 {
+  text-transform: uppercase;
+}
+
+
+label {
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+.title {
+  font-weight: 600;
+  background-color: #60A531;
+  color: white;
+}
+
+.form-container{
+  margin: 0 30px;
+}
+
+input {
+  padding: 5px;
+  border: 2px solid #D5D6D8;
+}
+
+.btn {
+  font-size: 1.6rem;
+  font-family: 'PT Sans Narrow', sans-serif;
+  background-color: #60A531;
+}
+.btn:hover {
+  background-color: #4f8a28;
+}
+
+img {
+  object-fit: cover;
+  width: 100%;
+  height: 30vh;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }

@@ -75,26 +75,35 @@ app.use(methodOverride("_method"));
 var random = []
 Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
   if (!err) {
-    
+    console.log(results)
     random = results
-    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
   } 
 });
 
 //update random recipe
-  cron.schedule('* * * * *', () => {
+  cron.schedule('0 * * * *', () => {
     Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
       if (!err) {
         random = results
+        
       } 
     });
   });
+
+  //reset ratings 
+  cron.schedule('59 23 * * *', () => {
+    Recipe.updateMany({}, {rating: 0},(err, results) =>{
+      if (!err) {
+
+      } 
+    });
+  });
+
 //middleware
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error")
   res.locals.success = req.flash("success")
-
   res.locals.randomRecipe = random;
   next();
 }) 

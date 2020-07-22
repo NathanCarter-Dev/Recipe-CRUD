@@ -4,71 +4,104 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <link rel="stylesheet" href="../../../stylesheets/search.css">
 
+
 <h1>Page <%= page %> </h1>
 <% if(search.length > 0) { %> 
 <div class="fluid-container ">
   <div class="row">
 <% search.forEach(function (recipe) {%> 
-      <div class="col-12 col-md-6 col-lg-3">
-        <div id="images" class="card image-responsive">
-          <div class="hovereffect">
-          <img class="card-img-top hovereffect" src="<%= recipe.image %> " alt="Card image cap">
-          <div class="overlay">
-            <h2><%= recipe.name  %></h2>
-            <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
-          </div>
-          </div>
-          <div class="card-body">
-            <p class="card-text"><%= recipe.description %> </p>
-
-            <% if(currentUser) { %> 
-              <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
-                <button id="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
-                data-post-id="<%=recipe._id  %>">Unfavourite
-               </button>
-              <% } else {%> 
-                <button id="favourite-<%= recipe._id %>" onclick="actOnPost(event)";
-                data-post-id="<%=recipe._id  %>">Favourite
-               </button>
-              <% } %>
-              <% } %> 
-          </div>
+      
+  <div class="col-12 col-md-6 col-xl-3">
+    <div id="images" class="card image-responsive  m-2">
+      <% if(currentUser) { %> 
+        <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
+          <div class="favourite">
+          <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+          ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
+          </a>
         </div>
+        <% } else {%> 
+          <div class="favourite">
+            <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+              ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
+              </a>
+        </div>
+        <% } %>
+        <% } %> 
+
+      <div class="hovereffect">
+      <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
+      <div class="overlay">
+
+        <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
       </div>
+      </div>
+      <div class="card-body">
+        <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+
+        <section>
+          
+            <div class="stars">
+              <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+              <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+              <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+              <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+              <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
+  
+              <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                <span><i class="fa fa-star"></i></span>
+                <span><i class="fa fa-star"></i></span>
+                <span><i class="fa fa-star"></i></span>
+                <span><i class="fa fa-star"></i></span>
+                <span><i class="fa fa-star"></i></span>
+          </div>
+          </div>
+        <hr class="p-0 m-0">
+        <div class="text-center">
+          <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+          <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
+        </div>
+        
+        <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
+
+      </div>
+    </div>
+  </div>
+  
   <% }) %> 
 </div>
 
 <% if(type === "search") { %> 
 <% if(pages > page) { %> 
 <form action="/recipes/search?page=<%= page + 1 %>" method="POST">
-<button value="<%=prevSearch %>" name="search">Next Page</button>
+<button class="d-flex btn btn-success btn-next" value="<%=prevSearch %>" name="search">Next Page</button>
 </form>
 <% } %>
 <% if(page > 1) { %>  
 <form action="/recipes/search?page=<%= page - 1 %>" method="POST">
-  <button value="<%=prevSearch %>" name="search">Previous Page</button>
+  <button class="btn btn-success btn-prev" value="<%=prevSearch %>" name="search">Previous Page</button>
   </form>
 <% } %> 
 <% } else if(type === "tag"){ %> 
 <% if(pages > page) { %> 
   <form action="/recipes/search/<%=prevSearch%>/<%= page + 1 %>">
-  <button value="<%=prevSearch %>" name="search">Next Page</button>
+  <button class="btn btn-success btn-next" value="<%=prevSearch %>" name="search">Next Page</button>
   </form>
   <% } %>
   <% if(page > 1) { %>  
   <form action="/recipes/search/<%=prevSearch%>/<%= page - 1 %>">
-    <button value="<%=prevSearch%>" name="search">Previous Page</button>
+    <button class="btn btn-success btn-prev" value="<%=prevSearch%>" name="search">Previous Page</button>
     </form>
   <% } %> 
   <% } else { %>
     <% if(pages > page) { %> 
     <form action="/recipes/viewby/<%=prevSearch%>/<%= page + 1 %>">
-      <button value="<%=prevSearch %>" name="search">Next Page</button>
+      <button class="btn btn-success btn-next" value="<%=prevSearch %>" name="search">Next Page</button>
       </form>
     <% } %> 
       <% if(page > 1) { %>  
       <form action="/recipes/viewby/<%=prevSearch%>/<%= page - 1 %>">
-        <button value="<%=prevSearch %>" name="search">Previous Page</button>
+        <button class="btn btn-success btn-prev" value="<%=prevSearch %>" name="search">Previous Page</button>
         </form>
         <% } %>
   <% } %> 
@@ -83,5 +116,9 @@
   
   
 <% } %> 
+
+
+<script type="text/javascript" src="../../../js/starrating.js"></script>
+<script type="text/javascript" src="../../../js/favourite.js"></script>
   
 <%- include("../partials/footer")  %> 

@@ -15,6 +15,9 @@ const express = require("express"),
       }
     })
   })
+
+  //reference the schema inside of recipe as array
+  
   router.post("/recipes/:id/comments", middleware.isLoggedIn, (req, res) =>{
       Comment.create({
         author: {

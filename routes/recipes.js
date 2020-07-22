@@ -42,7 +42,16 @@ router.get("/recipes", (req, res) => {
 
 //NEW ROUTE
 router.get("/recipes/new", middleware.isLoggedIn,(req, res) =>{
-  res.render("./Recipe/new");
+  //find recipes to suggest to the user
+  Recipe.findRandom({}, {rating:-1}, {limit: 2}, (err, results) =>{
+    if (!err) {
+      console.log(results)
+      random = results
+    } 
+  });
+  Recipe.findRandom({}, {}, {limit: 3},(err, recipe) => {
+  res.render("./Recipe/new", {recipe});
+  })
 })
 
 //CREATE ROUTE
@@ -215,7 +224,7 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
         Recipe.paginate({_id: { $in: user.favouritePosts}}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
           currentPage = (parseInt(search.page))
           //render search page and give the previous search to give to next page buttons as value
-          res.render("./Recipe/favourite", {pages: search.pages, search: search.docs, page: currentPage})
+          res.render("./Recipe/favourite", {pages: search.pages, search: search.docs, page: currentPage, user})
       });
       }
     })

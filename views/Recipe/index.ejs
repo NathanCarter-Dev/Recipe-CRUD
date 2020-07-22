@@ -9,25 +9,34 @@
 
 <% if(randomRecipe.length > 1) { %> 
 <div class="fluid-container mx-2 featured">
-  <h2 class="title my-0 py-0">Featured <i class="fas fa-crown"></i></h1>
+  <h2 class="title my-0 py-0">Featured</h1>
     <hr class="m-0 p-0 w-25">
   <div class="row">
+    <% for(let i = 0; i<randomRecipe.length; i++) { %> 
     <div class="col-6 my-3">
-      <div class="card featured-card">
-        <a href="/recipes/<%=randomRecipe[0]._id%>"><img class="random-image image-responsive" src="<%= randomRecipe[0].image %>" alt=""></a>
-        <p class="random-recipe-name"><%= randomRecipe[0].name%></p>
-        <p><%= randomRecipe[0].description  %></p>
+      <div class="card featured-card zoom">
+        <div class="featured-stars">
+          <span class="rating-1 "><i class="fa fa-star"></i></span>
+          <span  class="rating-2 "><i class="fa fa-star"></i></span>
+          <span  class="rating-3 "><i class="fa fa-star"></i></span>
+          <span   class="rating-4 "><i class="fa fa-star"></i></span>
+          <span class="rating-5 "><i class="fa fa-star"></i></span>
+
+          <div class="featured-bottom-star post post-<%=randomRecipe[i]._id%>"  data-starWidth="<%=randomRecipe[i].starStatus%>">
+            <span><i class="fa fa-star"></i></span>
+            <span><i class="fa fa-star"></i></span>
+            <span><i class="fa fa-star"></i></span>
+            <span><i class="fa fa-star"></i></span>
+            <span><i class="fa fa-star"></i></span>
+      </div>
+      </div>
+        <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-responsive" src="<%= randomRecipe[i].image %>" alt=""></a>
+        <p class="random-recipe-name"><%= randomRecipe[i].name%></p>
+        <p class="text-center featured-desc"><%= randomRecipe[i].description  %></p>
       </div>
       
     </div>
-    <div class="col-6 my-3">
-      <div class="card">
-        <a href="/recipes/<%=randomRecipe[1]._id%>"><img class="random-image image-responsive" src="<%= randomRecipe[1].image %>" alt=""></a>
-        
-        <p class="random-recipe-name"><%= randomRecipe[1].name%></p>
-        <p><%= randomRecipe[1].description  %></p>
-      </div>
-    </div>
+  <% } %> 
   </div>
 </div>
 <% } %> 
@@ -148,8 +157,7 @@
           <div class="card-body">
             <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
 
-            <section>
-              
+            <section>  
                 <div class="stars">
                   <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
                   <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>

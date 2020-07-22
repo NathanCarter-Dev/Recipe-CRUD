@@ -1,57 +1,69 @@
 <%- include("../partials/header")  %> 
 
 <link type="text/css" rel="stylesheet" href="/stylesheets/new.css">
-
+<link rel="stylesheet" href="/stylesheets/search.css">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <div class="container">
 <div class="row">
-  <div class="col-sm-12 col-md-7 form">
-    <h1 class="text-center">Upload Recipe</h1>
+  <div class="col-sm-12 col-md-8  ">
+    <h1 class="text-center title">Upload</h1>
     <hr>
-    <form action="/recipes" method="POST">
-      <div class="container text-center form-group">
-        <input class="w-100" placeholder="dish name" type="text" name="recipe[name]">
-        <input class="w-100 mt-3"  placeholder="image link" type="text" name="recipe[image]">
-        <div class="mt-3">
-          <input class="w-100 h-25 d-inline-block" placeholder="recipe description" type="text" name="recipe[description]">
+    <form class="form" action="/recipes" method="POST">
+      <section class="form-container">
+
+
+        <label class="w-100">Dish Name
+          <input class="w-100" maxlength="18" minlength="4" placeholder="Spicy Curry" required type="text" name="recipe[name]">
+        </label>
+        <label class="w-100 mt-3"> Image
+          <input class="w-100"  placeholder="https://imageurl.com" type="text" name="recipe[image]">
+        </label>
+
+        <label class="w-100 mt-3"> Description
+            <input required class="w-100 h-25 d-inline-block" placeholder="recipe description" type="text" name="recipe[description]" maxlength="50" minlength="4">
+        </label>
+
+
+        <div class="mt-3 w-100 text-center">
+          <label>prep <input required max="60" placeholder="hours" type="text" name="recipe[prepHour]"></label>
+          <input required  max="60" placeholder="minutes" type="number" name="recipe[prepMinute]">
         </div>
-        <div class="mt-3 w-100">
-          <label>prep <input max="60" placeholder="hours" type="text" name="recipe[prepHour]"></label>
-          <input  max="60" placeholder="minutes" type="number" name="recipe[prepMinute]">
+        <div class="mt-3 text-center">
+          <label>cook <input required max="60"  placeholder="hours" type="text" name="recipe[cookHour]"></label>
+          <input required max="60"  placeholder="minutes" type="text" name="recipe[cookMinute]">
         </div>
-        <div class="mt-3">
-          <label>cook <input max="60"  placeholder="hours" type="text" name="recipe[cookHour]"></label>
-          <input max="60"  placeholder="minutes" type="text" name="recipe[cookMinute]">
-        </div>
-          <input class="w-100"  placeholder="servings" type="text" name="recipe[servings]">
+        <label class="w-100"> Servings
+          <input class="w-100" required placeholder="servings" type="text" name="recipe[servings]">
+        </label>
+
     
-        <div class="mt-3">
-          <textarea class="w-100" placeholder="ingredients... Put each ingredient on a new line using the enter key.
-          example:
-          100g flour.
-          2 eggs." name="ingredients"cols="30" rows="10"></textarea>
-        </div>
-      <div class="mt-3">
-        <textarea class="w-100" placeholder="method... Put each method segment on a new line using the enter key.
-        example:
-        Mix for 5 minutes.
-        Turn oven on to 180 degrees." name="method"cols="30" rows="10"></textarea>
-      </div>
-      <h2>Select Relevant Tags</h2>
+        <label class="mt-3 w-100"> Ingredients
+          <textarea class="w-100" required placeholder="Seperate ingredients with a new line." name="ingredients"cols="30" rows="10"></textarea>
+        </label>
+
+        <label class="w-100 mt-3"> Method
+          <textarea class="w-100" placeholder="Seperate method stages with a new line." name="method"cols="30" rows="10"></textarea>
+        </label>
+        
+      <h2>Select relevant categories</h2>
+      <hr class="mt-3 p-0">
       <label>Indian
         <input type="checkbox" name="tags[indian]" id="indian" value="indian">
-      </label>
+      </label> 
       <label>Chinese
         <input type="checkbox" name="tags[chinese]" id="chinese" value="chinese">
-      </label>
+      </label> 
       <label>American
         <input type="checkbox" name="tags[american]" id="american" value="american">
-      </label>
+      </label> 
       <label>Japanise
         <input type="checkbox" name="tags[japanise]" id="japanise" value="japanise">
-      </label>
+      </label> 
       <label>Pizza
         <input type="checkbox" name="tags[pizza]" id="pizza" value="pizza">
-      </label>
+      </label> 
       <label>Turkish
         <input type="checkbox" name="tags[turkish]" id="turkish" value="turkish">
       </label>
@@ -77,18 +89,79 @@
         <input type="checkbox" name="tags[cake]" id="cake" value="cake">
       </label>
         <div>
-          <button class="w-100 btn btn-success">Submit</button>
+          <button class="btn btn-success">Submit Post</button>
         </div>
-        
-      </div>
+      </section>
+      
     </form>
-
   </div>
-  <div class="col-5 suggested">
-  <h1>hi</h1>
+  <div class="col-4 ">
+    <div class="suggested h-100">
+      <h2 class="text-center title">Dont miss out!</h2>
+      <% recipe.forEach((recipe) => { %> 
+        <div id="images" class="card image-responsive  m-2">
+          <% if(currentUser) { %> 
+            <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
+              <div class="favourite">
+              <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+              ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
+              </a>
+            </div>
+            <% } else {%> 
+              <div class="favourite">
+                <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                  ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
+                  </a>
+            </div>
+            <% } %>
+            <% } %> 
+
+          <div class="hovereffect">
+          <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
+          <div class="overlay">
+   
+            <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
+          </div>
+          </div>
+          <div class="card-body">
+            <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+
+            <section>  
+                <div class="stars">
+                  <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
+      
+                  <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+              </div>
+              </div>
+
+          
+            <hr class="p-0 m-0">
+            <div class="text-center">
+              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+              <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
+            </div>
+            
+            <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
+
+          </div>
+        </div>
+      <% }) %> 
+    </div>
+
 </div>
 </div>
 
  
 </div>
+<script type="text/javascript" src="/js/favourite.js"></script>
+<script type="text/javascript" src="/js/starrating.js"></script>
 <%- include("../partials/footer")  %> 
