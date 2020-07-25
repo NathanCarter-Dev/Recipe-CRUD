@@ -2,12 +2,13 @@
 <link type="text/css" rel="stylesheet" href="../../stylesheets/main.css">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<script type="text/javascript" src="../../js/replaceImages.js"></script>
 
 <link type="text/css" rel="stylesheet" href="./stylesheets/index.css">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 
-<% if(randomRecipe.length > 1) { %> 
+
+<% if(randomRecipe && randomRecipe.length > 1) { %> 
 <div class="fluid-container mx-2 featured">
   <h2 class="title my-0 py-0">Featured</h1>
     <hr class="m-0 p-0 w-25">
@@ -30,7 +31,7 @@
             <span><i class="fa fa-star"></i></span>
       </div>
       </div>
-        <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-responsive" src="<%= randomRecipe[i].image %>" alt=""></a>
+        <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-responsive" onerror="imgError(this)" src="<%= randomRecipe[i].image %>" alt=""></a>
         <p class="random-recipe-name"><%= randomRecipe[i].name%></p>
         <p class="text-center featured-desc"><%= randomRecipe[i].description  %></p>
       </div>
@@ -148,15 +149,19 @@
             <% } %> 
 
           <div class="hovereffect">
-          <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
+          <img class="card-img-top hovereffect" onerror="imgError(this)" src="<%= recipe.image %>" alt="Card image cap">
           <div class="overlay">
    
-            <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
+            <a class="info" href="/recipes/<%= recipe._id %>">See Recipe</a>
           </div>
+
           </div>
+          
           <div class="card-body">
             <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
-
+            <%recipe.dietary.forEach((dietary) => { %>
+              <p class="d-inline dietary"><%=dietary %> </p>
+            <% }) %> 
             <section>  
                 <div class="stars">
                   <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
@@ -177,7 +182,7 @@
           
             <hr class="p-0 m-0">
             <div class="text-center">
-              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a></p>
               <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
             </div>
             

@@ -1,5 +1,6 @@
 <%- include("../partials/header")  %> 
 <link type="text/css" rel="stylesheet" href="../../../stylesheets/search.css">
+<script type="text/javascript" src="../../../js/replaceImages.js"></script>
 <h1>favourites</h1>
 <div class="fluid-container">
   <div class="row">
@@ -23,7 +24,7 @@
         <% } %> 
 
       <div class="hovereffect">
-      <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
+      <img class="card-img-top hovereffect " onerror="imgError(this)" src="<%= recipe.image %> " alt="Card image cap">
       <div class="overlay">
 
         <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
@@ -51,7 +52,7 @@
           </div>
         <hr class="p-0 m-0">
         <div class="text-center">
-          <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+          <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a> </p>
           <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
         </div>
         

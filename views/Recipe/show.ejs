@@ -1,75 +1,251 @@
 <%- include("../partials/header")  %> 
 <link type="text/css" rel="stylesheet" href="../../stylesheets/show.css">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="../../js/replaceImages.js"></script>
 
-  <div class="container">
-    <h1><%= recipe.name %> </h1>
+  <div class="fluid-container">
     <div class="row">
-      <div class="col-6">
-        <img src="<%= recipe.image %> " alt="Responsive image" class="rounded mx-auto d-block img-thumbnail img-fluid">
-      </div>
-      <div class="col-6 ">
-        <div class="card d-block">
-          <div class="card-header">
-            Info
+      <div class="col-12 col-md-9">
+        <div class="content">
+        <h1 class="text-center mb-0"><i class="px-2 fas fa-utensils"></i> <%= recipe.name %> </h1>
+        <div class="row ">
+          <div class="col-12 col-md-8">
+            <div id="images" class="card image-responsive  m-2">
+              <% if(currentUser) { %> 
+                <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
+                  <div class="favourite">
+                  <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                  ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
+                  </a>
+                </div>
+                <% } else {%> 
+                  <div class="favourite">
+                    <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                      ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
+                      </a>
+                </div>
+                <% } %>
+                <% } %> 
+    
+              <div class="">
+              <img id="image" class="card-img-top content-card" onerror="imgError(this)" src="<%=recipe.image %> " alt="Card image cap">
+    
+              </div>
+              <div class="card-body">
+    
+                <section>  
+                    <div class="stars">
+                      <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
+          
+                      <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                  </div>
+                  </div>
+    
+              
+                <hr class="p-0 m-0">
+                <div class="text-center">
+                  <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a></p>
+                  <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
+                </div>
+                
+                <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
+    
+              </div>
+            </div>
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Prep: <%= recipe.prepHour%> hours <%= recipe.prepMinute %> minutes </li>
-            <li class="list-group-item">Cook: <%= recipe.cookHour %> hours <%= recipe.cookMinute %> minutes </li>
-            <li class="list-group-item">Total: <%= recipe.total %>  </li>
-            <li class="list-group-item">Servings: <%= recipe.servings %> </li>
+          <div class="col-12 col-md-4">
+            <div class="card cook-info">
+              <div class="card-header">
+                Info
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Prep: <%= recipe.prepHour%> hours <%= recipe.prepMinute %> minutes </li>
+                <li class="list-group-item">Cook: <%= recipe.cookHour %> hours <%= recipe.cookMinute %> minutes </li>
+                <li class="list-group-item">Total: <%= recipe.total %>  </li>
+                <li class="list-group-item">Servings: <%= recipe.servings %> </li>
+              </ul>
+            </div>
+          </div>
+          <ul>
+            <% recipe.dietary.forEach((dietary) => { %>
+              <span class="dietary">
+                <p class="d-inline"><%=dietary%> </p>
+              </span>
+              
+            <% }) %> 
           </ul>
         </div>
-      </div>
-    </div>
-    <% if(currentUser && recipe.author.id.equals(currentUser._id)|| currentUser && currentUser.admin) { %> 
-    <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-      <button class="d-inline float-right btn btn-danger">Delete</button>
-      </form>  
-     <a class="btn btn-info" href="/recipes/<%= recipe._id %>/edit ">Edit</a>
-    <% } %> 
-     <a class="btn btn-info" href="/recipes">Back</a>
-     <p>Created by <img class="author-image"src="<%=recipe.author.picture%>"  alt=""><%=recipe.author.username%> on <%= recipe.date %></p>
-  </div>
-
-  <hr>
-  <div class="container">
-    <h2 >Ingredients</h2>
-    <ul class="list-group list-group-flush">
-  <% recipe.ingredients.forEach(function(recipe){%> 
-    <li class="list-group-item"><input type="checkbox"> <%= recipe %></li>
-    <%})  %> 
-  </ul>
-
-  <h2 >Method</h2>
-  <% recipe.method.forEach(function(method){%> 
-    <li class="list-group-item"> <%= method %></li>
-    <%})  %> 
-
-  <div class="card-header">
-    <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments ">Create Comment</a>
-  </div>
-</div>
-<div class="container-fluid">
-  <% recipe.comments.forEach(function(comment) { %>
-    <div class="card ">
-      <div class="card-body p-1">
-        <%if(comment.picture) { %>
-        <a href="/profile/<%= comment.author.id%>"><img class="comment-image" src="<%= comment.picture %>" alt=""></a> 
-        <% } else {%>
-          <a href="/profile/<%=comment.author.id%>"><img class="comment-image" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
-
+        <% if(currentUser && recipe.author.id.equals(currentUser._id)|| currentUser && currentUser.admin) { %> 
+        <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+          <button class="d-inline float-right btn btn-danger">Delete</button>
+          </form>  
+         <a class="btn btn-info float-right" href="/recipes/<%= recipe._id %>/edit ">Edit</a>
         <% } %> 
-        <%= comment.author.username %> - <%= comment.text %> 
-        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.admin) { %> 
-        <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments/<%= comment._id %>/edit">Edit</a>
-        <form action="/recipes/<%= recipe._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-        <button class="btn btn-warning">Delete</button>
-        <% } %> 
-        </form>
+         <a class="btn btn-info float-right" href="/recipes">Back</a>
+         <p>Created by <img class="author-image"src="<%=recipe.author.picture%>"  alt=""><%=recipe.author.username%> on <%= recipe.date %></p>
+
+         <hr>
+         <div class="container">
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Ingredients
+                  </button>
+                </h2>
+              </div>
+          
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <h2>Ingredients</h2>
+                  <% recipe.ingredients.forEach(function(recipe){%> 
+                    
+                    <li class="list-group-item"><input type="checkbox"> <%= recipe %></li>
+                    <%})  %> 
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Method
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                  <h2>Method</h2>
+                  <% for(let i = 0; i< recipe.method.length; i++) {%> 
+                    <li class="list-group-item"><%= recipe.method[i] %></li>
+                    <%}  %> 
+                </div>
+              </div>
+            </div>
+          </div>
+           
+ 
+       
+         
+
+       
+         <div class="card-header">
+           <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments ">Create Comment</a>
+         </div>
+       </div>
+      
+       </div>
+       <div class="container-fluid">
+        <% recipe.comments.forEach(function(comment) { %>
+          <div class="card ">
+            <div class="card-body p-1">
+              <div class="profile">
+                <p class=""><a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a></p>
+              <%if(comment.picture) { %>
+                
+              <a href="/profile/<%= comment.author.id%>"><img class="comment-image" src="<%= comment.picture %>" alt=""></a> 
+              
+              <% } else {%>
+                <a href="/profile/<%=comment.author.id%>"><img class="comment-image" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+      
+              <% } %> 
+              <p class="d-inline ml-3"><%= comment.text %></p>
+            </div>
+              
+              <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.admin) { %> 
+              <a class="btn btn-success edit" href="/recipes/<%= recipe._id %>/comments/<%= comment._id %>/edit">Edit</a>
+              <form action="/recipes/<%= recipe._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+              <button class="btn btn-warning del">Delete</button>
+              <% } %> 
+              </form>
+            </div>
+          </div>
+        <%})%>
+        </div>
       </div>
-    </div>
-  <%})%>
+      
+       <div class="col-12 col-md-3">
+         <div class="content">
+          <h1 class="text-center">Must See!</h1>
+          <% suggested.forEach((recipe) => { %> 
+            <div id="images" class="card image-responsive  m-2">
+              <% if(currentUser) { %> 
+                <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
+                  <div class="favourite">
+                  <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                  ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
+                  </a>
+                </div>
+                <% } else {%> 
+                  <div class="favourite">
+                    <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                      ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
+                      </a>
+                </div>
+                <% } %>
+                <% } %> 
+    
+              <div class="hovereffect">
+              <img class="card-img-top suggested-card hovereffect "onerror="imgError(this)" src="<%=recipe.image %>"  alt="Card image cap">
+              <div class="overlay">
+       
+                <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
+              </div>
+              </div>
+              <div class="card-body">
+                <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+    
+                <section>  
+                    <div class="stars">
+                      <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                      <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
+          
+                      <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                  </div>
+                  </div>
+    
+              
+                <hr class="p-0 m-0">
+                <div class="text-center">
+                  <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+                  <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
+                </div>
+                
+                <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
+    
+              </div>
+            </div>
+          <% }) %> 
+         </div>
+        
+      </div>
+
+      </div>
+      
+
 </div>
-  
+<script type="text/javascript" src="../../js/favourite.js"></script>
+<script type="text/javascript" src="../../js/starrating.js"></script>
 
   <%- include("../partials/footer")  %> 

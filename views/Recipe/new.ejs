@@ -5,6 +5,8 @@
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="/js/replaceImages.js"></script>
+
 <div class="container">
 <div class="row">
   <div class="col-sm-12 col-md-8  ">
@@ -40,14 +42,31 @@
 
     
         <label class="mt-3 w-100"> Ingredients
-          <textarea class="w-100" required placeholder="Seperate ingredients with a new line." name="ingredients"cols="30" rows="10"></textarea>
+          <textarea class="w-100" required placeholder="Separate ingredients with a new line." name="ingredients"cols="30" rows="10"></textarea>
         </label>
 
         <label class="w-100 mt-3"> Method
-          <textarea class="w-100" placeholder="Seperate method stages with a new line." name="method"cols="30" rows="10"></textarea>
+          <textarea class="w-100" placeholder="Separate method stages with a new line." name="method"cols="30" rows="10"></textarea>
         </label>
         
       <h2>Select relevant categories</h2>
+      <div>
+        <label>Vegetarian
+          <input value="V" name="dietary[vegetarian]" type="checkbox">
+        </label>
+        <label>Vegan
+          <input value="VE" name="dietary[vegan]" type="checkbox">
+        </label>
+        <label>Dairy-Free
+          <input value="DF" name="dietary[dairyFree]" type="checkbox">
+        </label>
+        <label>Gluten-Free
+          <input value="GF" name="dietary[glutenFree]" type="checkbox">
+        </label>
+
+      </div>
+      
+
       <hr class="mt-3 p-0">
       <label>Indian
         <input type="checkbox" name="tags[indian]" id="indian" value="indian">
@@ -95,9 +114,10 @@
       
     </form>
   </div>
-  <div class="col-4 ">
-    <div class="suggested h-100">
+  <div class="col-12 col-md-4 ">
+    <div class="suggested">
       <h2 class="text-center title">Dont miss out!</h2>
+      <% if(recipe) { %> 
       <% recipe.forEach((recipe) => { %> 
         <div id="images" class="card image-responsive  m-2">
           <% if(currentUser) { %> 
@@ -117,7 +137,7 @@
             <% } %> 
 
           <div class="hovereffect">
-          <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
+          <img class="card-img-top hovereffect " onerror="imgError(this)" src="<%= recipe.image %> " alt="Card image cap">
           <div class="overlay">
    
             <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
@@ -146,7 +166,7 @@
           
             <hr class="p-0 m-0">
             <div class="text-center">
-              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"  src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
               <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
             </div>
             
@@ -155,6 +175,7 @@
           </div>
         </div>
       <% }) %> 
+      <% } %> 
     </div>
 
 </div>

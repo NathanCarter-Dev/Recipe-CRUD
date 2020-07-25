@@ -38,7 +38,7 @@ const express = require("express"),
               recipe.save( (err, recipe)=> {
                 if(err) {
                 } else {
-                  console.log(recipe);
+
                   res.redirect("/recipes/" + req.params.id);
                 }
                 });

@@ -30,7 +30,7 @@
         <% } %> 
 
       <div class="hovereffect">
-      <img class="card-img-top hovereffect " src="<%= recipe.image %> " alt="Card image cap">
+      <img class="card-img-top hovereffect " onerror="imgError(this)" src="<%= recipe.image %> " alt="Card image cap">
       <div class="overlay">
 
         <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>

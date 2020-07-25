@@ -24,7 +24,13 @@ div h2 {
 
   pointer-events:none
 }
-
+.dietary {
+  border-radius: 50%;
+  color: white;
+  font-weight: 600;
+  margin-right: 0.2rem;
+  background-color: rgba(96,165,49, 100%);
+}
 .featured-stars{
   background-color: rgba(96,165,49, 20%);
   left: 0;

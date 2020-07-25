@@ -1,18 +1,321 @@
 body {
+  background-color: #FAFAFA;
   padding-top: 70px;
+}
+
+.content {
+  background-color: white;
+  padding: 12px;
 }
 
 .comment-image {
   width: 3vw;
   height: 3vw;
-  border-radius: 50%;
+  
   object-fit: cover;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
 }
+.profile {
+  position: relative;
+  font-family: 'Raleway', sans-serif;
+}
+p {
+  font-family: 'Raleway', sans-serif;
+}
 .author-image {
+  margin: 0;
   width: 2vw;
   height: 2vw;
   border-radius: 50%;
   object-fit: cover;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+h1 {
+  font-family: 'Raleway', sans-serif;
+  padding-left: 10px;
+  color: white;
+  font-weight: 500;
+  background-color: #60A531;
+}
+
+
+
+.btn {
+  color: white;
+  font-family: 'PT Sans Narrow', sans-serif;
+  background-color: #60A531;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #508b29;
+  border: none;
+}
+
+.list-group-item {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+}
+.cook-info {
+  margin-top: 20px;
+}
+.card-header {
+  background-color: #60A531;
+}
+.card-img-top {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 30vh;
+  object-fit: cover;
+}
+.card-img-top:after {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.card {
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 20px;
+  box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.1), 0 0.5px 10px 0 rgba(0, 0, 0, 0.14);
+}
+.content-card {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 30vw;
+  object-fit: cover;
+}
+
+.recipe-title {
+  left: 50%;
+  top: 27vh;
+  transform: translateX(-50%);
+  position: absolute;
+  font-size: 1.7vh;
+  font-weight: 600;
+  padding: 10px;
+  margin: auto;
+  color: white;
+  border-radius: 3px;
+  text-transform: uppercase;
+  background-color: #60A531;
+  width: fit-content;
+}
+.content-card:after {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.suggested-card {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  object-fit: cover;
+}
+.hovereffect {
+  width: 100%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+
+  -webkit-transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+  transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+}
+.hovereffect img {
+  display: block;
+  position: relative;
+  -webkit-transition: all 0.4s cubic-bezier(0,-0, 0, 1.81);
+  transition: all 0.5s cubic-bezier(0,0, 0, 1.81);
+}
+
+.hovereffect a.info {
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  margin: 30% 0 0;
+  padding: 7px 14px;
+}
+
+.hovereffect a.info:hover {
+  box-shadow: 0 0 5px #fff;
+}
+
+.hovereffect:hover img {
+  -ms-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.hovereffect:hover .overlay {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.hovereffect:hover h2,.hovereffect:hover a.info {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -ms-transform: translatey(0);
+  -webkit-transform: translatey(0);
+  transform: translatey(0);
+}
+
+.hovereffect:hover a.info {
+  -webkit-transition-delay: .2s;
+  transition-delay: .2s;
+}
+.stars {
+  background-color: rgba(96,165,49, 20%);
+  left: 0;
+  top: 0;
+  transition: ease-in-out 0.2s;
+  height: 50px;
+  color: #c5c5c5;
+  fill: #c5c5c5;
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  overflow: hidden;
+
+  z-index: 10;
+}
+.stars:hover {
+  transition: ease-in-out 0.2s;
+  background-color: rgba(96,165,49, 100%);
+}
+.bottom-star {
+
+  position: absolute;
+  white-space: nowrap;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+
+  height: 50px;
+  z-index: 11;
+  color: #ffff00;
+  cursor: pointer;
+  font-size: 30px;
+
+
+  pointer-events:none
+}
+.star-color {
+   color: #fff999;
+}
+
+.dietary {
+  margin-right: 0.2em;
+  color: white;
+  background-color: rgba(96,165,49, 100%);
+  border-radius: 50%;
+}
+.dietary p {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  width: 100%;
+  height: 100%;
+}
+
+.recipe-view {
+  color: #FE4042;
+  font-weight: 300;
+}
+.recipe-view:hover {
+  transition: ease-in-out 1s;
+  ;
+  color: #ff2b2e;
+}
+
+.title {
+  padding-left: 20px;
+  border-radius: 3px;
+  background-color: #60A531;
+  color: white;
+}
+
+.favourite {
+  position: absolute;
+  text-align: center;
+  transform: translateX(-100%);
+  top: 0;
+  width: 160px;
+  height: 160px;
+  left: 100%;
+  font-size: 6rem;
+  margin: auto;
+  z-index: 5;
+  transition: ease-in-out 0.3s;
+  background-color: rgba(96,165,49, 10%);
+}
+.favourite:hover {
+  transition: ease-in-out 0.3s;
+  color: #fd686a;
+  background-color: rgba(96,165,49, 100%);
+}
+
+.favourited-color {
+  transition: ease-in-out 0.4s;
+  color: #FE4042;
+}
+
+.recipe-image {
+  width: 1.3vw;
+  height: 1.3vw;
+  border-radius: 50%;
+  object-fit: cover;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.fa-eye {
+  color: #FE4042;
+}
+@media (min-width:480px) {
+  .fluid-container {
+    margin: 0;
+  }
+}
+@media (min-width:1000px) {
+  .fluid-container {
+    margin: 0 10%;
+  }
+}
+
+.edit {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.del {
+  position: absolute;
+  right: 5%;
+  top: 0;
 }

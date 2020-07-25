@@ -11,6 +11,16 @@ var userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recipe"
   }],
+  uploads: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Recipe"
+  }],
+  followedUsers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ],
   starredPosts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recipe"

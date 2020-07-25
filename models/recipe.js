@@ -15,7 +15,7 @@ var recipeSchema = new mongoose.Schema({
   },
   name: String,
   lowercaseName: {type:String, lowercase: true},
-  image: {type:String, default: ""},
+  image: String,
   description: String,
   prepHour: Number,
   prepMinute: Number,
@@ -23,8 +23,7 @@ var recipeSchema = new mongoose.Schema({
   cookMinute: Number,
   total: String,
   servings: Number,
-  likes_count: Number,
-  
+  likes_count: {Number, default: 0},
     starStatus: {type: Number, default: 0},
     totalStars: {type: Number, default: 0},
     usersStarred: {type: Number, default: 0},
@@ -35,6 +34,7 @@ var recipeSchema = new mongoose.Schema({
   method: [String],
   ingredients: [String],
   tags: {type: Array},
+  dietary: {type: Array},
   comments: [ 
     {
       type: mongoose.Schema.Types.ObjectId,

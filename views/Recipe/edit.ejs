@@ -1,18 +1,195 @@
+
+
 <%- include("../partials/header")  %> 
 
-<h1>Edit Recipe</h1>
-<form action="/recipes/<%= recipe._id %>?_method=PUT " method="POST">
-<input value="<%= recipe.name %> " type="text" name="recipe[name]">
-<input value="<%= recipe.image %> " type="text" name="recipe[image]">
-<input value="<%= recipe.description %> " placeholder="description" type="text" name="recipe[description]">
-<input value="<%= recipe.prepHour %> " placeholder="hours" type="text" name="recipe[prepHour]">
-<input value="<%= recipe.prepMinute %> " placeholder="minutes" type="text" name="recipe[prepMinute]">
-<input value="<%= recipe.cookHour %> " placeholder="hours" type="text" name="recipe[cookHour]">
-<input value="<%= recipe.prepMinute %> " placeholder="minutes" type="text" name="recipe[cookMinute]">
-<input value="<%= recipe.servings %> " placeholder="servings" type="text" name="recipe[servings]">
-  <textarea name="recipe[ingredients]"cols="30" rows="10"><%=ingredients%></textarea>
-  <textarea name="recipe[method]"cols="30" rows="10"><%=method%></textarea>
+<link type="text/css" rel="stylesheet" href="/stylesheets/new.css">
+<link rel="stylesheet" href="/stylesheets/search.css">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="/js/replaceImages.js"></script>
+<div class="container">
+<div class="row">
+  <div class="col-sm-12 col-md-8  ">
+    <h1 class="text-center title">Edit</h1>
+    <hr>
+    <form action="/recipes/<%= recipe._id %>?_method=PUT " method="POST">
+      <section class="form-container p-3">
 
-<button>Submit</button>
-</form>
+
+        <label class="w-100">Dish Name
+          <input value="<%= recipe.name %>" class="w-100" maxlength="18" minlength="4" placeholder="Spicy Curry" required type="text" name="recipe[name]">
+        </label>
+        <label class="w-100 mt-3"> Image
+          <input class="w-100" value="<%=recipe.image %> " placeholder="https://imageurl.com" type="text" name="recipe[image]">
+        </label>
+
+        <label class="w-100 mt-3"> Description
+            <input required value="<%=recipe.description%>" class="w-100 h-25 d-inline-block" placeholder="recipe description" type="text" name="recipe[description]" maxlength="50" minlength="4">
+        </label>
+
+
+        <div class="mt-3 w-100 text-center">
+          <label>Prep Hours <input value="<%=recipe.prepHour%>" required max="60" placeholder="hours" type="text" name="recipe[prepHour]"></label>
+          <label>Minutes
+            <input required value="<%=recipe.prepMinute%>"  max="60" placeholder="minutes" type="number" name="recipe[prepMinute]">
+          </label>
+        </div>
+        <div class="mt-3 text-center">
+          <label>cook Hours<input value="<%=recipe.cookHour%>" required max="60"  placeholder="hours" type="text" name="recipe[cookHour]"></label>
+          <label>Minutes
+            <input required max="60" value="<%=recipe.cookMinute%>"  placeholder="minutes" type="text" name="recipe[cookMinute]">
+          </label>
+          
+        </div>
+        <label class="w-100"> Servings
+          <input class="w-100" value="<%= recipe.servings %>" required placeholder="servings" type="text" name="recipe[servings]">
+        </label>
+
+    
+        <label class="mt-3 w-100"> Ingredients
+          <textarea class="w-100" required placeholder="Separate ingredients with a new line." name="recipe[ingredients]"cols="30" rows="10"><%=ingredients%></textarea>
+        </label>
+
+        <label class="w-100 mt-3"> Method
+          <textarea class="w-100" placeholder="Separate method stages with a new line." name="recipe[method]"cols="30" rows="10"><%=method %> </textarea>
+        </label>
+        
+      <h2>Select relevant categories</h2>
+
+      <div>
+        <label>Vegetarian
+          <input value="V" name="dietary[vegetarian]" type="checkbox">
+        </label>
+        <label>Vegan
+          <input value="VE" name="dietary[vegan]" type="checkbox">
+        </label>
+        <label>Dairy-Free
+          <input value="DF" name="dietary[dairyFree]" type="checkbox">
+        </label>
+        <label>Gluten-Free
+          <input value="GF" name="dietary[glutenFree]" type="checkbox">
+        </label>
+
+      </div>
+      
+      <hr class="mt-3 p-0">
+      <label>Indian
+        <input type="checkbox" name="tags[indian]" id="indian" value="indian">
+      </label> 
+      <label>Chinese
+        <input type="checkbox" name="tags[chinese]" id="chinese" value="chinese">
+      </label> 
+      <label>American
+        <input type="checkbox" name="tags[american]" id="american" value="american">
+      </label> 
+      <label>Japanise
+        <input type="checkbox" name="tags[japanise]" id="japanise" value="japanise">
+      </label> 
+      <label>Pizza
+        <input type="checkbox" name="tags[pizza]" id="pizza" value="pizza">
+      </label> 
+      <label>Turkish
+        <input type="checkbox" name="tags[turkish]" id="turkish" value="turkish">
+      </label>
+      <label>Mexican
+        <input type="checkbox" name="tags[mexican]" id="mexican" value="mexican">
+      </label>
+      <label>Chicken
+        <input type="checkbox" name="tags[chicken]" id="chicken" value="chicken">
+      </label>
+      <label>Burger
+        <input type="checkbox" name="tags[burger]" id="burger" value="burger">
+      </label>
+      <label>Chips
+        <input type="checkbox" name="tags[chips]" id="chips" value="chips">
+      </label>
+      <label>French
+        <input type="checkbox" name="tags[french]" id="french" value="french">
+      </label>
+      <label>Baking
+        <input type="checkbox" name="tags[baking]" id="baking" value="baking">
+      </label>
+      <label>Cake
+        <input type="checkbox" name="tags[cake]" id="cake" value="cake">
+      </label>
+        <div>
+          <button class="btn btn-success">Submit Edit</button>
+        </div>
+      </section>
+      
+    </form>
+  </div>
+  <div class="col-12 col-md-4 ">
+    <div class="suggested">
+      <h2 class="text-center title">Dont miss out!</h2>
+      <% randomRecipe.forEach((recipe) => { %> 
+        <div id="images" class="card image-responsive  m-2">
+          <% if(currentUser) { %> 
+            <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
+              <div class="favourite">
+              <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+              ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
+              </a>
+            </div>
+            <% } else {%> 
+              <div class="favourite">
+                <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                  ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
+                  </a>
+            </div>
+            <% } %>
+            <% } %> 
+
+          <div class="hovereffect">
+          <img class="card-img-top hovereffect " onerror="imgError(this)" src="<%= recipe.image %> " alt="Card image cap">
+          <div class="overlay">
+   
+            <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
+          </div>
+          </div>
+          <div class="card-body">
+            <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+
+            <section>  
+                <div class="stars">
+                  <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                  <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
+      
+                  <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+                    <span><i class="fa fa-star"></i></span>
+              </div>
+              </div>
+
+          
+            <hr class="p-0 m-0">
+            <div class="text-center">
+              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+              <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
+            </div>
+            
+            <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
+
+          </div>
+        </div>
+      <% }) %> 
+    </div>
+
+</div>
+</div>
+
+ 
+</div>
+<script type="text/javascript" src="/js/favourite.js"></script>
+<script type="text/javascript" src="/js/starrating.js"></script>
 <%- include("../partials/footer")  %> 
+
+
+

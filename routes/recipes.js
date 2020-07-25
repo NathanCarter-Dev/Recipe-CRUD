@@ -45,7 +45,6 @@ router.get("/recipes/new", middleware.isLoggedIn,(req, res) =>{
   //find recipes to suggest to the user
   Recipe.findRandom({}, {rating:-1}, {limit: 2}, (err, results) =>{
     if (!err) {
-      console.log(results)
       random = results
     } 
   });
@@ -56,31 +55,31 @@ router.get("/recipes/new", middleware.isLoggedIn,(req, res) =>{
 
 //CREATE ROUTE
 router.post("/recipes", middleware.isLoggedIn,function(req, res) {
+
   let  ingredientsString = req.body.ingredients,
        ingredient = ingredientsString.split("\n"),
        methodString = req.body.method,
        method = methodString.split("\n")
-  const newRecipe = new Recipe({
-    name: req.body.recipe.name,
-    image: req.body.recipe.image,
-  });
    //convert minutes over 60 to an hour
   let hours = parseInt(req.body.recipe.prepHour) + parseInt(req.body.recipe.cookHour),
       minutes = parseInt(req.body.recipe.prepMinute) + parseInt(req.body.recipe.cookMinute),
       mins = minutes,
       total = calculateTime(minutes, hours, mins);
-
-  //set image address if user does not set one
-  if(req.body.recipe.image === "") {
-    req.body.recipe.image = "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-  } 
+      
   Recipe.create(req.body.recipe, (err, newRecipe) => {
     try {
       ingredient.forEach((ingredient)=> {
         newRecipe.ingredients.push(ingredient);
       })
+      //check whether the image is a https request
+      if(req.body.recipe.image.match(/https:\/\//)) {
+        newRecipe.image = req.body.recipe.image
+      } else {
+        //if not set default image
+        newRecipe.image = "https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+      }
+      newRecipe.name = req.body.recipe.name
       newRecipe.lowercaseName = req.body.recipe.name
-      newRecipe.likes_count = 0;
       newRecipe.total = total;
       //create author 
       newRecipe.author.id = req.user._id
@@ -90,12 +89,22 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
       for(let i in req.body.tags) {
         newRecipe.tags.push(req.body.tags[i])
       }
+      for(let i in req.body.dietary) {
+        newRecipe.dietary.push(req.body.dietary[i])
+      }
       //push each ingredient to ingredients array
       method.forEach((method)=> {
         newRecipe.method.push(method);
       })
       //save recipe and redirect
-      newRecipe.save();
+      newRecipe.save((err, recipe) => {
+        //add the post to users uploads array
+        User.findById(req.user._id, (err, foundUser) => {
+          foundUser.uploads.push(recipe._id)
+          console.log(recipe)
+          foundUser.save()
+        })
+      });
       req.flash("success", "Recipe Posted.");
       res.redirect("/recipes")
       
@@ -114,18 +123,22 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
 
 //SHOW ROUTE
 router.get("/recipes/:id", (req,res) =>{
-  Recipe.findById(req.params.id).populate("comments").exec( (err, recipe)=> {
-    try {
-      //add score to relevance and views
-      recipe.views+=1;
-      recipe.rating+=0.1
-      recipe.save();
-      res.render("./Recipe/show", {recipe})
-    } catch(err) {
+
+  Recipe.findById(req.params.id).populate("comments").exec((err, recipe)=> {
+    if(err) {
       console.log(err)
-      req.flash("error", "Something went wrong. Try again.");
-      res.redirect("/recipes")
     }
+      //add score to relevance and views
+        recipe.views+=1;
+        recipe.rating+=0.1
+        recipe.save();
+      console.log("?????????????????")
+
+      //find random suggested to view recipes
+      Recipe.findRandom({}, {}, {limit: 5},(err, suggested) => {
+        
+      res.render("./Recipe/show", {recipe, suggested})
+    })
   })
 })
 //EDIT ACTION
@@ -140,7 +153,12 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
             ingredientsString = ingredients.join("\n"),
             method = recipe.method,
             methodString = method.join("\n");
-      res.render("./Recipe/edit", {recipe, ingredients: ingredientsString, method: methodString})
+
+            Recipe.findRandom({}, {}, {limit: 3},(err, randomRecipe) => {
+
+              
+      res.render("./Recipe/edit", {recipe, ingredients: ingredientsString, method: methodString, randomRecipe})
+    })
     }
     })
   })
@@ -155,6 +173,7 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
       params = req.params.id
       //Split ingredient array on each enter key
       let ingredient = ingredients.split("\n"); 
+      
       let method = methods.split("\n");
 
       //convert minutes over 60 to an hour
@@ -162,12 +181,29 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
       let minutes = parseInt(req.body.recipe.prepMinute) + parseInt(req.body.recipe.cookMinute);
       let mins = minutes;
       let total = calculateTime(minutes, hours, mins);
-
+      //push each tag value from form to tags array
+      const tags = []
+      for(let i in req.body.tags) {
+        tags.push(req.body.tags[i])
+      }
+      const dietary = []
+      for(let i in req.body.dietary) {
+        dietary.push(req.body.dietary[i])
+      }
+      
+      let image;
+      if(req.body.recipe.image.match(/https:\/\//)) {
+        image = req.body.recipe.image
+      } else {
+        //if not set default image
+        image = "https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+      }
       //CREATE UPDATED RECIPE OBJECT
       var updatedRecipe = {
         name: req.body.recipe.name,
         lowercaseName: req.body.recipe.name,
-        image: req.body.recipe.image,
+        
+        image: image,
         ingredients: ingredient,
         description: req.body.recipe.description,
         prepHour: req.body.recipe.prepHour,
@@ -175,20 +211,23 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
         cookHour: req.body.recipe.cookHour,
         cookMinute: req.body.recipe.cookMinute,
         servings: req.body.recipe.servings,
+        tags: tags,
+        dietary: dietary,
         method: method,
         total: total
       }
 
       //update recipe with new object
       recipe.update(updatedRecipe, (err, updatedRecipe)=> {
-
+        console.log(updatedRecipe)
         req.flash("success", "Post Edited.");
         res.redirect(`/recipes/${params}`);
       })
       }catch(err) {
+        console.log(err)
         req.flash("error", "Something went wrong. Try again.");
         res.redirect(`/recipes/${params}`);
-        console.log(err)
+        
       }
       })
 
@@ -201,6 +240,13 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
   router.delete("/recipes/:id", middleware.checkRecipeOwnership ,(req, res)=> {
     Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe)=> {
       try {
+
+        //delete the post from the users uploads
+        User.findById(req.user._id, (err, foundUser) => {
+          const index = foundUser.uploads.indexOf(deletedRecipe._id)
+          foundUser.uploads.splice(index, 1)
+          foundUser.save()
+        })
         req.flash("success", "Post Deleted.");
         res.redirect("/recipes");
         

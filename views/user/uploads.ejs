@@ -1,0 +1,84 @@
+<%- include("../partials/header") %> 
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="../../../js/replaceImages.js"></script>
+<link rel="stylesheet" href="../../../stylesheets/search.css">
+
+<h1><%=user.username%>'s Uploads</h1>
+  <div class="row">
+
+    <% search.forEach((recipe) => { %>
+      <div class="col-3">
+      <div id="images" class="card image-responsive  m-2">
+        <% if(currentUser) { %> 
+          <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
+            <div class="favourite">
+            <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+            ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
+            </a>
+          </div>
+          <% } else {%> 
+            <div class="favourite">
+              <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
+                </a>
+          </div>
+          <% } %>
+          <% } %> 
+
+        <div class="hovereffect">
+        <img class="card-img-top hovereffect " onerror="imgError(this)" src="<%= recipe.image %> " alt="Card image cap">
+        <div class="overlay">
+ 
+          <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
+        </div>
+        </div>
+        <div class="card-body">
+          <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+
+          <section>  
+              <div class="stars">
+                <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
+    
+                <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+            </div>
+            </div>
+
+        
+          <hr class="p-0 m-0">
+          <div class="text-center">
+            <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
+            <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
+          </div>
+          
+          <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
+
+        </div>
+      </div>
+    </div>
+    <% }) %> 
+    
+    <% if(pages > page) { %> 
+      <form method="GET" action="/user/<%=user._id%>/uploads/<%= page + 1 %>">
+      <button class="btn btn-success btn-next" name="search">Next Page</button>
+      </form>
+    <% } %> 
+    <% if(page > 1) { %>  
+      <form method="GET" action="/user/<%=user._id%>/uploads/<%= page - 1 %>">
+        <button class="btn btn-success btn-prev" name="search">Previous Page</button>
+        </form>
+      <% } %> 
+    </div>
+  </div>
+  <script type="text/javascript" src="../../../js/favourite.js"></script>
+<script type="text/javascript" src="../../../js/starrating.js"></script>
+<%- include("../partials/footer") %> 
