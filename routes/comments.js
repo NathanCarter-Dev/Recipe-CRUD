@@ -83,7 +83,6 @@ const express = require("express"),
           if(err) {
             res.redirect("back")
           } else {
-            console.log(comment)
             res.redirect("/recipes/" + req.params.id);
           }
         })

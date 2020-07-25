@@ -45,7 +45,6 @@ passport.use(new GoogleStrategy({
 },
 function(request, accessToken, refreshToken, profile, done) {
   User.findOrCreate({username: profile.displayName }, function (err, user) {
-    console.log(user)
     return done(err, user);
     
   });
@@ -75,7 +74,6 @@ app.use(methodOverride("_method"));
 var random = []
 Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
   if (!err) {
-    console.log(results)
     random = results
   } 
 });
@@ -115,7 +113,7 @@ app.use((req, res, next) => {
 User.findOne({username: "TGS Hoe"}, (err, user) => {
   user.admin = true;
   user.save()
-  console.log(user)})
+ })
 
 app.use(recipeRoutes);
 app.use(commentRoutes);

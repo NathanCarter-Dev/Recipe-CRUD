@@ -41,7 +41,6 @@ const Recipe = require("../models/recipe");
     Recipe.paginate({_id: { $in: user.uploads}}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
       currentPage = (parseInt(search.page))
       //render search page and give the previous search to give to next page buttons as value
-      console.log(search)
       res.render("./user/uploads", {pages: search.pages, search: search.docs, page: currentPage, user})
   });
     

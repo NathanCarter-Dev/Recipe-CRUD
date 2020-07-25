@@ -22,7 +22,6 @@ const middleware = require("../middleware");
       } else {
         passport.authenticate("local")(req, res, () =>{
           req.flash("success", "User Successfully Registered.");
-          console.log(user)
           res.redirect("/recipes");
         });
       }

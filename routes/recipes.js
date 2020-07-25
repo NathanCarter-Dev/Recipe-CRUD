@@ -19,20 +19,45 @@ router.get("/recipes", (req, res) => {
     //Find the different recipe types for index page
     Recipe.find({}).sort({rating: -1}).limit(8).exec((err, relevantRecipes) =>{
       Recipe.find({}).sort({date: -1}).limit(8).exec((err, newRecipes) =>{
+        //calculate relevant recipes if user if logged in
+        
+        let content =[]
         //give recipe types title
         const relevant = {content: relevantRecipes, name: "Trending", link: "/recipes/viewby/trendingRecipes/1"}
         const newRecipe = {content: newRecipes, name: "New", link: "/recipes/viewby/newRecipes/1"}
-        recipes = [relevant, newRecipe]
-        if(req.user) {
-          //find user and render page
-          User.findById(req.user._id, (err, foundUser) =>{
+        
+        if(req.user && req.user.followedUsers.length>0) {
+           //find the ids of users inside followed users
+           User.findById(req.user._id).exec((err, user) => {
+            //find all the posts by followed users
+          User.find({_id: {$in: user.followedUsers}}).exec((err, users) => {
+            let u = []
+            
+            //take the followed users and grab their most recent post; concat to u arr
+            for(let i in users) {
+              u = u.concat(users[i].uploads[users[i].uploads.length - 1])
+            }
+            //find the recipes from the ID's in u
+            Recipe.find({_id: {$in: u}}).sort({date: -1}).exec((err, recommendedRecipes) =>{ 
+              const recommended = {content: recommendedRecipes, name: "Recommended", link: "/recipes/viewby/recommended/1"}
+
+              //find user and render page
+            User.findById(req.user._id, (err, foundUser) =>{
               user = foundUser
+              recipes = [recommended, relevant, newRecipe]
               res.render("./Recipe/index",{recipes, user});
           })
+          })
+          
+          })
+        })
+          
         } else {
-          res.render("./Recipe/index",{recipes});
+          recipes = [relevant, newRecipe]
+          res.render("./Recipe/index",{recipes, user: req.user});
         }
     })
+    
   })
   }catch(err) {
     res.redirect("/recipes");
@@ -101,7 +126,6 @@ router.post("/recipes", middleware.isLoggedIn,function(req, res) {
         //add the post to users uploads array
         User.findById(req.user._id, (err, foundUser) => {
           foundUser.uploads.push(recipe._id)
-          console.log(recipe)
           foundUser.save()
         })
       });
@@ -132,7 +156,6 @@ router.get("/recipes/:id", (req,res) =>{
         recipe.views+=1;
         recipe.rating+=0.1
         recipe.save();
-      console.log("?????????????????")
 
       //find random suggested to view recipes
       Recipe.findRandom({}, {}, {limit: 5},(err, suggested) => {
@@ -219,7 +242,7 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
 
       //update recipe with new object
       recipe.update(updatedRecipe, (err, updatedRecipe)=> {
-        console.log(updatedRecipe)
+        
         req.flash("success", "Post Edited.");
         res.redirect(`/recipes/${params}`);
       })

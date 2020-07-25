@@ -124,6 +124,7 @@
 
 <div class="fluid-container recipes">
 <% for(i = 0; i < recipes.length; i++) {%>
+  <% if(recipes[i]) { %>  
     <p class="title pl-3 m-0"><%= recipes[i].name %> Recipes</p>
     
     <hr class="m-0 p-0">
@@ -147,7 +148,7 @@
             </div>
             <% } %>
             <% } %> 
-
+          
           <div class="hovereffect">
           <img class="card-img-top hovereffect" onerror="imgError(this)" src="<%= recipe.image %>" alt="Card image cap">
           <div class="overlay">
@@ -197,15 +198,10 @@
     </div>
     
   <% } %> 
-  
+  <% } %> 
 </div>
 
-<div class="footer">
 
-  <div class="footer-lower  d-flex justify-content-center align-items-center">
-    <p>© 2020 Copyright: RecipeWebsiteName.com</p>
-  </div>
-</div>
 <script type="text/javascript" src="./js/favourite.js"></script>
 <script type="text/javascript" src="../../js/starrating.js"></script>
 <%- include("../partials/footer")  %> 
