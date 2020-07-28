@@ -21,7 +21,9 @@ const recipeRoutes = require("./routes/recipes"),
       authRoutes = require("./routes/auth"),
       userRoutes = require("./routes/user");
 
-mongoose.connect("mongodb://localhost/recipe", {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect("mongodb://localhost/recipe", 
+
+mongoose.connect("mongodb+srv://Nathan:CocoIsARetard722@cluster0.c38zp.mongodb.net/test?authSource=admin&replicaSet=atlas-v2ufco-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=true", {useNewUrlParser: true, useUnifiedTopology: true});
 
 //MODELS
 const Recipe = require("./models/recipe"),
