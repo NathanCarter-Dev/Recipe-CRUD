@@ -14,9 +14,7 @@ const express = require("express"),
       mongoosePaginate = require('mongoose-paginate-v2');
       
 var  cron = require("node-cron");
-const { JSDOM } = require( "jsdom" );
-const { window } = new JSDOM( "" );
-const $ = require( "jquery" )( window );
+
 
 //routers
 const recipeRoutes = require("./routes/recipes"),
