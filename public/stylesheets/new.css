@@ -18,7 +18,7 @@ html {
 body {
   
   background-color: #FAFAFA;
-  padding-top: 70px;
+  
 }
 h1 {
   font-family: 'Raleway', sans-serif;
@@ -49,12 +49,12 @@ input {
   border: 2px solid #D5D6D8;
 }
 
-.btn {
+.button {
   font-size: 1.6rem;
   font-family: 'PT Sans Narrow', sans-serif;
   background-color: #60A531;
 }
-.btn:hover {
+.button:hover {
   background-color: #4f8a28;
 }
 

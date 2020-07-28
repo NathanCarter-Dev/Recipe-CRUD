@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema({
   username: String,
   password: String,
   picture: String,
+  googleId: String,
   favouritePosts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recipe"

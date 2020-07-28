@@ -1,7 +1,4 @@
 
-body {
-  padding-top: 70px;
-}
 
 div h2 {
   font-family: 'Raleway', sans-serif;
@@ -34,7 +31,7 @@ div h2 {
 .featured-stars{
   background-color: rgba(96,165,49, 20%);
   left: 0;
-  top: 50px;
+  top: 0;
   transition: ease-in-out 0.2s;
   height: 50px;
   color: #c5c5c5;
@@ -105,7 +102,7 @@ div p {
 }
 div .title {
   font-family: 'Raleway', sans-serif;
-  font-size: 3rem;
+  font-size: 3vw;
   font-weight: 400;
 }
 
@@ -225,16 +222,66 @@ hr.style-two {
     padding-bottom: 100%;
   }
 
+
   #search {
-    margin: auto;
+    position: relative;
     width: 80%;
-  }
-  #search-btn {
-    display: inline-block;
+    justify-content: center;
   }
 
+  
+.search {
+  margin: 12px 0;
+  width: 100%;
+  position: relative;
+  display: flex;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.3rem;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #60A531;
+  border-right: none;
+  padding: 5px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #3C4A3E;
+}
+
+.searchButton {
+  width: fit-content;
+  height: 50px;
+  border: 1px solid #60A531;
+  background: #60A531;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+.search-btn {
+  position: absolute;
+  right:0;
+  top: 50px;
+}
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 70%;
+  position: relative;
+
+  z-index: 50;
+  top: 17px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
   #bar {
-    height: 30px;
+    
     width: 100%;
     background-color: #f9f9f9;
   }
@@ -286,26 +333,30 @@ hr.style-two {
 
   .random-image{
     width: 100%;
-    height: 43vh;
+    height: 100%;
     object-fit: cover;
   }
+
   .circle-image:hover {
       transition: 0.1s;
       -ms-transform: scale(1.05);
       -webkit-transform: scale(1.05);
       transform: scale(1.05);
   }
+  .circles {
+    padding: 14px 0px;
+  }
   .circle-image {
     transition: 0.1s;
     border-radius: 50%;
-    width: 13vh; 
-    height: 13vh;
+    width: 8rem; 
+    height: 8rem;
     object-fit: cover;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
   }
 
   .overflow {
-    overflow: auto;
+    overflow-x: auto;
     white-space: nowrap;
   }
 
@@ -333,10 +384,12 @@ hr.style-two {
 }
 
 .featured {
-  padding: 0 9%}
+  margin: 0 9%;
+  overflow-y: hidden;
+  }
   
 .random-recipe-name {
-  background-color: #eb5b51;
+  background-color: #FF7674;
   position: absolute;
   width: 100%;
   height: 50px;
@@ -347,13 +400,18 @@ hr.style-two {
 }
 .featured-card {
   position: relative;
+    width:40rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 400px;
+    object-fit: cover;
 }
 
 .view-all {
-  color: #FE4042;
+  color: #FF7674;
 }
 view-all:hover {
-  color: #ff2b2e;
+  color: #FF7674;
 }
 
 .favourite {
@@ -399,4 +457,43 @@ view-all:hover {
   transition: 0.1s;
 object-fit: cover;
 box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* phone sizing */
+@media only screen and (max-width: 768px) {
+  div .title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 8vw;
+    font-weight: 400;
+  }
+  .wrap{
+    width: 100%;
+    
+  }
+
+  
+  #sort div p {
+    
+    font-size: 1.4rem;
+    
+    }
+    .recipes {
+      margin: 0;
+    }
+    .featured {
+      margin: 0;
+      }
+
+      .featured-card {
+
+          width:33rem;
+
+          height: 290px;
+      }
+      .circle-image {
+
+        width: 20vw; 
+        height: 20vw;
+
+      }
 }

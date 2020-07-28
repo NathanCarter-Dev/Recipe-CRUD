@@ -1,21 +1,25 @@
 <%- include("../partials/header")  %> 
 <link type="text/css" rel="stylesheet" href="./stylesheets/auth.css">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 
-<div id="box" class="container text-center ">
-  <section class="con">
+
+
+<div class="container text-center">
+  <div id="border">
     <h1>Register</h1>
-    <form class="" action="/register" method="POST">
+    <form class="h-25" action="/register" method="POST">
       <div>
-        <input class="w-25 mt-2" type="text" name="username" placeholder="username">
+        <input class="w-100 mt-2 form-control" maxlength="18" type="text" name="username" placeholder="username">
       </div>
       <div>
-        <input class="w-25 mt-2" type="password" name="password" placeholder="password">
+        <input class="w-100 mt-2 form-control" minlength="6" type="password" name="password" placeholder="password">
       </div>
       <div>
-        <button class="btn btn-success w-25 mt-2">Register</button>
+        <button class="btn btn-success w-100 mt-2">Submit</button>
+        <p class="text-center mt-1">Already have an account? <a href="/login">Sign In</a></p>
       </div>
     </form>
-  </section>
-
+  </div>
+  
 </div>
 <%- include("../partials/footer")  %> 

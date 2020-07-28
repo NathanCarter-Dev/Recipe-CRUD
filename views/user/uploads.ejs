@@ -4,11 +4,17 @@
 <script type="text/javascript" src="../../../js/replaceImages.js"></script>
 <link rel="stylesheet" href="../../../stylesheets/search.css">
 
-<h1><%=user.username%>'s Uploads</h1>
+<h1><%=user.username%>'s Uploads </h1>
+<div>
+  <a class="back" href="/profile/<%=user._id %>">Back</a>
+</div>
+  <div class="fluid-container">
+
+
   <div class="row">
 
     <% search.forEach((recipe) => { %>
-      <div class="col-3">
+      <div class="col-12 col-sm-6 col-lg-3  p-0 p-md-2">
       <div id="images" class="card image-responsive  m-2">
         <% if(currentUser) { %> 
           <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
@@ -78,6 +84,7 @@
         </form>
       <% } %> 
     </div>
+  </div>
   </div>
   <script type="text/javascript" src="../../../js/favourite.js"></script>
 <script type="text/javascript" src="../../../js/starrating.js"></script>

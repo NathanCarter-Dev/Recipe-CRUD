@@ -1,21 +1,26 @@
 <%- include("../partials/header")  %> 
 <link type="text/css" rel="stylesheet" href="./stylesheets/auth.css">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 <div class="container text-center">
-  <h1>Login</h1>
-  <form class="h-25" action="/login" method="POST">
-    <div>
-      <input class="w-25 mt-2" type="text" name="username" placeholder="username">
-    </div>
-    <div>
-      <input class="w-25 mt-2" type="password" name="password" placeholder="password">
-    </div>
-    <div>
-      <button class="btn btn-success w-25 mt-2">Login</button>
-    </div>
-  </form>
-  <form action="/google">
-  <button>Login With Google</button>
-  </form>
+  <div id="border">
+    <h1>Sign In</h1>
+    <form class="h-25" action="/login" method="POST">
+      <div>
+        <input class="w-100 mt-2 form-control" type="text" name="username" placeholder="username">
+      </div>
+      <div>
+        <input class="w-100 mt-2 form-control" type="password" name="password" placeholder="password">
+      </div>
+      <div>
+        <button class="btn btn-success w-100 mt-2">Login</button>
+      </div>
+    </form>
+    <form action="/google">
+    <button class="mt-2 google"><i class="fab fa-google"></i> Login With Google+</button>
+    </form>
+    <p class="text-center mt-1">Need an account? <a href="/register">Register</a></p>
+  </div>
+  
 </div>
 
 <%- include("../partials/footer")  %> 

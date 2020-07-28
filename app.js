@@ -44,9 +44,11 @@ passport.use(new GoogleStrategy({
   passReqToCallback   : true
 },
 function(request, accessToken, refreshToken, profile, done) {
-  User.findOrCreate({username: profile.displayName }, function (err, user) {
-    return done(err, user);
-    
+  User.findOrCreate({googleId: profile.id}, function (err, user) {
+    user.username = profile.displayName
+    user.save((err, user) => {
+      return done(err, user);
+    }) 
   });
 }
 ));
@@ -72,7 +74,7 @@ app.use(methodOverride("_method"));
 
 //set random value on server start to give to random front page recipe
 var random = []
-Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
+Recipe.findRandom({}, {}, {limit: 5}, (err, results) =>{
   if (!err) {
     random = results
   } 
@@ -80,7 +82,7 @@ Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
 
 //update random recipe
   cron.schedule('0 * * * *', () => {
-    Recipe.findRandom({}, {}, {limit: 2}, (err, results) =>{
+    Recipe.findRandom({}, {}, {limit: 5}, (err, results) =>{
       if (!err) {
         random = results
         
@@ -103,6 +105,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error")
   res.locals.success = req.flash("success")
   res.locals.randomRecipe = random;
+  
   next();
 }) 
 //CLEAR DATABASE
@@ -110,10 +113,10 @@ app.use((req, res, next) => {
 // User.deleteMany({}, (err, deleted) => console.log("deleted"))
 
 //default admin profiles
-User.findOne({username: "TGS Hoe"}, (err, user) => {
-  user.admin = true;
-  user.save()
- })
+// User.findOne({_id: "5f1ffdfc5971a100eaf3c039"}, (err, user) => {
+//   user.admin = true;
+//   user.save()
+//  })
 
 app.use(recipeRoutes);
 app.use(commentRoutes);

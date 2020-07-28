@@ -1,0 +1,22 @@
+.bg-green {
+  background-color: #3C4A3E;
+  
+}
+body {
+  padding-top: 70px;
+}
+nav a {
+  color: white;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif;
+  transition: ease-in-out 0.1s;
+}
+nav a:hover {
+  transition: ease-in-out 0.1s;
+  scale: 5;
+  color: #e9e9e9;
+}
+
+.navbar-toggler-icon {
+  
+}

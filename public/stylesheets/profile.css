@@ -1,5 +1,5 @@
 img {
-  width: 10vw;
+  width: 10em;
   height:100%;
 }
 body {
@@ -10,17 +10,27 @@ body {
 .row:nth-of-type(1) {
   background-color: white;
   padding: 2vh;
+  
+}
+h1 {
+  font-size: 1em;
 }
 .btn-green {
   left: 50%;
-  top: 50%;
+  top: 20%;
   transform: translateX(-50%);
-
+  font-size: 2vw;
   position: absolute;
   font-family: 'PT Sans Narrow', sans-serif;
   font-weight: 600;
   background-color: rgba(96,165,49, 100%);
   color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .btn-green {
+    font-size: 5vw;
+  }
 }
 
 .picture {
@@ -64,4 +74,15 @@ h2 {
   color: white;
   font-weight: 600;
   background-color: rgb(80, 138, 41);
+}
+#form {
+
+  text-align: center;
+}
+.form-control {
+  width: 50%;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  display: inline-block;
+  
 }

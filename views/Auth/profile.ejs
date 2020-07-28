@@ -1,36 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=`, initial-scale=1.0">
-  <title>Recipe</title>
+<%- include("../partials/header") %> 
 
-</head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<div id="bar">
-  
-</div>
-<body>
-  <link rel="stylesheet" href="../../stylesheets/footer.css">
-  <link type="text/css" rel="stylesheet" href="../../stylesheets/main.css">
 <link type="text/css" rel="stylesheet" href="../../stylesheets/profile.css">
-
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="/recipes">Recipe</a>
-    <form method="POST" action="/user/search/1" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search for users" name="search" aria-label="Search">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
+  <div class="user container">
+    <form id="form" method="POST" action="/user/search/1" class="my-2 my-lg-0">
+      <input class="form-control form-button" type="search" placeholder="Search for users" name="search" aria-label="Search">
       <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Find User</button>
     </form>
-
-
-  </div>
-  
-</nav>
-
-  <div class="user container">
     <div class="row">
+      
       <div class="col-12 p-0 m-0">
+
         <div class="picture d-inline">
         <%if(user.picture) { %> 
           <a href="/profile/<%=user._id%>/picture"><img src="<%= user.picture %> " alt=""></a>
@@ -45,38 +26,30 @@
         <% } else { %> 
         <a class="btn-follow" href="/user/<%=user._id%>/follow">Follow user</a>
         <% } %> 
+
       </div>
+
     </div>
     <div class="row mt-5">
       <div class="col-12">
         <h2 class="text-center">Activity</h2>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-md-6">
             <div class="card" >
               <img class="card-img-top" src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Card image cap">
               <div class="card-body p-2">
-                <p class="card-text text-center">View <%=user.username%>'s uploads </p>
+               
               </div>
-              <a href="/user/<%=user._id%>/uploads/1" class="btn btn-green">View</a>
+              <a href="/user/<%=user._id%>/uploads/1" class="btn btn-green">View <%=user.username%>'s uploads</a>
             </div>
           </div>
-          <div class="col-4">
+      
+          <div class="col-12 col-md-6">
             <div class="card" >
               <img class="card-img-top" src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Card image cap">
               <div class="card-body  p-2">
-                <p class="card-text text-center">View <%=user.username%>'s uploads </p>
-                
               </div>
-              <a href="#" class="btn btn-green">Go somewhere</a>
-            </div>
-          </div>
-          <div class="col-4">
-            <div class="card" >
-              <img class="card-img-top" src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Card image cap">
-              <div class="card-body  p-2">
-                <p class="card-text text-center">View <%=user.username%>'s favourite recipes </p>
-              </div>
-              <a href="/recipes/<%=user._id%>/favourites/1" class="btn btn-green">View</a>
+              <a href="/recipes/<%=user._id%>/favourites/1" class="btn btn-green">View <%=user.username%>'s favourite recipes </a>
             </div>
           </div>
         </div>

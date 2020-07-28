@@ -7,23 +7,60 @@
 <link type="text/css" rel="stylesheet" href="./stylesheets/index.css">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 
+<div class="form">
 
+<div class="wrap">
+  <form action="/recipes/search?page=1" method="POST">
+    <div class="search">
+      <input type="text" class="searchTerm" name="search"  placeholder="What are you looking for?">
+
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
+     <p>
+      <button class="searchButton" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Options
+      </button>
+    </p>
+    <div class="collapse search-btn" id="collapseExample">
+      <span class="card card-body search-drop">
+        <select name="sort" id="">
+          <option value="rating">Rating</option>
+          <option value="date">Date</option>
+        </select >
+        <label> Ascending
+          <input checked="checked" type="radio" name="value" value="-1">
+        </label>
+        <label> Descending
+          <input type="radio" name="value" value="1">
+        </label>
+      </span>
+    </div>
+   </div>
+  </form>
+  
+</div>
+</div>
+<div class="featured">
+  <h2 class="title my-0 py-0">Featured Recipes</h1>
+</div>
+
+  
 <% if(randomRecipe && randomRecipe.length > 1) { %> 
-<div class="fluid-container mx-2 featured">
-  <h2 class="title my-0 py-0">Featured</h1>
-    <hr class="m-0 p-0 w-25">
-  <div class="row">
+<div class="fluid-container featured overflow">
+
+
     <% for(let i = 0; i<randomRecipe.length; i++) { %> 
-    <div class="col-6 my-3">
-      <div class="card featured-card zoom">
+    
+      <div class="card random-card featured-card zoom d-inline-block">
         <div class="featured-stars">
           <span class="rating-1 "><i class="fa fa-star"></i></span>
           <span  class="rating-2 "><i class="fa fa-star"></i></span>
           <span  class="rating-3 "><i class="fa fa-star"></i></span>
           <span   class="rating-4 "><i class="fa fa-star"></i></span>
           <span class="rating-5 "><i class="fa fa-star"></i></span>
-
-          <div class="featured-bottom-star post post-<%=randomRecipe[i]._id%>"  data-starWidth="<%=randomRecipe[i].starStatus%>">
+          
+          <div class="featured-bottom-star post post-<%=randomRecipe[i]._id%>"  data-starWidth="<%=randomRecipe[i].starStatus%>" data-starTotal="<%=randomRecipe[i].totalStars %>">
             <span><i class="fa fa-star"></i></span>
             <span><i class="fa fa-star"></i></span>
             <span><i class="fa fa-star"></i></span>
@@ -31,18 +68,18 @@
             <span><i class="fa fa-star"></i></span>
       </div>
       </div>
-        <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-responsive" onerror="imgError(this)" src="<%= randomRecipe[i].image %>" alt=""></a>
+        <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-fluid" onerror="imgError(this)" src="<%= randomRecipe[i].image %>" alt=""></a>
         <p class="random-recipe-name"><%= randomRecipe[i].name%></p>
         <p class="text-center featured-desc"><%= randomRecipe[i].description  %></p>
       </div>
       
-    </div>
+ 
   <% } %> 
-  </div>
+
 </div>
 <% } %> 
 
-<div class="fluid-container overflow my-3">
+<div class="fluid-container overflow my-3 circles">
   
   <div class="item">
     <a href="/recipes/search/indian/1"><img class="circle-image" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
@@ -122,6 +159,8 @@
   </div>
 </section>
 
+
+
 <div class="fluid-container recipes">
 <% for(i = 0; i < recipes.length; i++) {%>
   <% if(recipes[i]) { %>  
@@ -131,7 +170,7 @@
     <div class="row mb-5">
       <% recipes[i].content.forEach(function(recipe) { %>
 
-      <div class="col-12 col-md-6 col-xl-3">
+      <div class="col-6 col-md-6 col-xl-3 p-0 p-md-2">
         <div id="images" class="card image-responsive  m-2">
           <% if(currentUser) { %> 
             <% if(user.favouritePosts.includes(recipe._id)) { %> 
@@ -171,7 +210,7 @@
                   <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
                   <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
       
-                  <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                  <div class="bottom-star post post-<%=recipe._id %>" data-starTotal="<%=recipe.totalStars %>"  data-starWidth="<%=recipe.starStatus%>">
                     <span><i class="fa fa-star"></i></span>
                     <span><i class="fa fa-star"></i></span>
                     <span><i class="fa fa-star"></i></span>

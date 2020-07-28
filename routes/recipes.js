@@ -31,8 +31,7 @@ router.get("/recipes", (req, res) => {
            User.findById(req.user._id).exec((err, user) => {
             //find all the posts by followed users
           User.find({_id: {$in: user.followedUsers}}).exec((err, users) => {
-            let u = []
-            
+            let u = []    
             //take the followed users and grab their most recent post; concat to u arr
             for(let i in users) {
               u = u.concat(users[i].uploads[users[i].uploads.length - 1])
@@ -387,16 +386,21 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
  
   //SEARCH DATABASE
   let search;
+  let sort;
   router.post('/recipes/search', (req, res) =>
   {
     //save the previous search to a variable for the next page search value
+    sort = {[req.body.sort]: parseInt(req.body.value)}
     search = req.body.search
     const prevSearch = search
+    const prevSort = req.body.sort
+    const prevValue = parseInt(req.body.value)
     //paginate through recipes by page
-    Recipe.paginate({name: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}, { page: req.query.page, limit: 8, sort: {rating: -1} }, function(err, search) {
+    Recipe.paginate({name: {$regex: req.body.search, $options: '(?i)a(?-i)cme'}}, { page: req.query.page, limit: 8, sort: sort }, function(err, search) {
+      
       currentPage = (parseInt(search.page))
       //render search page and give the previous search to give to next page buttons as value
-      res.render("./Recipe/search", {type: "search",pages: search.pages, prevSearch, search: search.docs, page: currentPage})
+      res.render("./Recipe/search", {type: "search",pages: search.pages, prevSearch, prevSort, prevValue, search: search.docs, page: currentPage, sort, total: search.total})
   });
 })
 
@@ -409,7 +413,7 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
     const prevSearch = req.params.id
     currentPage = (parseInt(search.page))
     //render search page and give the previous search to give to next page buttons as value
-    res.render("./Recipe/search", {type: "tag",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+    res.render("./Recipe/search", {type: "tag",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
   })
 })
 
@@ -419,29 +423,29 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
     if(req.params.id === "newRecipes") {
       Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {date: -1} }, function(err, search) {
         currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
       })
     } else if(req.params.id === "oldRecipes") {
       Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {date: 1} }, function(err, search) {
         currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
       })
     } else if (req.params.id === "trendingRecipes") {
       Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
         currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
       })
 
     } else if (req.params.id === "azRecipes") {
       Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {lowercaseName: 1} }, function(err, search) {
         currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
       })
 
     } else if(req.params.id === "zaRecipes") {
       Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {lowercaseName: -1} }, function(err, search) {
         currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage})
+        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
       })
 
     }

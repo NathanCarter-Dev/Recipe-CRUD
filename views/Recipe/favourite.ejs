@@ -1,7 +1,11 @@
 <%- include("../partials/header")  %> 
 <link type="text/css" rel="stylesheet" href="../../../stylesheets/search.css">
 <script type="text/javascript" src="../../../js/replaceImages.js"></script>
-<h1>favourites</h1>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<h1><%=user.username%>'s favourites</h1>
+<div>
+  <a class="back" href="javascript:history.back()">Back</a>
+</div>
 <div class="fluid-container">
   <div class="row">
 <% search.forEach(function (recipe) {%> 
@@ -75,5 +79,6 @@
     </form>
   <% } %> 
 </div>
-
+<script type="text/javascript" src="../../../js/favourite.js"></script>
+<script type="text/javascript" src="../../../js/starrating.js"></script>
 <%- include("../partials/footer")  %> 

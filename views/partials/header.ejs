@@ -11,25 +11,29 @@
   
 </div>
 <body>
-  <link rel="stylesheet" href="../../stylesheets/footer.css">
-  <link type="text/css" rel="stylesheet" href="../../stylesheets/main.css">
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <link rel="stylesheet" href="../../../stylesheets/footer.css">
+  <link rel="stylesheet" href="../../../stylesheets/header.css">
+
+  <nav class="navbar fixed-top navbar-expand-lg  bg-green">
     <div class="container">
 
     
     <a class="navbar-brand" href="/recipes">Recipe</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
+      <form action="/recipes/search?page=1" method="POST" class="form-inline ">
+        <input id="search" class="form-control w-75" placeholder="Find A Recipe." name="search" type="search" aria-label="Search">
+        <button class="btn btn-outline-success " type="submit"><i class="fas fa-search"></i></button>
+        <input type="hidden" name="sort" value="rating">
+        <input type="hidden" name="value" value="-1">
+      </form>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link" href="/recipes/new">Create Recipe</a>
         </li>
-        <form action="/recipes/search?page=1" method="POST" class="form-inline my-2 my-lg-0">
-          <input id="search" class="form-control mr-sm-2" placeholder="Find A Recipe." name="search" type="search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        
       </ul>
 
       <ul class="navbar-nav">
@@ -79,4 +83,3 @@
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link type="text/css" rel="stylesheet" href="./stylesheets/main.css">

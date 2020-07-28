@@ -1,0 +1,10 @@
+.card {
+  margin: 20px 0px;
+}
+
+body, html {
+  height: 100%;
+}
+.container {
+  height: 100%;
+}

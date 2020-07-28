@@ -1,18 +1,56 @@
 <%- include("../partials/header")  %> 
-<script type="text/javascript" src="../../js/favourite.js"></script>
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../stylesheets/search.css">
 
 
 <h1>Page <%= page %> </h1>
+<p class="results"><%=total %> results found </p>
+
+<div class="form">
+
+  <div class="wrap">
+    <form action="/recipes/search?page=1" method="POST">
+      <div class="search">
+        <input type="text" class="searchTerm" name="search"  placeholder="What are you looking for?">
+  
+        <button type="submit" class="searchButton">
+          <i class="fa fa-search"></i>
+       </button>
+       <p>
+        <button class="searchButton" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Options
+        </button>
+      </p>
+      <div class="collapse search-btn" id="collapseExample">
+        <span class="card card-body search-drop">
+          <select name="sort" id="">
+            <option value="rating">Rating</option>
+            <option value="date">Date</option>
+          </select >
+          <label> Ascending
+            <input checked="checked" type="radio" name="value" value="-1">
+          </label>
+          <label> Descending
+            <input type="radio" name="value" value="1">
+          </label>
+        </span>
+      </div>
+     </div>
+    </form>
+    
+  </div>
+  </div>
+
 <% if(search.length > 0) { %> 
 <div class="fluid-container ">
   <div class="row">
 <% search.forEach(function (recipe) {%> 
       
   <div class="col-12 col-md-6 col-xl-3">
-    <div id="images" class="card image-responsive  m-2">
+    <div id="images" class="card image-responsive ">
       <% if(currentUser) { %> 
         <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
           <div class="favourite">
@@ -74,17 +112,22 @@
 <% if(type === "search") { %> 
 <% if(pages > page) { %> 
 <form action="/recipes/search?page=<%= page + 1 %>" method="POST">
-<button class="d-flex btn btn-success btn-next" value="<%=prevSearch %>" name="search">Next Page</button>
+  <input value="<%=prevSort%>" name="sort" type="hidden">
+  <input value="<%=prevValue%>" name="value" type="hidden">
+<button class="d-flex btn btn-success btn-next" value="<%=prevSearch%>" name="search">Next Page</button>
 </form>
 <% } %>
 <% if(page > 1) { %>  
 <form action="/recipes/search?page=<%= page - 1 %>" method="POST">
+  <input value="<%=prevSort%>" name="sort" type="hidden">
+  <input value="<%=prevValue%>" name="value" type="hidden">
   <button class="btn btn-success btn-prev" value="<%=prevSearch %>" name="search">Previous Page</button>
   </form>
 <% } %> 
 <% } else if(type === "tag"){ %> 
 <% if(pages > page) { %> 
   <form action="/recipes/search/<%=prevSearch%>/<%= page + 1 %>">
+    
   <button class="btn btn-success btn-next" value="<%=prevSearch %>" name="search">Next Page</button>
   </form>
   <% } %>
@@ -120,5 +163,5 @@
 
 <script type="text/javascript" src="../../../js/starrating.js"></script>
 <script type="text/javascript" src="../../../js/favourite.js"></script>
-  
+
 <%- include("../partials/footer")  %> 
