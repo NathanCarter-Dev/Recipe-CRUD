@@ -115,10 +115,10 @@ app.use((req, res, next) => {
 // User.deleteMany({}, (err, deleted) => console.log("deleted"))
 
 //default admin profiles
-User.findOne({username: "Nathan"}, (err, user) => {
-  user.admin = true;
-  user.save()
- })
+// User.findOne({username: "Nathan"}, (err, user) => {
+//   user.admin = true;
+//   user.save()
+//  })
 
 app.use(recipeRoutes);
 app.use(commentRoutes);
