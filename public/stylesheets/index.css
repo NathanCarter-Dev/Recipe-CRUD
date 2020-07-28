@@ -265,6 +265,9 @@ hr.style-two {
   cursor: pointer;
   font-size: 20px;
 }
+.search-drop {
+  z-index: 70;
+}
 .search-btn {
   position: absolute;
   right:0;
