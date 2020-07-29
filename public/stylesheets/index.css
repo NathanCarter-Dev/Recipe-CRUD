@@ -359,7 +359,8 @@ hr.style-two {
   }
 
   .overflow {
-    overflow-x: auto;
+    overflow-x: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
     white-space: nowrap;
   }
 
@@ -482,7 +483,7 @@ box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
     
     }
     .recipes {
-      margin: 0;
+      margin: 15px;
     }
     .featured {
       margin: 0;
