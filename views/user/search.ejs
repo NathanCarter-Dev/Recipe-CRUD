@@ -3,13 +3,14 @@
 <link rel="stylesheet" href="../../../stylesheets/usersearch.css">
 <div class="container">
   <%if(user) { %> 
-  <a class="back float-right mr-2" href="/profile/<%=user._id %>">Back</a>
+  <a class="back float-right mr-2 " href="/profile/<%=user._id %>">Back</a>
   <% } %>
     
   <form id="form" method="POST" action="/user/search/1" class="my-2 my-lg-0">
     <input class="form-control form-button" type="search" placeholder="Search for users" name="search" aria-label="Search">
     <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Find User</button>
   </form>
+  <div class="body">
   <div class="row">
     
 <% search.forEach(function (user) {%> 
@@ -39,5 +40,6 @@
     <button name="search">Previous Page</button>
     </form>
   <% } %> 
+</div>
 </div>
 <%- include("../partials/footer") %> 

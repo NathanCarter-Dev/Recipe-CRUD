@@ -11,7 +11,7 @@ div p {
 }
 .fluid-container {
   
-  height: 100%;
+  min-height: 100vh;
 }
 .hovereffect {
   width: 100%;
@@ -40,7 +40,9 @@ div p {
   outline: none;
   color: #9DBFAF;
 }
-
+html {
+  height: 100%;
+}
 .searchTerm:focus{
   color: #3C4A3E;
 }
@@ -310,10 +312,19 @@ div p {
   margin-left: 10px;
 
 }
+html {
+  min-height: 100vh;
+}
 body {
-  
+  min-height: 100vh;
+  position: relative;
   overflow-x: hidden;
-  margin-bottom: 80px;
+  
+}
+.footer {
+  position: relative;
+  
+
 }
 
 @media only screen and (max-width: 575px) {

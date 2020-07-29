@@ -2,9 +2,20 @@
   margin: 20px 0px;
 }
 
-body, html {
-  height: 100%;
-}
+
 .container {
   height: 100%;
+}
+.body {
+  min-height: 100vh;
+}
+
+html {
+  min-height: 100vh;
+}
+body {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  
 }
