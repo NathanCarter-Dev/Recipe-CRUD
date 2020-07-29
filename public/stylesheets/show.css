@@ -209,7 +209,7 @@ h1 {
 }
 .stars:hover {
   transition: ease-in-out 0.2s;
-  background-color: rgba(96,165,49, 100%);
+  background-color: rgb(96,165,49);
 }
 .bottom-star {
 
@@ -235,7 +235,7 @@ h1 {
 .dietary {
   margin-right: 0.2em;
   color: white;
-  background-color: rgba(96,165,49, 100%);
+  background-color: rgb(96,165,49);
   border-radius: 50%;
 }
 .dietary p {
@@ -280,7 +280,7 @@ h1 {
 .favourite:hover {
   transition: ease-in-out 0.3s;
   color: #fd686a;
-  background-color: rgba(96,165,49, 100%);
+  background-color: rgb(96,165,49);
 }
 
 .favourited-color {
