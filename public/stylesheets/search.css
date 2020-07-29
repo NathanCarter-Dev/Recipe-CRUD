@@ -10,7 +10,7 @@ div p {
   margin: 0px;
 }
 .fluid-container {
-  height: fit-content;
+  height: 100%;
 }
 .hovereffect {
   width: 100%;

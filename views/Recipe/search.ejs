@@ -9,10 +9,11 @@
 <h1>Page <%= page %> </h1>
 <p class="results"><%=total %> results found </p>
 
-<div class="form">
 
-  <div class="wrap">
     <form action="/recipes/search?page=1" method="POST">
+      <div class="form">
+
+        <div class="wrap">
       <div class="search">
         <input type="text" class="searchTerm" name="search"  placeholder="What are you looking for?">
   
@@ -39,10 +40,11 @@
         </span>
       </div>
      </div>
+    </div>
+  </div>
     </form>
     
-  </div>
-  </div>
+
 
 <% if(search.length > 0) { %> 
 <div class="fluid-container ">
