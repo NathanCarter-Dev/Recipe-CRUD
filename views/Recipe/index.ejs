@@ -68,8 +68,11 @@
             <span><i class="fa fa-star"></i></span>
             <span><i class="fa fa-star"></i></span>
             <span><i class="fa fa-star"></i></span>
+            
       </div>
+      <p class="starredusers">(<%=randomRecipe[i].usersStarred%> )</p>
       </div>
+      
         <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-fluid" onerror="imgError(this)" src="<%= randomRecipe[i].image %>" alt=""></a>
         <p class="random-recipe-name"><%= randomRecipe[i].name%></p>
         <p class="text-center featured-desc"><%= randomRecipe[i].description  %></p>
@@ -88,11 +91,6 @@
   <div class="item">
     <a href="/recipes/search/indian/1"><img class="circle-image" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Indian</span>
-  </div>
-  
-  <div class="item">
-    <a href="/recipes/search/pizza/1"><img class="circle-image" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
-    <span class="caption">Pizza</span>
   </div>
 
   <div class="item">
@@ -196,6 +194,7 @@
       <% recipes[i].content.forEach(function(recipe) { %>
 
       <div class="col-6 col-md-6 col-xl-3 p-0 p-md-2">
+        
         <div id="images" class="card image-responsive  m-2">
           <% if(currentUser) { %> 
             <% if(user.favouritePosts.includes(recipe._id)) { %> 
@@ -212,9 +211,14 @@
             </div>
             <% } %>
             <% } %> 
-          
+            
           <div class="hovereffect">
+        
+   
+              
+          
           <img class="card-img-top hovereffect" onerror="imgError(this)" src="<%= recipe.image %>" alt="Card image cap">
+          <a href="/recipes/<%=recipe._id%>"></a>
           <div class="overlay">
    
             <a class="info" href="/recipes/<%= recipe._id %>">See Recipe</a>
@@ -223,7 +227,8 @@
           </div>
           
           <div class="card-body">
-            <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
+            <a class="" href="/recipes/<%= recipe._id %>"><p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p></a>
+            
             <%recipe.dietary.forEach((dietary) => { %>
               <p class="d-inline dietary"><%=dietary %> </p>
             <% }) %> 

@@ -2,9 +2,11 @@ const rating = document.querySelectorAll('[class^="rating-"]')
 const post = document.querySelectorAll(".post").forEach((post) => {
   
   var status = post.dataset.starwidth;
-  const width = status * (post.scrollWidth / 5)
 
-  post.style.width = width +"px"
+  
+  const width = status * 20
+
+  post.style.width = width +"%"
 })
 const star = document.querySelectorAll('[class^="rating-"]').forEach((star) => {
 
@@ -16,20 +18,20 @@ const star = document.querySelectorAll('[class^="rating-"]').forEach((star) => {
     axios.post("/recipes/rating", {data: {postId, stars}}).then((res)=> {
  
       var status = res.data.recipe.starStatus;
-      const width = status * 25.55
+      const width = status * 20
       
       if(res.data.user.starredPosts.includes(postId)) {
         const p = document.querySelectorAll('.p-' + postId)
          p.forEach((e) => e.textContent = res.data.recipe.usersStarred)
          const post = document.querySelectorAll(".post-"+postId)
  
-         post.forEach((e) => e.style.width = width+"px")
+         post.forEach((e) => e.style.width = width+"%")
       } else {
         const p = document.querySelectorAll('.p-' + postId)
          p.forEach((e) => e.textContent = res.data.recipe.usersStarred)
          const post = document.querySelectorAll(".post-"+postId)
 
-         post.forEach((e) => e.style.width = width+"px")
+         post.forEach((e) => e.style.width = width+"%")
       }
     })
   })

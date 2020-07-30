@@ -27,6 +27,7 @@ var recipeSchema = new mongoose.Schema({
     starStatus: {type: Number, default: 0},
     totalStars: {type: Number, default: 0},
     usersStarred: {type: Number, default: 0},
+    starWidth: {type: Number, default: 0},
   
   date: {type: Date, default: Date.now},
   views: {type: Number, default: 0},

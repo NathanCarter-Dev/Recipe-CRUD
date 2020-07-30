@@ -49,20 +49,17 @@ div h2 {
   left: 0;
   top: 0;
   transition: ease-in-out 0.2s;
-  height: 30px;
+  height: 50px;
   color: #c5c5c5;
   fill: #c5c5c5;
   cursor: pointer;
-  font-size: 19px;
+  font-size: 25px;
   position: absolute;
   overflow: hidden;
 
   z-index: 10;
 }
-.stars:hover {
-  transition: ease-in-out 0.2s;
-  background-color: rgb(96,165,49);
-}
+
 .bottom-star {
 
   position: absolute;
@@ -71,11 +68,11 @@ div h2 {
   top: 0;
   overflow: hidden;
 
-  height: 30px;
+  height: 50px;
   z-index: 11;
   color: #ffff00;
   cursor: pointer;
-  font-size: 19px;
+  font-size: 25px;
 
 
   pointer-events:none
@@ -297,7 +294,7 @@ hr.style-two {
 
   .recipe-title {
     left: 50%;
-    top: 27vh;
+    top: 26.3vh;
     transform: translateX(-50%);
     position: absolute;
     font-size: 1.7vh;
@@ -391,9 +388,16 @@ hr.style-two {
   margin: 0 9%;
   overflow-y: hidden;
   }
-  
+  .starredusers {
+    z-index: 80;
+    position: absolute;
+    
+    font-weight: 500;
+    color: white;
+    top: 22px;
+  }
 .random-recipe-name {
-  background-color: #FF7674;
+  background-color: rgb(116, 187, 68);
   position: absolute;
   top: 0;
   width: 100%;
@@ -433,16 +437,14 @@ view-all:hover {
   transition: ease-in-out 0.3s;
   background-color: rgba(96,165,49, 10%);
 }
-.favourite:hover {
-  transition: ease-in-out 0.3s;
-  color: #fd686a;
-  background-color: rgb(96,165,49);
-}
+
 
 .favourited-color {
   transition: ease-in-out 0.4s;
   color: #FE4042;
 }
+
+
 
 .featured-desc {
   font-size: 1.5rem;
@@ -463,7 +465,17 @@ view-all:hover {
 object-fit: cover;
 box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
 }
-
+@media(hover: hover) { 
+  .stars:hover {
+    transition: ease-in-out 0.2s;
+    background-color: rgb(96,165,49);
+  }
+  .favourite:hover {
+    transition: ease-in-out 0.3s;
+    color: #fd686a;
+    background-color: rgb(96,165,49);
+  }
+}
 /* phone sizing */
 @media only screen and (max-width: 768px) {
   div .title {

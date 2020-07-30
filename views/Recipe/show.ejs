@@ -184,13 +184,13 @@
             <div id="images" class="card image-responsive  m-2">
               <% if(currentUser) { %> 
                 <% if(currentUser.favouritePosts.includes(recipe._id)) { %> 
-                  <div class="favourite">
-                  <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
+                  <div  class="favouritesmall">
+                  <a class="favouritesmall-<%= recipe._id%>" onclick="actOnPost(event)" 
                   ><i data-post="<%=recipe._id  %>" class="favourited-color fas fa-heart favourite-<%= recipe._id%>"></i>
                   </a>
                 </div>
                 <% } else {%> 
-                  <div class="favourite">
+                  <div  class="favouritesmall">
                     <a class="favourite-<%= recipe._id%>" onclick="actOnPost(event)" 
                       ><i data-post="<%=recipe._id  %>" class="fas fa-heart favourite-<%= recipe._id%>"></i>
                       </a>
@@ -209,14 +209,14 @@
                 <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
     
                 <section>  
-                    <div class="stars">
+                    <div class="stars-small">
                       <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
                       <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
                       <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
                       <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
                       <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
           
-                      <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                      <div class="bottom-star-small post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
                         <span><i class="fa fa-star"></i></span>
                         <span><i class="fa fa-star"></i></span>
                         <span><i class="fa fa-star"></i></span>
