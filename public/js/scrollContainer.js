@@ -8,7 +8,7 @@ const buttonRight = document.querySelectorAll('.slideRight')
 buttonRight.forEach((e) => {
   e.onclick = function (e) {
      containerWidth = this.parentNode.scrollWidth
-    offset +=600;
+    offset +=this.parentNode.clientWidth;
     if(offset < 0 ) {
       offset = 0
     }
@@ -25,7 +25,7 @@ const buttonLeft = document.querySelectorAll('.slideLeft')
 buttonLeft.forEach((e) => {
   e.onclick = function (e) {
     containerWidth = document.getElementById('container').scrollWidth
-    offset -=600;
+    offset -=this.parentNode.clientWidth;
     if(offset < 0 ) {
       offset = 0
     }
