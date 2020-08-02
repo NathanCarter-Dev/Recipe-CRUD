@@ -22,9 +22,9 @@ const recipeRoutes = require("./routes/recipes"),
       authRoutes = require("./routes/auth"),
       userRoutes = require("./routes/user");
 
-// mongoose.connect("mongodb://localhost/recipe", {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect("mongodb://localhost/recipe", {useNewUrlParser: true, useUnifiedTopology: true})
 
-mongoose.connect("mongodb+srv://Nathan:CocoIsARetard722@cluster0.c38zp.mongodb.net/test", {useNewUrlParser: true, useUnifiedTopology: true});
+//mongoose.connect("mongodb+srv://Nathan:CocoIsARetard722@cluster0.c38zp.mongodb.net/test", {useNewUrlParser: true, useUnifiedTopology: true});
 
 //MODELS
 const Recipe = require("./models/recipe"),

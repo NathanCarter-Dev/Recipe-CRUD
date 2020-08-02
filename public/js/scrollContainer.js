@@ -1,3 +1,5 @@
+
+
 let containerWidth;
 let offset = 0;
 
@@ -15,7 +17,7 @@ buttonRight.forEach((e) => {
     }
     console.log(containerWidth)
     console.log(this.parentNode)
-    this.parentNode.scroll({left: offset, behavior: "smooth"});
+    $(this.parentNode).animate({scrollLeft: offset}, 400);
   };
 })
 
@@ -32,9 +34,12 @@ buttonLeft.forEach((e) => {
     }
     console.log(containerWidth)
     console.log(this.parentNode)
-    this.parentNode.scroll({left: offset, behavior: "smooth"});
+    
+    $(this.parentNode).animate({scrollLeft: offset}, 400);
+    
   };
 })
+
 
 
 
