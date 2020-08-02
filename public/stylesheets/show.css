@@ -38,8 +38,15 @@ h1 {
   font-weight: 500;
   background-color: #60A531;
 }
-
-
+.btn-link {
+  color: white;
+  text-align: left;
+  font-size: 1.5rem;
+}
+.btn-link:hover {
+  text-decoration: none;
+  color: #f1f1f1;
+}
 
 .btn {
   color: white;
@@ -365,7 +372,11 @@ h1 {
     margin: 0 10%;
   }
 }
-
+@media only screen and (max-width: 768px) {
+.favourite {
+  font-size: 4rem;
+}
+}
 .edit {
   position: absolute;
   right: 0;
@@ -380,5 +391,11 @@ h1 {
 @media only screen and (max-width: 768px) {
   .content-card {
     height: 70vw;
+  }
+  .stars {
+    font-size: 38px;
+  }
+  .bottom-star {
+    font-size: 38px;
   }
 }

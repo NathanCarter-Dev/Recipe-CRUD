@@ -36,10 +36,12 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1",
     "popper.js": "^1.16.1",
-    "pusher": "^3.0.1"
+    "pusher": "^3.0.1",
+    "sweet-scroll": "^4.0.0"
   },
   "prepend": [
     "node_modules/jquery/dist/jquery.min.js",
     "node_modules/bootstrap/"
-  ]
+  ],
+  
 }

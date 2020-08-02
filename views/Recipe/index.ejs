@@ -20,7 +20,7 @@
      </button>
      <p>
       <button class="searchButton" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Options
+        Sort
       </button>
     </p>
     <div class="collapse search-btn" id="collapseExample">
@@ -28,6 +28,7 @@
         <select name="sort" id="">
           <option value="rating">Rating</option>
           <option value="date">Date</option>
+          <option value="lowercaseName">Alphabetical</option>
         </select >
         <label> Ascending
           <input checked="checked" type="radio" name="value" value="-1">
@@ -46,32 +47,18 @@
 <div class="featured">
   <h2 class="title my-0 py-0">Featured Recipes</h1>
 </div>
-
   
 <% if(randomRecipe && randomRecipe.length > 1) { %> 
-<div class="fluid-container featured overflow">
-
-
+  <div id="container">
+<div id="scroll" class="fluid-container featured overflow">
+  <a id="slideRight" class="right slideRight a"><i class="fas fa-chevron-right chevron"></i></a>
+  <a id="slideLeft" class="left slideLeft a"><i class="fas fa-chevron-left chevron"></i></a>
     <% for(let i = 0; i<randomRecipe.length; i++) { %> 
     
+
+      
       <div class="card random-card featured-card zoom d-inline-block">
-        <div class="featured-stars">
-          <span class="rating-1 "><i class="fa fa-star"></i></span>
-          <span  class="rating-2 "><i class="fa fa-star"></i></span>
-          <span  class="rating-3 "><i class="fa fa-star"></i></span>
-          <span   class="rating-4 "><i class="fa fa-star"></i></span>
-          <span class="rating-5 "><i class="fa fa-star"></i></span>
-          
-          <div class="featured-bottom-star post post-<%=randomRecipe[i]._id%>"  data-starWidth="<%=randomRecipe[i].starStatus%>" data-starTotal="<%=randomRecipe[i].totalStars %>">
-            <span><i class="fa fa-star"></i></span>
-            <span><i class="fa fa-star"></i></span>
-            <span><i class="fa fa-star"></i></span>
-            <span><i class="fa fa-star"></i></span>
-            <span><i class="fa fa-star"></i></span>
-            
-      </div>
-      <p class="starredusers">(<%=randomRecipe[i].usersStarred%> )</p>
-      </div>
+
       
         <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-fluid" onerror="imgError(this)" src="<%= randomRecipe[i].image %>" alt=""></a>
         <p class="random-recipe-name"><%= randomRecipe[i].name%></p>
@@ -80,107 +67,103 @@
       
  
   <% } %> 
-
+  
+      
+</div>
 </div>
 <% } %> 
 
+<div id="container" >
 
+    <div id="scroll" class="my-3  fluid-container overflow circles">
+  <a id="slideRight" class="right slideRight"><i class="chevron fas fa-chevron-right"></i></a>
+  <a id="slideLeft" class="left slideLeft"><i class="chevron fas fa-chevron-left"></i></a>
 
-<div class="fluid-container overflow my-3 circles">
   
-  <div class="item">
+  <div class="item px-2">
     <a href="/recipes/search/indian/1"><img class="circle-image" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Indian</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
     <a href="/recipes/search/turkish/1"><img class="circle-image" src="https://images.unsplash.com/photo-1530469912745-a215c6b256ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Turkish</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
   <a href="/recipes/search/japanise/1"><img class="circle-image" src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Japanise</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
   <a href="/recipes/search/mexican/1"><img class="circle-image" src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Mexican</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
     <a href="/recipes/search/chinese/1"><img class="circle-image" src="https://images.unsplash.com/flagged/photo-1556742524-750f2ab99913?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Chinese</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
     
   <a href="/recipes/search/easteuropean/1"><img class="circle-image" src="https://images.unsplash.com/photo-1426869981800-95ebf51ce900?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">East European</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
     <a href="/recipes/search/italian/1"><img class="circle-image" src="https://images.unsplash.com/photo-1586540480250-e3a0717298b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Italian</span>
   </div>
 
-  <div class="item">
-  <a href="/recipes/search/korean/1"><img class="circle-image" src="https://images.unsplash.com/photo-1526230427044-d092040d48dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
+  <div class="item px-2">
+  <a href="/recipes/search/korean/1"><img class="circle-image" src="https://images.unsplash.com/photo-1590301157890-4810ed352733?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Korean</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
     <a href="/recipes/search/french/1"><img class="circle-image" src="https://images.unsplash.com/photo-1571157577110-493b325fdd3d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">French</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
     <a href="/recipes/search/nordic/1"><img class="circle-image" src="https://images.unsplash.com/photo-1573829833000-225f09191ced?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Nordic</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
   <a href="/recipes/search/spanish/1"><img class="circle-image" src="https://images.unsplash.com/photo-1515443961218-a51367888e4b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
     <span class="caption">Spanish</span>
   </div>
 
-  <div class="item">
+  <div class="item px-2">
     <a href="/recipes/search/portuguese/1"><img class="circle-image" src="https://images.unsplash.com/photo-1567181567863-dbec7cad7e6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
       <span class="caption">Portuguese</span>
     </div>
 
-    <div class="item">
+    <div class="item px-2">
       <a href="/recipes/search/pakistani/1"><img class="circle-image" src="https://images.unsplash.com/photo-1586524068358-77d2196875e7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
         <span class="caption">Pakistani</span>
       </div>
   
-      <div class="item">
+      <div class="item px-2">
         <a href="/recipes/search/irish/1"><img class="circle-image" src="https://images.unsplash.com/photo-1513271224036-f526ad664968?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
           <span class="caption">Irish</span>
         </div>
       
-        <div class="item">
+        <div class="item px-2">
           <a href="/recipes/search/caribbean/1"><img class="circle-image" src="https://images.unsplash.com/photo-1585545335512-1e43f40d4999?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""></a>
             <span class="caption">Caribbean</span>
           </div>
       </div>
-      
+    </div>
      
 </div>
 
-
+</div>
 
 </div>
-<section id="sort">
-  <div class="fluid-container recipes">
-    <p class="d-inline-block">View All Recipes // </p>
-    <p class="d-inline-block "><a class="recipe-view" href="/recipes/viewby/newRecipes/1">New/  </a></p>
-    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/oldRecipes/1">Old/  </a></p>
-    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/trendingRecipes/1">Trending/  </a></p>
-    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/azRecipes/1">A-Z/  </a></p>
-    <p class="d-inline-block"><a class="recipe-view" href="/recipes/viewby/zaRecipes/1">Z-A/  </a></p>
-  </div>
-</section>
+
 
 
 
@@ -271,5 +254,6 @@
 </div>
 
 <script type="text/javascript" src="./js/favourite.js"></script>
+<script type="text/javascript" src="../../js/scrollContainer.js"></script>
 <script type="text/javascript" src="../../js/starrating.js"></script>
 <%- include("../partials/footer")  %> 

@@ -417,40 +417,7 @@ router.get("/recipes/:id/edit", middleware.checkRecipeOwnership, (req,res)=> {
   })
 })
 
-  //SORT BY DIFFERENT TYPES
-  router.get("/recipes/viewby/:id/:page", (req, res) => {
-    const prevSearch = req.params.id
-    if(req.params.id === "newRecipes") {
-      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {date: -1} }, function(err, search) {
-        currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
-      })
-    } else if(req.params.id === "oldRecipes") {
-      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {date: 1} }, function(err, search) {
-        currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
-      })
-    } else if (req.params.id === "trendingRecipes") {
-      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {rating: -1} }, function(err, search) {
-        currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
-      })
-
-    } else if (req.params.id === "azRecipes") {
-      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {lowercaseName: 1} }, function(err, search) {
-        currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
-      })
-
-    } else if(req.params.id === "zaRecipes") {
-      Recipe.paginate({}, { page: req.params.page, limit: 8, sort: {lowercaseName: -1} }, function(err, search) {
-        currentPage = (parseInt(search.page))
-        res.render("./Recipe/search", {type: "viewby",prevSearch, pages: search.pages, search: search.docs, page: currentPage, total: search.total})
-      })
-
-    }
-  })
-
+  
 
   //calculate minutes overlapping hours on total variable
   const calculateTime = (minutes, hours, mins) =>{
