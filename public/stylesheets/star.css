@@ -1,0 +1,57 @@
+
+.stars {
+  
+  left: 0;
+  top: 0;
+  width: fit-content;
+  transition: ease-in-out 0.2s;
+  
+  color: #c5c5c5;
+  fill: #c5c5c5;
+  font-size: 14px;
+  position: relative;
+  
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+}
+
+.bottom-star {
+
+  
+  white-space: nowrap;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: absolute;
+  height: 50px;
+  z-index: 11;
+  color: #ffff00;
+  cursor: pointer;
+  font-size: 14px;
+
+
+  pointer-events:none
+}
+.star-color {
+   color: #fff999;
+}
+
+.starredusers {
+  z-index: 80;
+  position: absolute;
+  right: -20px;
+  
+  font-weight: 400;
+  color: black;
+  
+}
+
+@media only screen and (max-width: 768px) {
+  .bottom-star {
+    font-size: 0.65rem;
+  }
+  .stars {
+    font-size: 0.65rem
+  }
+}

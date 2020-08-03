@@ -19,3 +19,26 @@ body {
   overflow-x: hidden;
   
 }
+.form-control {
+  width: 50%;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  display: inline-block;
+  
+}
+
+.btn-next {
+  font-size: 2rem;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  float: right;
+  margin-right: 10px;
+}
+.btn-prev {
+  font-size: 2rem;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  float: left;
+  margin-left: 10px;
+
+}

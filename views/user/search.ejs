@@ -32,12 +32,12 @@
 
 <% if(pages > page) { %> 
   <form method="POST" action="/user/search/<%= page + 1 %>">
-  <button name="search">Next Page</button>
+  <button class="btn-next btn btn-success" name="search">Next Page</button>
   </form>
 <% } %> 
 <% if(page > 1) { %>  
   <form method="POST" action="/user/search/<%= page - 1 %>">
-    <button name="search">Previous Page</button>
+    <button class="btn-prev btn btn-success" name="search">Previous Page</button>
     </form>
   <% } %> 
 </div>

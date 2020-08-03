@@ -9,6 +9,7 @@ const post = document.querySelectorAll(".post").forEach((post) => {
   post.style.width = width +"%"
 })
 const star = document.querySelectorAll('[class^="rating-"]').forEach((star) => {
+  
 
   star.addEventListener('click', (e) => {
     

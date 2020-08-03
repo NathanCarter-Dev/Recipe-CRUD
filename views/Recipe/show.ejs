@@ -1,5 +1,6 @@
 <%- include("../partials/header")  %> 
 <link type="text/css" rel="stylesheet" href="../../stylesheets/show.css">
+<link rel="stylesheet" type="text/css" href="../../stylesheets/star.css">
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -7,7 +8,7 @@
 
   <div class="fluid-container">
     <div class="row">
-      <div class="col-12 col-md-9">
+      <div class="col-12 col-xl-9">
         <div class="content">
         <h1 class="text-center mb-0"><i class="px-2 fas fa-utensils"></i> <%= recipe.name %> </h1>
         <div class="row ">
@@ -33,35 +34,41 @@
               <img id="image" class="card-img-top content-card" onerror="imgError(this)" src="<%=recipe.image %> " alt="Card image cap">
     
               </div>
-              <div class="card-body">
-    
-                <section>  
-                    <div class="stars">
-                      <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
-          
-                      <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                  </div>
-                  </div>
-    
+              <div id="cardbody" class="card-body">
+        
+            
+            <%recipe.dietary.forEach((dietary) => { %>
+              <p class="d-inline dietary"><%=dietary %> </p>
+            <% }) %> 
+            <section>  
               
-                <hr class="p-0 m-0">
-                <div class="text-center">
-                  <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a></p>
-                  <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
-                </div>
-                
-                <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
+              <div class="stars">
+                <span class="starredusers">(<%= recipe.usersStarred %>)</span>
+                <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
+                <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
     
-              </div>
+                <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+                  <span><i class="fa fa-star"></i></span>
+            </div>
+            </div>
+              <p class="d-inline-block views"><i class="fas fa-eye"></i> <%=recipe.views%></p>
+          
+            <hr class="p-0 m-0">
+            <p class="card-text m-0 p-0 recipe-description"><%= recipe.description.substr(0, 60)%>... </p>
+            <div class="">
+              <p class="d-inline card-text p-0 "><img class="recipe-image"src="<%=recipe.author.picture %>" alt="">By <a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a>
+            </div>
+            
+            
+
+          </div>
             </div>
           </div>
           <div class="col-12 col-md-4">
@@ -92,11 +99,11 @@
           </form>  
          <a class="btn btn-info float-right" href="/recipes/<%= recipe._id %>/edit ">Edit</a>
         <% } %> 
-         <a class="btn btn-info float-right" href="/recipes">Back</a>
+         <a class="btn btn-info float-right" href="javascript:history.back()">Back</a>
          <p>Created by <img class="author-image"src="<%=recipe.author.picture%>"  alt=""><%=recipe.author.username%> on <%= recipe.date %></p>
 
          <hr>
-         <div class="container">
+         <div class="">
           <div class="accordion" id="accordionExample">
             <div class="card">
               <a class="card-header btn btn-link" id="headingOne" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -116,13 +123,17 @@
                 </div>
               </div>
             </div>
+            
+          </div>
+
+           <div class="accordion" id="method">
             <div class="card">
               <a class="card-header btn " id="headingTwo" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <h2 class="mb-0 btn-link">
                   Method
                 </h2>
               </a>
-              <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#method">
                 <div class="card-body">
                   <h2>Method</h2>
                   <% for(let i = 0; i< recipe.method.length; i++) {%> 
@@ -131,8 +142,7 @@
                 </div>
               </div>
             </div>
-          </div>
-           
+           </div>
  
        
          
@@ -172,8 +182,10 @@
         <%})%>
         </div>
       </div>
+        <div class="col 0 col-md-2 d-xl-none"></div>
       
-       <div class="col-12 col-md-3">
+       <div class=" col-12 col-md-8 col-xl-3 ">
+         
          <div class="content">
           <h1 class="text-center">Must See!</h1>
           <% suggested.forEach((recipe) => { %> 
@@ -194,43 +206,54 @@
                 <% } %>
                 <% } %> 
     
-              <div class="hovereffect">
-              <img class="card-img-top suggested-card hovereffect "onerror="imgError(this)" src="<%=recipe.image %>"  alt="Card image cap">
-              <div class="overlay">
-       
-                <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
-              </div>
-              </div>
-              <div class="card-body">
-                <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
-    
-                <section>  
-                    <div class="stars-small">
-                      <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
-                      <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
-          
-                      <div class="bottom-star-small post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                        <span><i class="fa fa-star"></i></span>
-                  </div>
-                  </div>
-    
+                              
+          <a class="" href="/recipes/<%=recipe._id%>">
+            <div class="card-img-top">
+              <img class=" recipeImage" onerror="imgError(this)" src="<%= recipe.image %>" alt="Card image cap">
+              <a href="/recipes/<%=recipe._id%>"></a>
+            </div>
+            
               
-                <hr class="p-0 m-0">
-                <div class="text-center">
-                  <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
-                  <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
-                </div>
+            
+              
+              
+            <div id="cardbody" class="card-body">
+              <a class="" href="/recipes/<%= recipe._id %>"><p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p></a>
+              
+              <%recipe.dietary.forEach((dietary) => { %>
+                <p class="d-inline dietary"><%=dietary %> </p>
+              <% }) %> 
+              <section>  
                 
-                <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
-    
+                  <div class="stars">
+                    <span class="starredusers">(<%= recipe.usersStarred %>)</span>
+                    <span data-star="<%=1 %>" data-id="<%=recipe._id%>" ><i class="fa fa-star"></i></span>
+                    <span data-star="<%=2 %>" data-id="<%=recipe._id%>" ><i class="fa fa-star"></i></span>
+                    <span data-star="<%=3 %>"  data-id="<%=recipe._id%>""><i class="fa fa-star"></i></span>
+                    <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  "><i class="fa fa-star"></i></span>
+                    <span data-star="<%=5 %>" data-id="<%=recipe._id%>" ><i class="fa fa-star"></i></span>
+        
+                    <div class="bottom-star post post-<%=recipe._id %>" data-starTotal="<%=recipe.totalStars %>"  data-starWidth="<%=recipe.starStatus%>">
+                      <span><i class="fa fa-star"></i></span>
+                      <span><i class="fa fa-star"></i></span>
+                      <span><i class="fa fa-star"></i></span>
+                      <span><i class="fa fa-star"></i></span>
+                      <span><i class="fa fa-star"></i></span>
+  
+                      <span class="starredusers">(<%= recipe.usersStarred %>)</span>
+                </div>
+                </div>
+                <p class="d-inline-block views"><i class="fas fa-eye"></i> <%=recipe.views%></p>
+            
+              <hr class="p-0 m-0">
+              <p class="card-text m-0 p-0 recipe-description"><%= recipe.description.substr(0, 60)%>... </p>
+              <div class="">
+                <p class="d-inline card-text p-0 "><img class="recipe-image"src="<%=recipe.author.picture %>" alt="">By <a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a>
               </div>
+              
+              
+  
+            </div>
             </div>
           <% }) %> 
          </div>
@@ -241,7 +264,8 @@
       
 
 </div>
-<script type="text/javascript" src="../../js/favourite.js"></script>
 <script type="text/javascript" src="../../js/starrating.js"></script>
+<script type="text/javascript" src="../../js/favourite.js"></script>
+
 
   <%- include("../partials/footer")  %> 

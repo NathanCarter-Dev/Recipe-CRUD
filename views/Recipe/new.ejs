@@ -1,6 +1,7 @@
 <%- include("../partials/header")  %> 
 
 <link type="text/css" rel="stylesheet" href="/stylesheets/new.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/star.css">
 <link rel="stylesheet" href="/stylesheets/search.css">
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
@@ -148,43 +149,53 @@
             <% } %>
             <% } %> 
 
-          <div class="hovereffect">
-          <img class="card-img-top hovereffect " onerror="imgError(this)" src="<%= recipe.image %> " alt="Card image cap">
-          <div class="overlay">
-   
-            <a class="info" href="/recipes/<%= recipe._id %> "">See Recipe</a>
-          </div>
-          </div>
-          <div class="card-body">
-            <p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p>
-
-            <section>  
-                <div class="stars">
-                  <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
-                  <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
-                  <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
-                  <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  class="rating-4 star"><i class="fa fa-star"></i></span>
-                  <span data-star="<%=5 %>" data-id="<%=recipe._id%>" class="rating-5 star"><i class="fa fa-star"></i></span>
-      
-                  <div class="bottom-star post post-<%=recipe._id %>"  data-starWidth="<%=recipe.starStatus%>">
-                    <span><i class="fa fa-star"></i></span>
-                    <span><i class="fa fa-star"></i></span>
-                    <span><i class="fa fa-star"></i></span>
-                    <span><i class="fa fa-star"></i></span>
-                    <span><i class="fa fa-star"></i></span>
+            <a class="" href="/recipes/<%=recipe._id%>">
+              <div class="card-img-top">
+                <img class=" recipeImage" onerror="imgError(this)" src="<%= recipe.image %>" alt="Card image cap">
+                <a href="/recipes/<%=recipe._id%>"></a>
               </div>
-              </div>
-
+              
+                
+              
+                
+                
+              <div id="cardbody" class="card-body">
+                <a class="" href="/recipes/<%= recipe._id %>"><p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p></a>
+                
+                <%recipe.dietary.forEach((dietary) => { %>
+                  <p class="d-inline dietary"><%=dietary %> </p>
+                <% }) %> 
+                <section>  
+                  
+                    <div class="stars">
+                      <span class="starredusers">(<%= recipe.usersStarred %>)</span>
+                      <span data-star="<%=1 %>" data-id="<%=recipe._id%>" ><i class="fa fa-star"></i></span>
+                      <span data-star="<%=2 %>" data-id="<%=recipe._id%>" ><i class="fa fa-star"></i></span>
+                      <span data-star="<%=3 %>"  data-id="<%=recipe._id%>""><i class="fa fa-star"></i></span>
+                      <span data-star="<%=4 %>" data-id="<%=recipe._id%>"  "><i class="fa fa-star"></i></span>
+                      <span data-star="<%=5 %>" data-id="<%=recipe._id%>" ><i class="fa fa-star"></i></span>
           
-            <hr class="p-0 m-0">
-            <div class="text-center">
-              <p class="d-inline card-text m-0 p-0">Created By <img class="recipe-image"  src="<%=recipe.author.picture %>" alt=""> <%=recipe.author.username%></p>
-              <p class="d-inline ml-2"><i class="fas fa-eye"></i> <%=recipe.views%> Views</p>
-            </div>
-            
-            <p class="card-text m-0 p-0 text-center"><%= recipe.description.substr(0, 60)%>... </p>
-
-          </div>
+                      <div class="bottom-star post post-<%=recipe._id %>" data-starTotal="<%=recipe.totalStars %>"  data-starWidth="<%=recipe.starStatus%>">
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+                        <span><i class="fa fa-star"></i></span>
+    
+                        <span class="starredusers">(<%= recipe.usersStarred %>)</span>
+                  </div>
+                  </div>
+                  <p class="d-inline-block views"><i class="fas fa-eye"></i> <%=recipe.views%></p>
+              
+                <hr class="p-0 m-0">
+                <p class="card-text m-0 p-0 recipe-description"><%= recipe.description.substr(0, 60)%>... </p>
+                <div class="">
+                  <p class="d-inline card-text p-0 "><img class="recipe-image"src="<%=recipe.author.picture %>" alt="">By <a href="/profile/<%=recipe.author.id%>"><%=recipe.author.username%></a>
+                </div>
+                
+                
+    
+              </div>
         </div>
       <% }) %> 
       <% } %> 

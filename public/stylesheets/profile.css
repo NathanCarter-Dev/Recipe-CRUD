@@ -40,17 +40,18 @@ h1 {
 }
 
 .btn-follow {
-  position: absolute;
-  left: 0;
-  font-size: 1.2rem;
+  position: relative;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
+  font-size: 1.8rem;
   font-family: 'PT Sans Narrow', sans-serif;
   font-weight: 600;
   background-color: rgb(96,165,49);
   color: white;
+  transition: ease-in-out 0.2s;
 }
 .btn-follow:hover {
   text-decoration: none;
-  position: absolute;
+  transition: ease-in-out 0.2s;
   left: 0;
   font-family: 'PT Sans Narrow', sans-serif;
   font-weight: 600;
