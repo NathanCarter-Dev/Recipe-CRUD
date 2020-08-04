@@ -84,16 +84,12 @@ hr.style-two {
     
     
   }
-  .recipeImage{
-    min-height: 100%;
+  .recipeImage {
+    min-height: 110%;
     left: -15px;
     top: -15px;
     position: absolute;
-    min-width: 100%;
-    
-    
-    
-    
+    min-width: 110%;
     transition: ease-in-out 0.5s;
   }
   .card-img-top:after {
@@ -267,8 +263,8 @@ hr.style-two {
 }
 
 .recipe-image {
-  width: 1.3vw;
-  height: 1.3vw;
+  width: 1.6rem;
+  height: 1.6rem;
   border-radius: 50%;
   object-fit: cover;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
@@ -288,7 +284,8 @@ hr.style-two {
   background-color: rgba(0, 0, 0,0.4);
   position: absolute;
   top: 0;
-  width: 100%;
+  left: -15px;
+  min-width: 100%;
   height: 50px;
   text-align: center;
   font-size: 2rem;
@@ -298,6 +295,7 @@ hr.style-two {
 .featured-card {
   position: relative;
     width:30rem;
+    
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 300px;
@@ -314,26 +312,6 @@ view-all:hover {
   color: #FF7674;
 }
 
-.favourite {
-  position: absolute;
-  text-align: center;
-  transform: translateX(-100%);
-  top: 0;
-  width: 80px;
-  height: 80px;
-  left: 100%;
-  font-size: 3rem;
-  margin: auto;
-  z-index: 50;
-  transition: ease-in-out 0.3s;
-  background-color: rgba(96,165,49, 10%);
-}
-
-
-.favourited-color {
-  transition: ease-in-out 0.4s;
-  color: #FE4042;
-}
 
 
 
@@ -396,11 +374,7 @@ box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
   }
 
 
-  .favourite:hover {
-    transition: ease-in-out 0.3s;
-    color: #fd686a;
-    background-color: rgb(96,165,49);
-  }
+
   .chevron:hover {
     transition: ease-in-out 0.2s;
     background-color: rgb(74, 128, 38);
@@ -458,3 +432,4 @@ box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
         height: 20vw;
 
       }
+    }

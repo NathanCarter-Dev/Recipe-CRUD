@@ -5,6 +5,7 @@
 <script type="text/javascript" src="../../js/replaceImages.js"></script>
 
 <link type="text/css" rel="stylesheet" href="./stylesheets/index.css">
+<link rel="stylesheet" type="text/css" href="./stylesheets/favourite.css">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="./stylesheets/star.css">
@@ -59,10 +60,10 @@
     
 
       
-      <div class="card random-card featured-card zoom d-inline-block">
+      <div class="card random-card featured-card d-inline-block">
 
       
-        <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image image-fluid" onerror="imgError(this)" src="<%= randomRecipe[i].image %>" alt=""></a>
+        <a href="/recipes/<%=randomRecipe[i]._id%>"><img class="random-image recipeImage image-fluid" onerror="imgError(this)" src="<%= randomRecipe[i].image %>" alt=""></a>
         <p class="random-recipe-name"><%= randomRecipe[i].name%></p>
         <p class="text-center featured-desc"><%= randomRecipe[i].description  %></p>
       </div>

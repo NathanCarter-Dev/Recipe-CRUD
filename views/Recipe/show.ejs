@@ -5,6 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="../../js/replaceImages.js"></script>
+<link rel="stylesheet" type="text/css" href="../../stylesheets/comment.css">
 
   <div class="fluid-container">
     <div class="row">
@@ -42,8 +43,8 @@
             <% }) %> 
             <section>  
               
-              <div class="stars">
-                <span class="starredusers">(<%= recipe.usersStarred %>)</span>
+              <div class="stars click-star">
+                <span id="usersStarred" class="starredusers">(<%= recipe.usersStarred %>)</span>
                 <span data-star="<%=1 %>" data-id="<%=recipe._id%>" class="rating-1 star"><i class="fa fa-star"></i></span>
                 <span data-star="<%=2 %>" data-id="<%=recipe._id%>" class="rating-2 star"><i class="fa fa-star"></i></span>
                 <span data-star="<%=3 %>"  data-id="<%=recipe._id%>" class="rating-3 star"><i class="fa fa-star"></i></span>
@@ -116,8 +117,10 @@
                 <div class="card-body">
                   <h2>Ingredients</h2>
                   <% recipe.ingredients.forEach(function(recipe){%> 
+                    <label class="w-100 m-0">
+                      <li class="list-group-item"><input type="checkbox"> <%= recipe %></li>
+                    </label>
                     
-                    <li class="list-group-item"><input type="checkbox"> <%= recipe %></li>
                     <%})  %> 
                   </ul>
                 </div>
@@ -148,6 +151,16 @@
          
 
        
+
+
+
+
+
+
+
+
+
+           
          <div class="card-header">
            <a class="btn btn-success" href="/recipes/<%= recipe._id %>/comments ">Create Comment</a>
          </div>
@@ -156,6 +169,14 @@
        </div>
        <div class="container-fluid">
         <% recipe.comments.forEach(function(comment) { %>
+
+
+
+
+
+
+
+
           <div class="card ">
             <div class="card-body p-1">
               <div class="profile">
@@ -265,6 +286,9 @@
 
 </div>
 <script type="text/javascript" src="../../js/starrating.js"></script>
+<% if(currentUser) { %> 
+<script type="text/javascript" src="../../js/rateStar.js"></script>
+<% } %> 
 <script type="text/javascript" src="../../js/favourite.js"></script>
 
 

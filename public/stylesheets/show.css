@@ -180,6 +180,7 @@ h1 {
   font-size: 4rem;
 }
 .favourite {
+  transition: ease-in-out 0.4s;
   position: absolute;
   text-align: center;
   transform: translateX(-100%);
@@ -194,6 +195,7 @@ h1 {
   background-color: rgba(96,165,49, 10%);
 }
 .favouritesmall {
+  transition: ease-in-out 0.4s;
   position: absolute;
   text-align: center;
   transform: translateX(-100%);
@@ -230,10 +232,12 @@ h1 {
   transition: ease-in-out 0.4s;
   color: #FE4042;
 }
-
+.checkbox {
+  border: none;
+}
 .recipe-image {
-  width: 1.3vw;
-  height: 1.3vw;
+  width: 1.6rem;
+  height: 1.6rem;
   border-radius: 50%;
   object-fit: cover;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);

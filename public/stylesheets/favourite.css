@@ -1,0 +1,29 @@
+.favourite {
+  cursor: pointer;
+  transition: ease-in-out 0.4s;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-100%);
+  top: 0;
+  width: 80px;
+  height: 80px;
+  left: 100%;
+  font-size: 3rem;
+  margin: auto;
+  z-index: 50;
+  transition: ease-in-out 0.3s;
+  background-color: rgba(96,165,49, 10%);
+}
+
+
+.favourited-color {
+  transition: ease-in-out 0.4s;
+  color: #FE4042;
+}
+@media(hover: hover) { 
+  .favourite:hover {
+    transition: ease-in-out 0.3s;
+    color: #fd686a;
+    background-color: rgb(96,165,49);
+  }
+}

@@ -176,34 +176,10 @@ html {
   color: white;
 }
 
-.favourite {
-  position: absolute;
-  text-align: center;
-  transform: translateX(-100%);
-  top: 0;
-  width: 80px;
-  height: 80px;
-  left: 100%;
-  font-size: 3rem;
-  margin: auto;
-  z-index: 5;
-  transition: ease-in-out 0.3s;
-  background-color: rgba(96,165,49, 10%);
-}
-.favourite:hover {
-  transition: ease-in-out 0.3s;
-  color: #fd686a;
-  background-color: rgb(96,165,49);
-}
-
-.favourited-color {
-  transition: ease-in-out 0.4s;
-  color: #FE4042;
-}
 
 .recipe-image {
-  width: 1.3vw;
-  height: 1.3vw;
+  width: 1.6rem;
+  height: 1.6rem;
   border-radius: 50%;
   object-fit: cover;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.19);
@@ -270,9 +246,5 @@ body {
     
     
   }
-  .recipe-title {
-    
-    top: 37vh;
-    
-  }
+
 }

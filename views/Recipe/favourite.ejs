@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="../../../stylesheets/star.css">
 <link type="text/css" rel="stylesheet" href="../../../stylesheets/search.css">
 <script type="text/javascript" src="../../../js/replaceImages.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../stylesheets/favourite.css">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <h1><%=user.username%>'s favourites</h1>
 <div>
@@ -34,7 +36,7 @@
             <a href="/recipes/<%=recipe._id%>"></a>
           </div>
         <div id="cardbody" class="card-body mt-3 mt-md-0">
-  
+          <a class="" href="/recipes/<%= recipe._id %>"><p class="text-center recipe-title"><i class="px-2 fas fa-utensils"></i> <%=recipe.name %> </p></a>
       
       <%recipe.dietary.forEach((dietary) => { %>
         <p class="d-inline dietary"><%=dietary %> </p>

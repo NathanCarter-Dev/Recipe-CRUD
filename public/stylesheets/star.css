@@ -47,6 +47,10 @@
   
 }
 
+.click-star {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
   .bottom-star {
     font-size: 0.65rem;
